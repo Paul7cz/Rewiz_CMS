@@ -274,6 +274,12 @@ class UserManager extends BaseManager implements IAuthenticator
         ));
     }
 
+    public function seeNotification(){
+        return $this->database->table(self::TABLE_NOTIFICATION)->update(array(
+            'see' => 1,
+        ));
+    }
+
 
 }
 
