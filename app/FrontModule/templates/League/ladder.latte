@@ -1,0 +1,62 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row">
+        <div class="col-lg-8 content league m-b-xl">
+            {include '_blocks/header.latte'}
+
+            <div class="row ladder" style="margin-left: 0px;">
+                <div class="col-lg-12 m-t-sm">
+                    <div class="panel-body">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Rank</th>
+                                    <th class="text-center">Názov tímu</th>
+                                    <th class="text-center">Zápasy</th>
+                                    <th class="text-center text-green">V</th>
+                                    <th class="text-center text-blue">P</th>
+                                    <th class="text-center text-red">R</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$teamsActive as $data">
+                                    <td>1.</td>
+                                <td>{$data->ref('league_team', 'id_team')->name}</td>
+                                <td>0</td>
+                                <td class="text-green">0</td>
+                                <td class="text-blue">0</td>
+                                <td class="text-red">0</td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                    </div>
+                </div>    
+            </div><!-- row -->
+
+            <div class="row">
+                <div class="col-sm-12 sponzor space-30"><a href="#"><img src="/img/sponzor_ligy.png" alt="sponzor"></a></div>
+            </div>
+
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

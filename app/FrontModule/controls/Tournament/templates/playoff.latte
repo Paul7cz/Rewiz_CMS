@@ -1,0 +1,19 @@
+{foreach $data as $item}
+    {if $item->team1_id != $item->team2_id}
+        <div class="panel__body playoff">
+            <div class="row row__line">
+                <div class="col-sm-3 text-center">{$item->time|date:'j.n.Y H:i:s'}</div>
+                <div class="col-sm-5 text-center">{$item->ref('league_team','team1_id')->name} <span class="text-blue">vs</span>{$item->ref('league_team','team2_id')->name}
+                </div>
+                <div class="col-sm-2 text-center">11.111.11.11:1111</div>
+                <div class="col-sm-2 text-center"><a href="{plink Tournament:Match, $item->id}">Detail zápasu</a></div>
+            </div>
+        </div>
+    {else}
+        <div class="panel__body playoff">
+            <div class="row row__line">
+                Viťazom turnaja sa stal team s menom {$item->ref('league_team','team1_id')->name}
+            </div>
+        </div>
+    {/if}
+{/foreach}

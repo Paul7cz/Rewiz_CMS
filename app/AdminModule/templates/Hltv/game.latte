@@ -1,0 +1,115 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Přidat hru</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="Hltv:default">HLTV</a>
+            </li>
+            <li class="active">
+                <strong>Přidat hru</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {$flash->message}
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+
+		<div class="col-lg-6">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Přehled her</h5>
+					<div class="ibox-tools">
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						<a class="close-link"><i class="fa fa-times"></i></a>
+					</div>
+				</div>				
+				<div class="ibox-content">
+				                    
+				<table class="table table-hover">
+					<tbody>
+					<tr>
+						<td><img src="{$basePath}/img/csgo.png" alt="icon"></td>
+						<td>Counter Strike Global offensive</td>
+						<td><a href="" onClick=""><i aria-hidden="true" class="fa fa-trash text-navy"></i></a></td>
+					</tr>
+					<tr>
+						<td><img src="{$basePath}/img/csgo.png" alt="icon"></td>
+						<td>Counter Srike Source</td>
+						<td><a href="" onClick=""><i aria-hidden="true" class="fa fa-trash text-navy"></i></a></td>
+					</tr>
+					</tbody>
+				</table>
+				                    
+				</div><!-- ibox-content -->
+			</div><!-- ibox  -->
+		</div><!-- col-6 -->
+
+		<div class="col-lg-6">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<h2 class="mgbt-xs-5 mgtp-10 font-semibold"><i class="fa fa-gamepad mgr-10"></i> Přidat hru</h2>
+					<div class="row">
+						<div class="col-lg-12">
+
+							<div class="form-group m-t-xl">
+								<div class="row">
+									<label class="col-lg-12 control-label">Název hry:</label>
+									<div class="col-lg-6"><input type="text" placeholder="Název hry" class="form-control"></div>
+								</div>
+								<div class="row m-t-md">
+									<label class="col-lg-12 control-label">Ikonka hry:</label>
+									<div class="col-lg-6"><input type="file" name="Image" id="frm-createNewsForm-Image" class="btn btn-default"></div>
+	                            </div>
+                            </div>	
+							<hr>
+							<div>
+								<button type="submit" class="btn btn-primary">Přidat</button>
+							</div>
+						</div>
+					</div>
+
+				</div><!-- ibox-content -->
+			</div><!-- ibox  -->
+		</div><!-- col-6 -->
+
+	</div><!-- row -->
+</div><!-- wrapper -->
+
+
+
+
+
+
+
+{/block}
+
+{block scripts}
+{include parent}
+
+{/block}
+
+
+{block head}
+<link href="{$basePath}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+{/block}

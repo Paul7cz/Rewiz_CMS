@@ -1,0 +1,76 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content text-center login league m-b-xl">
+            <div class="row">
+                <div class="col-lg-12"><h6>VYTVORIŤ SVOJ <strong>TÍM</strong></h6></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12"><p>Vyplnte registračný formulár a registrujte svoj tím do ligy.</p></div>
+            </div>
+
+            {form registrationForm}
+                <div class="col-lg-8 col-lg-offset-2" style="margin-top: 10px" n:if="$form->hasErrors()">
+                    <div class="alert alert-danger">
+                        <li n:foreach="$form->errors as $error">{$error}</li>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 m-sm">
+                        <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                        {input name}
+                    </div>
+                    <div class="col-lg-12 m-sm">
+                        <span><i class="fa fa-hashtag" aria-hidden="true"></i></span>
+                        {input tag}
+                    </div>
+                    <div class="col-lg-12 m-sm">
+                        <span><i class="fa fa-key" aria-hidden="true"></i></span>
+                        {input password}
+                    </div>
+                    <div class="col-lg-12 m-sm">
+                        {input about}
+                    </div>
+                    <div class="col-lg-12 m-sm">
+                        <div class="text-left grey" style="margin-left: 27%;"><strong>Pridajte tímové
+                                logo</strong><br>
+                            Maximálne rozlíšenie loga je 150x150 px
+                        </div>
+                    </div>
+                    <div class="col-sm-12 text-left" style="margin-left: 25%;">
+                        <div class="fileUpload btn btn-grey m-n">
+                            <span><i class="fa fa-cloud-upload m-r-sm"></i>Nahrát fotku</span>
+                            {input logo, class=>'upload'}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 m-sm m-t-xl text-left" style="margin-left: 27%;">
+                        {input submit}
+                    </div>
+                </div>
+            {/form}
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

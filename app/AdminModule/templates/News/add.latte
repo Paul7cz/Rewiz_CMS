@@ -1,0 +1,203 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Přidat novinku</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="News:default">Novinky</a>
+            </li>
+            <li class="active">
+                <strong>Přidat novinku</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Přidat novinku</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {form createNewsForm, class=> "form-horizontal"}
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Titulok</label>
+                        <div class="col-lg-10">
+                            {input title, class=> "form-control"}
+                            <span class="help-block m-b-none">dunt maxime minus pariatur perferendis quisquam quo sed tenetur veritatis vero!</span>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Obrázok novinky</label>
+                        <div class="col-lg-9">
+                            {input image, class=> "btn btn-default"}
+                            <span class="help-block m-b-none">Maximalní velikost obrázku je 675x285 px</span>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Zdroj</label>
+                        <div class="col-lg-10">
+                            {input source, class=> "form-control"}
+                            <span class="help-block m-b-none">dunt maxime minus pariatur perferendis quisquam quo sed tenetur veritatis vero!</span>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Obsah</label>
+                        <div class="col-lg-10">
+                            {input content, class=> "mceEditor"}
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            {input submit, class=> "btn btn-white"}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {*        <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Detail novinky</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                <a class="close-link"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12"><!-- TODO: Nezabudnuť to sem pridať -->
+                                    <p>Status: <b>Nepublikované</b></p>
+                                    <p>Autor: <b>Meno Priezvisko</b></p>
+                                    <p>Dátum zverejnenia: <b>16.5.2017</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*}
+
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Kategorie</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        <a class="close-link"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {input news_category_id, class=> "form-control m-b"}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/form}
+</div>
+
+{/block}
+
+{block scripts}
+{include parent}
+<script src="http://dev.rewiz.eu/js/tinymce/tinymce.min.js"></script>
+<script n:syntax="off">
+    $(function () {
+        tinymce.init({
+            selector: ".mceEditor",
+            language_url: 'http://dev.rewiz.eu/js/tinymce/langs/sk.js',  // site absolute URL
+            height: 200,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor "
+            ],
+            toolbar: "insertfile undo redo | styleselect | pre bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons ",
+            style_formats: [
+                {
+                    title: "Headers", items: [
+                    {title: "Header 1", format: "h1"},
+                    {title: "Header 2", format: "h2"},
+                    {title: "Header 3", format: "h3"},
+                    {title: "Header 4", format: "h4"},
+                    {title: "Header 5", format: "h5"},
+                    {title: "Header 6", format: "h6"}
+                ]
+                },
+                {
+                    title: "Inline", items: [
+                    {title: "Bold", icon: "bold", format: "bold"},
+                    {title: "Italic", icon: "italic", format: "italic"},
+                    {title: "Underline", icon: "underline", format: "underline"},
+                    {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                    {title: "Superscript", icon: "superscript", format: "superscript"},
+                    {title: "Subscript", icon: "subscript", format: "subscript"},
+                ]
+                },
+                {
+                    title: "Blocks", items: [
+                    {title: "Paragraph", format: "p"},
+                    {title: "Blockquote", format: "blockquote"},
+                ]
+                },
+                {
+                    title: "Kód", items: [
+                    {title: "Kód (nezvýrazněný)", icon: "code", format: "code"},
+                    {title: "Kód (zvýrazněný)", icon: "code", format: "pre"}
+                ]
+                },
+                {
+                    title: "Alignment", items: [
+                    {title: "Left", icon: "alignleft", format: "alignleft"},
+                    {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                    {title: "Right", icon: "alignright", format: "alignright"},
+                    {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+                ]
+                }
+            ]
+        });
+    });
+</script>
+{/block}
+
+
+{block head}
+<link href="{$basePath}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+{/block}

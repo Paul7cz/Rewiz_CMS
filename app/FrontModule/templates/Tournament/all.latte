@@ -1,0 +1,112 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content text-center m-b-xl p-sm">
+
+            {*		<div class="panel panel-default">
+                        <div class="panel__heading"><i class="fa fa-search"></i>Vyhľadaj turnaj</div>
+                        <div class="panel__body">
+                            <div class="row row__line p-sm">
+                                <div class="input-group">
+                                    <input type="text" placeholder="Hľadaj turnaj..." name="search" class="form-control input-lg" style="height: 40px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-search" type="submit">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-b">
+                                <div class="col-sm-10 text-left">
+                                    <div data-toggle="buttons-checkbox" class="btn-group">
+                                        <button class="btn btn-primary" type="button"> Odohraný</button>
+                                        <button class="btn btn-primary active" type="button"> Prebiehajúci</button>
+                                        <button class="btn btn-primary" type="button"> Otvorený</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select name="" id="input" class="form-control">
+                                        <option value="">Vyber hru</option>
+                                        <option value="">Counter Strike: GO</option>
+                                        <option value="">League of Legends</option>
+                                        <option value="">Dota 2</option>
+                                        <option value="">Hearthstone</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- panel end-->*}
+
+            <div class="panel panel-default">
+                <div class="panel__heading"><i class="fa fa-gamepad"></i>Turnaje</div>
+                <div class="panel-body tournament page p-xxs">
+                    <div class="item block row" n:foreach="$data as $tournament">
+                        <a href="#">
+                            {if $tournament->ref('leagues', 'leagues_id')->game == 'Counter-Strike: Global Offensive'}
+                                <img class="fleft" src="{$basePath}/img/csgo_avatar.png" alt="csgo">
+                            {elseif $tournament->ref('leagues', 'leagues_id')->game == 'Dota 2'}
+                                <img class="fleft" src="{$basePath}/img/dota2_avatar.png" alt="csgo">
+                            {elseif $tournament->ref('leagues', 'leagues_id')->game == 'Hearthstone'}
+                                <img class="fleft" src="{$basePath}/img/hs_avatar.png" alt="csgo">
+                            {elseif $tournament->ref('leagues', 'leagues_id')->game == 'League of Legends'}
+                                <img class="fleft" src="{$basePath}/img/lol_avatar.png" alt="csgo">
+                            {/if}
+                            <div class="text-left" style="width: 50%; float: left; height: 60px; margin-top: 10px;">
+                                <div class="title">{$tournament->name}</div>
+                                <span class="info"><i
+                                            class="fa fa-clock-o m-r-xs"></i>{$tournament->start|date:"j.n.Y G.i.s"}</span>
+                                <span class="info">Registrovaných : 16/20</span>
+                            </div>
+                            <div class="m-t-xs text-right" style="margin-top: 20px;">
+                                {if $presenter->tournamentDateCompare($tournament->id) == FALSE}
+                                    <a class="disable" href=""><i class="fa fa-lock m-r-xs"></i> Turnaj uzavretý!</a>
+                                {else}
+                                    <div class="m-t-xs text-right" style="margin-top: 20px;">
+                                        <a n:href="Tournament:default $tournament->id"><i
+                                                    class="fa fa-unlock-alt m-r-xs"></i>Zaregistrovať svoj tím</a>
+                                    </div>
+                                {/if}
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div><!-- panel end-->
+
+            {*<div class="row text-right">
+                <div class="col-sm-12">
+                    <ul class="pagination">
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
+                </div>
+            </div>*}
+        </div><!-- col-8 -->
+
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+
+
+    </div><!-- row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

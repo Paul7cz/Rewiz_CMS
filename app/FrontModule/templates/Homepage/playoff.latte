@@ -1,0 +1,53 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row">
+        <div class="col-lg-8 content text-center m-b-xl m-l">
+
+        <div class="row tournament__header">
+			<div class="col-sm-7 text-left">Název</div>
+            <div class="col-sm-5 text-right">5 tímov (10 potvrdených)</div>
+        </div>
+
+            {**include '_blocks/header.latte'*}
+
+			<div class="panel panel-default space-20">
+			 	<div class="panel__heading"><i class="fa fa-code-fork"></i>Semifinále</div>
+			 	<div class="panel__body playoff">
+					<div class="row row__line">
+						<div class="col-sm-3 text-center">30.1 2016 15:00</div>
+						<div class="col-sm-5 text-center"><img src="/img/flags/16/Slovakia.png" alt="sk" class="m-r-xs">Diamont Touch <span class="text-blue">vs</span> <img src="/img/flags/16/Czech-Republic.png" alt="cz" class="m-r-xs">Swaghetti</div>
+						<div class="col-sm-2 text-center">11.111.11.11:1111</div>
+						<div class="col-sm-2 text-center"><a href="#">Detail zápasu</a></div>
+					</div>	
+			  	</div>
+			</div>
+			<div class="panel panel-default space-20">
+			 	<div class="panel__heading"><i class="fa fa-code-fork"></i>Finále</div>
+			 	<div class="panel__body playoff">
+					<div class="row row__line">
+						<div class="col-sm-3 text-center">30.1 2016 15:00</div>
+						<div class="col-sm-5 text-center"><img src="/img/flags/16/Slovakia.png" alt="sk" class="m-r-xs">Diamont Touch <span class="text-blue">vs</span> <img src="/img/flags/16/Czech-Republic.png" alt="cz" class="m-r-xs">Swaghetti</div>
+						<div class="col-sm-2 text-center">11.111.11.11:1111</div>
+						<div class="col-sm-2 text-center"><a href="#">Detail zápasu</a></div>
+					</div>	
+			  	</div>
+			</div>
+
+		</div>
+	</div>
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

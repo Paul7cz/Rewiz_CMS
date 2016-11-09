@@ -1,0 +1,49 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    {dump $message}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 text-center content messages m-b-xl">
+        
+        <div class="row title m-t-xl">
+            <div class="col-sm-9 text-left blue">
+                {$message->subject}
+            </div>
+            <div class="col-sm-3 text-right">
+                {$message->date|date:"j.n.Y H:i:s"}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-left p-sm">
+                {!$message->message}
+            </div>
+        </div>
+
+        <div class="row none">
+            <div class="col-sm-12 no-padding">
+                <a n:href="Messages:delete, $message->id"><input class="button" type="submit" value="Vymazať"/></a>
+                <a n:href="Messages:default"><input class="button" type="submit" value="Späť na správy"/></a>
+            </div>
+        </div>
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

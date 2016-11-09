@@ -1,0 +1,119 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>HLTV - Přehled teamů</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="Hltv:default">HLTV</a>
+            </li>
+            <li class="active">
+                <strong>Přehled teamů</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {$flash->message}
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Zápasy</h5>
+					<div class="ibox-tools">
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						<a class="close-link"><i class="fa fa-times"></i></a>
+					</div>
+				</div>				
+				<div class="ibox-content">
+				                    
+				<table class="table table-hover">
+					<thead>
+						<th><i class="fa fa-picture-o" aria-hidden="true"></i></th>
+						<th><i class="fa fa-flag" aria-hidden="true"></i></th>
+						<th>Název</th>
+						<th><i class="fa fa-user" aria-hidden="true"></i> 1</th>
+						<th><i class="fa fa-user" aria-hidden="true"></i> 2</th>
+						<th><i class="fa fa-user" aria-hidden="true"></i> 3</th>
+						<th><i class="fa fa-user" aria-hidden="true"></i> 4</th>
+						<th><i class="fa fa-user" aria-hidden="true"></i> 5</th>
+						<th>Akce</th>
+					</thead>
+					<tbody>
+					<tr>
+						<td><img src="http://vlepa.pl/19dfce.png" alt="logo"></td>
+						<td><img src="{$basePath}/img/flags/16/Czech-Republic.png" alt="icon"></td>
+						<td>H2K</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Biceps</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Olafmaster</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Fzeze</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Wicked</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Faker</td>
+						<td><a href="" onClick=""><i aria-hidden="true" class="fa fa-trash text-navy"></i></a></td>
+					</tr>
+					<tr>
+						<td><img src="http://vlepa.pl/19dfce.png" alt="logo"></td>
+						<td><img src="{$basePath}/img/flags/16/Czech-Republic.png" alt="icon"></td>
+						<td>H2K</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Biceps</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Olafmaster</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Fzeze</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Wicked</td>
+						<td><img class="m-b-xs" src="{$basePath}/img/flags/16/Poland.png" alt="icon"> Faker</td>
+						<td><a href="" onClick=""><i aria-hidden="true" class="fa fa-trash text-navy"></i></a></td>
+					</tr>
+					</tbody>
+				</table>
+				                    
+				</div><!-- ibox-content -->
+			</div><!-- ibox  -->
+		</div><!-- col-6 -->
+
+	</div><!-- row -->
+</div><!-- wrapper -->
+
+
+
+
+
+
+
+{/block}
+
+{block scripts}
+
+{include parent}
+<!-- Select2 -->
+    <script src="{$basePath}/js/plugins/select2/select2.full.min.js"></script>
+    <script>
+	$(".select2_demo_1").select2();
+	$(".select2_demo_2").select2();
+	$(".select2_demo_3").select2({
+	    placeholder: "Select a state",
+	    allowClear: true
+	});
+</script>
+{/block}
+
+
+{block head}
+	<link href="{$basePath}/css/plugins/select2/select2.min.css" rel="stylesheet">
+{/block}

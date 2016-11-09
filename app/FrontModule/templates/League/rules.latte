@@ -1,0 +1,42 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content league m-b-xl">
+            {include '_blocks/header.latte'}
+
+            <div class="panel panel-default m-t-xl">
+                <div class="panel__heading"><i class="fa fa-info-circle"></i>Informácie o zápase</div>
+                <div class="panel__body">
+                    {!$league->rules}
+                </div>
+            </div><!-- panel end-->  
+
+
+
+            <div class="row">
+                <div class="col-sm-12 sponzor space-30"><a href="#"><img src="../img/sponzor_ligy.png" alt="sponzor"></a></div>
+            </div>
+
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

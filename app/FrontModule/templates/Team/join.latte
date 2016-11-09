@@ -1,0 +1,68 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 text-center content m-b-xl p-sm">
+
+            {if $user->getIdentity()->team == NULL}
+                {form joinForm}
+                    <div class="row">
+                        <div class="col-sm-12"><h2>VSTUP DO TÍMU <strong>{$team->name}</strong></h2></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="subtext">Pre vstup do teamu <strong>{$team->name}</strong> musíš kontaktovať
+                                majiteľa teamu v súkromnej správe a požiadať o heslo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" n:if="$form->hasErrors()">
+                        <div class="col-sm-6 col-sm-offset-3 alert alert-danger fade in m-t text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <li n:foreach="$form->errors as $error">{$error}</li>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 m-b m-t">
+                            <div class="input_item"><i class="fa fa-key"></i>
+                                {input password, class=>'input'}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 m-b-xl">
+                            {input submit, class=>'submit'}
+                        </div>
+                    </div>
+                {/form}
+            {else}
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 nocoments">
+                        Nemôžeš byť v inom teame kým si v starom.
+                    </div>
+                </div>
+            {/if}
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

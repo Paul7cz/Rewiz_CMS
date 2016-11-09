@@ -1,0 +1,666 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+    <!--Content-->
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Liga</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domů</a>
+                </li>
+                <li>
+                    <a n:href="League:default">Liga</a>
+                </li>
+                <li class="active">
+                    <strong>League</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-sm-12">
+            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                {$flash->message}
+            </div>
+        </div><!-- col-12-->
+    </div><!-- row -->
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content back-change">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1"> Prehľad a štatistika </a>
+                                        </li>
+                                        <li class=""><a data-toggle="tab" href="#tab-3"> Pravidlá </a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-4"> Informácie </a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-5"> Ceny </a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-6"> Administrátori </a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <strong>Prehľad nastavení ligy</strong>
+                                                        <table class="table table-hover m-t">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td align="right">Názov:</td>
+                                                                <td align="left">{$data->name}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">Stav ligy:</td>
+                                                                <td align="left">Táto liga je <span class="text-info">aktívna </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">Hra:</td>
+                                                                <td align="left">{$data->game}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right" style="vertical-align: inherit">
+                                                                    Sezóna:
+                                                                </td>
+                                                                <td align="left">Od
+                                                                    <b>{$data->start_date|date:'j.n.Y'}</b> Do
+                                                                    <b>{$data->end_date|date:'j.n.Y'}</b>
+                                                                    <br>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">Základné body:</td>
+                                                                <td align="left"><b>{$data->start_points}</b> bodov</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <strong>Štatistika</strong>
+                                                        <table class="table table-hover m-t">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td class="font-bold" colspan="2">Štatistika tímov:</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">Počet tímov:</td>
+                                                                <td align="left">{$presenter->leagueManager->getRegisteredTeamsActiveCount($data->id)}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="font-bold" colspan="2">Štatistika zápasov:
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">Počet zápasov:</td>
+                                                                <td align="left">?</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                            <div id="tab-3" class="tab-pane">
+                                                <div class="panel-body">
+                                                {form leagueEdit}
+                                                    <strong> Úprava pravidiel </strong>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 m-t-md">
+
+                                                            {input rules, class=>"mceEditor mgbt-xs-10"}
+                                                    </div>
+                                                </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="hr-line-dashed"></div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3 col-sm-offset-9">
+                                                                    <button class="btn btn-white" type="submit">Cancel
+                                                                    </button>
+                                                                    {input submit, class=>"btn btn-primary"}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            </div>
+                                            <div id="tab-4" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <strong> Úprava informácí </strong>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 m-t-md">
+                                                            {input about, class=>"mceEditor mgbt-xs-10"}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="hr-line-dashed"></div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3 col-sm-offset-9">
+                                                                    <button class="btn btn-white" type="submit">Cancel
+                                                                    </button>
+                                                                    {input submit, class=>"btn btn-primary"}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                            </div>
+                                            </div>
+                                            <div id="tab-5" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <strong> Úprava Cien </strong>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 m-t-md">
+                                                            {input prices, class=>"mceEditor mgbt-xs-10"}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="hr-line-dashed"></div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3 col-sm-offset-9">
+                                                                    <button class="btn btn-white" type="submit">Cancel
+                                                                    </button>
+                                                                    {input submit, class=>"btn btn-primary"}
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                        </div>
+                                        {/form}
+                                        
+                                            <div n:if="$form->hasErrors()" class="alert alert-info alert-dismissable">
+                                                <button aria-hidden="true" data-dismiss="alert" class="close"
+                                                        type="button">×
+                                                </button>
+                                                <li n:foreach="$form->errors as $error">{$error}</li>
+                                            </div>
+                                            <div id="tab-6" class="tab-pane">
+                                                <div class="panel-body">
+                                                {form addAdmin}
+
+                                                    <strong> Administrítori pro ligu </strong>
+                                                    <div class="row">
+                                                        <div class="col-lg-2 m-t-md">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+                                                                <tr n:foreach="$admins as $data">
+                                                                    <td><a href="#">{$data->users->username}</a></td>
+                                                                    <td><a n:href="delete! $data->id"><i
+                                                                                    class="fa fa-times"></i></a></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div><!-- col-2 -->
+                                                        <div class="form-group"><label
+                                                                    class="col-sm-2 col-sm-offset-1 control-label">Přidat
+                                                                administrátora</label>
+                                                            <div class="col-sm-6">
+                                                                {input users_id, class=>"form-control"}
+                                                            </div>
+                                                        </div><!-- col-10 -->
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="hr-line-dashed"></div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3 col-sm-offset-9">
+                                                                    <button class="btn btn-white" type="submit">Cancel
+                                                                    </button>
+                                                                    {input submit, class=>"btn btn-primary"}
+                                                                </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                {/form}
+                                                </div>
+                                        </div>
+                                        
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- inbox content -->
+                </div>
+            </div><!-- row -->
+        </div><!-- row -->
+
+    </div><!-- wrapper -->
+
+    <!-- Nápověda k formuláři
+    <div class="tooltip-demo p-xl">
+            <span class=" m-l-lg text-navy" style="height: 14px;" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-info" aria-hidden="true"></i></span>
+    </div>
+    -->
+
+{/block}
+
+{block scripts}
+    {include parent}
+    <!-- Chosen -->
+    <script src="{$basePath}/js/plugins/chosen/chosen.jquery.js"></script>
+
+    <!-- jqueryui -->
+    <script src="{$basePath}/js/jquery-ui.min.js"></script>
+
+    <!-- JSKnob -->
+    <script src="{$basePath}/js/plugins/jsKnob/jquery.knob.js"></script>
+
+    <!-- Input Mask-->
+    <script src="{$basePath}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <!-- Data picker -->
+    <script src="{$basePath}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <!-- NouSlider -->
+    <script src="{$basePath}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+    <!-- Switchery -->
+    <script src="{$basePath}/js/plugins/switchery/switchery.js"></script>
+
+    <!-- IonRangeSlider -->
+    <script src="{$basePath}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <!-- iCheck 
+    <script src="{$basePath}/js/plugins/iCheck/icheck.min.js"></script>-->
+
+    <!-- MENU -->
+    <script src="{$basePath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Color picker -->
+    <script src="{$basePath}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+    <!-- Clock picker -->
+    <script src="{$basePath}/js/plugins/clockpicker/clockpicker.js"></script>
+
+    <!-- Image cropper -->
+    <script src="{$basePath}/js/plugins/cropper/cropper.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="{$basePath}/js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Date range picker -->
+    <script src="{$basePath}/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="{$basePath}/js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- TouchSpin -->
+    <script src="{$basePath}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+
+
+    <script n:syntax=off>
+        $(document).ready(function () {
+
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+            $("#download").click(function () {
+                window.open($image.cropper("getDataURL"));
+            });
+
+            $("#zoomIn").click(function () {
+                $image.cropper("zoom", 0.1);
+            });
+
+            $("#zoomOut").click(function () {
+                $image.cropper("zoom", -0.1);
+            });
+
+            $("#rotateLeft").click(function () {
+                $image.cropper("rotate", 45);
+            });
+
+            $("#rotateRight").click(function () {
+                $image.cropper("rotate", -45);
+            });
+
+            $("#setDrag").click(function () {
+                $image.cropper("setDragMode", "crop");
+            });
+
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $('#data_2 .input-group.date').datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+
+            $('#data_3 .input-group.date').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            $('#data_4 .input-group.date').datepicker({
+                minViewMode: 1,
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, {color: '#1AB394'});
+
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, {color: '#ED5565'});
+
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, {color: '#1AB394'});
+
+
+            $('.demo1').colorpicker();
+
+            var divStyle = $('.back-change')[0].style;
+            $('#demo_apidemo').colorpicker({
+                color: divStyle.backgroundColor
+            }).on('changeColor', function (ev) {
+                divStyle.backgroundColor = ev.color.toHex();
+            });
+
+            $('.clockpicker').clockpicker();
+
+            $('input[name="daterange"]').daterangepicker();
+
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+
+            $('#reportrange').daterangepicker({
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2016',
+                dateLimit: {days: 60},
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'right',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-default',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Cancel',
+                    fromLabel: 'Od',
+                    toLabel: 'Do',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            });
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+
+
+            $(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 1000,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                max: 2000,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+        });
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': {allow_single_deselect:true},
+            '.chosen-select-no-single': {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width': {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+
+        $(".dial").knob();
+
+        $('input[type=radio]').change(function () {
+            var $p = $(this).closest('.controls');
+            var $checked = $p.find(':checked');
+            $('#travelDetails_' + this.id.slice(-1)).prop('disabled', $checked.val() == 'No');
+        }).change();
+
+    </script>
+    <script src="http://dev.rewiz.eu/js/tinymce/tinymce.min.js"></script>
+    <script n:syntax="off">
+        $(function () {
+            tinymce.init({
+                selector: ".mceEditor",
+                language_url: 'http://dev.rewiz.eu/js/tinymce/langs/sk.js',  // site absolute URL
+                height: 200,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor "
+                ],
+                toolbar: "insertfile undo redo | styleselect | pre bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons ",
+                style_formats: [
+                    {
+                        title: "Headers", items: [
+                        {title: "Header 1", format: "h1"},
+                        {title: "Header 2", format: "h2"},
+                        {title: "Header 3", format: "h3"},
+                        {title: "Header 4", format: "h4"},
+                        {title: "Header 5", format: "h5"},
+                        {title: "Header 6", format: "h6"}
+                    ]
+                    },
+                    {
+                        title: "Inline", items: [
+                        {title: "Bold", icon: "bold", format: "bold"},
+                        {title: "Italic", icon: "italic", format: "italic"},
+                        {title: "Underline", icon: "underline", format: "underline"},
+                        {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                        {title: "Superscript", icon: "superscript", format: "superscript"},
+                        {title: "Subscript", icon: "subscript", format: "subscript"},
+                    ]
+                    },
+                    {
+                        title: "Blocks", items: [
+                        {title: "Paragraph", format: "p"},
+                        {title: "Blockquote", format: "blockquote"},
+                    ]
+                    },
+                    {
+                        title: "Kód", items: [
+                        {title: "Kód (nezvýrazněný)", icon: "code", format: "code"},
+                        {title: "Kód (zvýrazněný)", icon: "code", format: "pre"}
+                    ]
+                    },
+                    {
+                        title: "Alignment", items: [
+                        {title: "Left", icon: "alignleft", format: "alignleft"},
+                        {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                        {title: "Right", icon: "alignright", format: "alignright"},
+                        {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+                    ]
+                    }
+                ]
+            });
+        });
+    </script>
+    <!--<script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });        
+    </script>-->
+{/block}
+
+
+{block head}
+    <link href="{$basePath}/css/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <!--<link href="{$basePath}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">-->
+{/block}

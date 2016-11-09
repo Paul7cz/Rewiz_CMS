@@ -1,0 +1,93 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content text-center m-b-xl">
+
+        <div class="row tournament__header">
+			<a n:href="League:default $tournament->leagues->id">
+				<div class="col-sm-7 text-left">{$tournament->leagues->name}</div>
+			</a>
+            <div class="col-sm-5 text-right">{$tournament->max_teams} tímov ({$team_count} potvrdených)</div>
+        </div>
+
+            {include '_blocks/header.latte'}
+
+			<div class="row">
+				<div class="col-sm-12 p-sm">
+					<div class="row row__line">
+						<div class="col-sm-2 text-center text-blue">Názov</div>
+						<div class="col-sm-9 text-left cara">{$tournament->name}</div>
+					</div>
+					<div class="row row__line">
+						<div class="col-sm-2 text-center text-blue">Začiatok</div>
+						<div class="col-sm-9 text-left cara">{$tournament->start|date:"j.n.Y G:i:s"} </div>
+					</div>
+					<div class="row row__line">
+						<div class="col-sm-2 text-center text-blue">Hra</div>
+						<div class="col-sm-9 text-left cara">{$tournament->leagues->game}</div>
+					</div>
+					<div class="row row__line">
+						<div class="col-sm-2 text-center text-blue">Mód</div>
+                        <div class="col-sm-9 text-left cara">{$tournament->leagues->players}
+                            on{$tournament->leagues->players}</div>
+					</div>
+					{*<div class="row row__line">
+						<div class="col-sm-2 text-center text-blue">Herný účet</div>
+						<div class="col-sm-9 text-left cara">{$tournament->leagues->game_account}</div>
+					</div>*}
+					<div class="row row__line">
+						<div class="col-sm-2 text-center text-blue">Počet teamov</div>
+						<div class="col-sm-9 text-left cara"><span
+									class="text-blue">{$team_count}</span>/{$tournament->max_teams}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+			 	<div class="panel__heading"><i class="fa fa-trophy"></i>Ceny</div>
+			 	<div class="panel__body">
+					{$tournament->prices}
+			  	</div>
+			</div>
+
+		</div>
+
+		<div class="col-sm-4 no-padding">
+			<div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i aria-hidden="true" class="fa fa-cog"></i>
+                        <h3>Admin nastavení</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                    	<div class="row space-20">
+                        	<div class="col-sm-12">
+                          	  <button type="button" class="btn btn-admin">Generovat další kolo</button>
+                       		</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+
+
+		    {control panels:tournament}
+
+		    {control panels:advertisment}
+		</div>
+	</div>
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

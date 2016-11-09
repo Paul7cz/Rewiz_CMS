@@ -1,0 +1,107 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>HLTV</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="Hltv:default">Liga</a>
+            </li>
+            <li class="active">
+                <strong>HLTV</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {$flash->message}
+        </div>
+    </div><!-- col-12-->
+</div><!-- row -->
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Zápasy</h5>
+					<div class="ibox-tools">
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						<a class="close-link"><i class="fa fa-times"></i></a>
+					</div>
+				</div>
+				<div class="ibox-content">
+
+				<table class="table table-hover">
+                    <thead>
+                        <th><i class="fa fa-flag" aria-hidden="true"></i></th>
+                        <th><i class="fa fa-users mgr-10"></i> 1</th>
+                        <th><i class="fa fa-users mgr-10"></i> 2</th>
+                        <th><i class="fa fa-gamepad" aria-hidden="true"></i> 1</th>
+                        <th><i class="fa fa-gamepad" aria-hidden="true"></i> 2</th>
+                        <th><i class="fa fa-gamepad" aria-hidden="true"></i> 3</th>
+                        <th><i class="fa fa-gamepad" aria-hidden="true"></i> 4</th>
+                        <th><i class="fa fa-gamepad" aria-hidden="true"></i> 5</th>
+                        <th><i class="fa fa-link" aria-hidden="true"></i></th>
+                        <th>Akce</th>
+                    </thead>
+					<tbody>
+					<tr>
+                        <td><img src="{$basePath}/img/csgo.png" alt="icon"></td>
+                        <td>TEAM 1</td>
+						<td>TEAM 2</td>
+						<td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><a href="#"><i class="fa fa-twitch" aria-hidden="true"></i</a></td>
+						<td><a href="" onClick=""><i aria-hidden="true" class="fa fa-trash text-navy"></i></a></td>
+					</tr>
+					<tr>
+                        <td><img src="{$basePath}/img/csgo.png" alt="icon"></td>
+                        <td>TEAM 1</td>
+                        <td>TEAM 2</td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><span class="text-navy">22 </span>:<span class="text-danger"> 13</span></td>
+                        <td><a href="#"><i class="fa fa-twitch" aria-hidden="true"></i</a></td>
+                        <td><a href="" onClick=""><i aria-hidden="true" class="fa fa-trash text-navy"></i></a></td>
+                    </tr>
+					</tbody>
+				</table>
+
+				</div><!-- ibox-content -->
+			</div><!-- ibox  -->
+		</div><!-- col-6 -->
+
+	</div><!-- row -->
+
+</div><!-- wrapper -->
+
+{/block}
+
+{block scripts}
+{include parent}
+
+{/block}
+
+
+{block head}
+    <link href="{$basePath}/css/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet">
+{/block}

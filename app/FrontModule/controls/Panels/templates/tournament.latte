@@ -1,0 +1,34 @@
+<div class="col-sm-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i aria-hidden="true" class="fa fa-gamepad"></i>
+            <h3>Turnaje</h3><a class="list" href="{plink Tournament:All}">Všetky</a>
+        </div>
+        <div class="panel-body tournament p-xxs">
+            <div class="item block" n:foreach="$data as $item">
+                <a href="{plink Tournament:Default $item->id}">
+                    {if $item->ref('leagues', 'leagues_id')->game == 'Counter-Strike: Global Offensive'}
+                        <img class="fleft" src="{$basePath}/img/csgo_avatar.png" alt="csgo">
+                    {elseif $item->ref('leagues', 'leagues_id')->game == 'Dota 2'}
+                        <img class="fleft" src="{$basePath}/img/dota2_avatar.png" alt="csgo">
+                    {elseif $item->ref('leagues', 'leagues_id')->game == 'Hearthstone'}
+                        <img class="fleft" src="{$basePath}/img/hs_avatar.png" alt="csgo">
+                    {elseif $item->ref('leagues', 'leagues_id')->game == 'League of Legends'}
+                        <img class="fleft" src="{$basePath}/img/lol_avatar.png" alt="csgo">
+                    {/if}
+                    <div class="title">{$item->name}</div>
+                    <span class="info"><i class="fa fa-clock-o m-r-xs"></i>{$item->start|date:"j.n.Y G:i:s"}</span>
+                    <span class="info">Registrovaných : {$control->teamsCount($item->id)}/{$item->max_teams}</span>
+                    <div class="m-t-xs">
+                        {if $control->tournamentDateCompare($item->id) == TRUE}
+                            <a href="{plink Tournament:Default $item->id}"><i class="fa fa-unlock-alt m-r-xs"></i>
+                                Zaregistrovať svoj tím</a>
+                        {else}
+                            <a class="disable" href=""><i class="fa fa-lock m-r-xs"></i> Registracia uzavretá</a>
+                        {/if}
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,161 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+    <!--Content-->
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Nahalášené komentáře</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domů</a>
+                </li>
+                <li>
+                    <a n:href="Pages:default">Podstránky</a>
+                </li>
+                <li class="active">
+                    <strong>Nahlášené komentáře</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-sm-12">
+            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                {$flash->message}
+            </div>
+        </div><!-- col-12-->
+    </div><!-- row -->
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Přehled nahlášených komentářů</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <input type="text" class="form-control input-sm m-b-xs" id="filterone"
+                               placeholder="Vyhlejej...">
+                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filterone>
+                            <thead>
+                            <tr>
+                                <th data-toggle="true">Autor</th>
+                                <th data-sort-ignore="true">Komentář</th>
+                                <th data-sort-ignore="true">Datum</th>
+                                <th data-toggle="true">Nahlásil</th>
+                                <th data-sort-ignore="true">Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$reported as $data">
+                                <td><a href="#">{$data->users->username}</a></td>
+                                <td>{$data->content}</td>
+                                <td>{$data->date|date:'j.n.Y H:i:s'}</td>
+                                <td><a href="#">{$data->ref('users', 'report_by')->username}</a></td>
+                                <td><a n:href="News:Save, $data->id">
+                                        <button class="btn btn-primary " type="button"><i class="fa fa-check"></i>&nbsp;Povolit
+                                        </button>
+                                    </a>
+                                    <a n:href="News:Del, $data->id, $presenter->user->getId()">
+                                        <button class="btn btn-danger " type="button"><i class="fa fa-ban"></i>&nbsp;Zakázat
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- row -->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Log zablokovnaých komentářů</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                               placeholder="Vyheledej...">
+                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <thead>
+                            <tr>
+                                <th data-toggle="true">Autor</th>
+                                <th data-sort-ignore="true">Komentář</th>
+                                <th>Datum</th>
+                                <th>Status</th>
+                                <th>Nahlásil</th>
+                                <th>Admin</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$log as $data">
+                                <td><a href="#">{$data->comment->ref('users', 'users_id')->username}</a></td>
+                                <td class="small">{$data->ref('news_comments', 'comment_id')->content}
+                                </td>
+                                <td>{$data->time}</td>
+                                {if $data->status == 1}
+                                    <td class="text-info">POVOLEN!</td>
+                                {else}
+                                    <td class="text-info">Zamietnutý</td>
+                                {/if}
+                                <td><a href="#">{$data->comment->ref('users', 'report_by')->username}</a></td>
+                                {if $data->comment->ref('users', 'block_by') != NULL}
+                                <td><a href="#">{$data->comment->ref('users', 'block_by')->username}</a></td>
+                                {else}
+                                    <td><a href="#">Bez zablokovania</a></td>
+                                {/if}
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- row -->
+
+    </div><!-- wrapper -->
+
+
+{/block}
+
+{block scripts}
+    {include parent}
+    <!-- FooTable -->
+    <script src="{$basePath}/js/plugins/footable/footable.all.min.js"></script>
+    <script n:syntax="off">
+        $(document).ready(function () {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+    </script>
+{/block}
+
+{block head}
+    <!-- FooTable -->
+    <link href="{$basePath}/css/plugins/footable/footable.core.css" rel="stylesheet">
+{/block}

@@ -1,0 +1,300 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content news m-b-xl  p-w-xl">
+            <div class="row">
+                <div class="col-lg-12 space-20">
+                    <h2>{$news->title}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text space-20">
+                    {!$news->content}
+                </div>
+            </div>
+            {*<div class="row">
+                <div class="col-lg-12 space-20 text-center">
+                    <div id="links">
+                        <a href="../img/gallery/1.jpg" title="Banana">
+                            <img src="../img/gallery/1s.jpg" alt="Banana">
+                        </a>
+                        <a href="../img/gallery/2.jpg" title="Apple">
+                            <img src="../img/gallery/2s.jpg" alt="Apple">
+                        </a>
+                        <a href="../img/gallery/3.jpg" title="Orange">
+                            <img src="../img/gallery/3s.jpg" alt="Orange">
+                        </a>
+                        <a href="../img/gallery/4.jpg" title="Orange">
+                            <img src="../img/gallery/4s.jpg" alt="Orange">
+                        </a>
+                        <a href="../img/gallery/1.jpg" title="Orange">
+                            <img src="../img/gallery/1s.jpg" alt="Orange">
+                        </a>
+                        <a href="../img/gallery/2.jpg" title="Orange">
+                            <img src="../img/gallery/2s.jpg" alt="Orange">
+                        </a>
+                    </div>
+                </div>
+            </div>*}
+            <div class="row">
+                <div class="col-lg-12 space-20 text-right">
+                    {if $news->source != NULL}
+                        <strong>Zdroj: <a
+                                    href="{$news->source}">{$news->source}</a></strong>
+                    {/if}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 space-20 border-top text-center p-t">
+				<span class="stats">
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+                    {$news->date|date:'j.n.Y'}
+				</span>
+                    <span class="stats">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+                        {$news->date|date:'H:i:s'}
+				</span>
+                    <span class="stats">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+                        {$news->news_category->name}
+				</span>
+                    <span class="stats">
+					<i class="fa fa-commenting-o" aria-hidden="true"></i>
+                        {$comments_count}x
+				</span>
+                </div>
+            </div>
+
+            <div class="row autor">
+                <div class="col-lg-12 space-20 p-w-xl">
+                    <div class="row p-w-xl">
+                        <div class="col-lg-2">
+                            <img class="w100" src="{$basePath}/img/avatar/{$news->users->avatar}" alt="autor-avatar">
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="m-l-xs">{$news->users->username}</h4>
+                            <p class="m-l-xs">
+                                {if $news->users->about == NULL}
+                                Uživateľ zatiaľ nepridal popis...</p>
+                            {else}
+                            {$news->users->about}
+                            {/if}
+                            <div class="hr-line-dashed m-l-xs"></div>
+                            <span class="m-l-xs">
+							<a n:href="User:profile $news->users->id"><i
+                                        class="fa fa-user m-r-xs"></i>Zobraziť profil</a>
+							<a n:href="Messages:new"><i class="fa fa-envelope-o m-r-xs"></i>Poslať správu</a>
+						</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row comments">
+                <div class="col-lg-12 space-20 p-w-xl">
+
+
+                    {snippet comments}
+                        <!-- Start Commnet N.1-->
+                        {if $comments == NULL}
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1 nocoments">
+                                    Nikdo zatím tuto novinku nekomentoval. Buďte první!
+                                </div>
+                            </div>
+                        {else}
+
+                            <div n:foreach="$comments as $data" class="row m-t-lg">
+                                <div class="col-lg-1 m-t-xs">
+                                    {if $data->users->premium == 1}
+                                        <img class="img-circle vip" src="{$basePath}/img/avatar/{$data->users->avatar}"
+                                             alt="avatar">
+                                    {else}
+                                        <img class="img-circle" src="{$basePath}/img/avatar/{$data->users->avatar}"
+                                             alt="avatar">
+                                    {/if}
+                                </div>
+                                <div class="col-lg-10 m-l-md">
+                                    {*fa fa-star*}
+                                    {if $data->users->premium == 1}
+                                        <div class="nick vip"><i class="fa fa-star m-r-xs"></i><span data-user="{$data->id}">{$data->users->username}</span> 
+                                            <div class="text-right time"><i
+                                                        class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
+                                            </div>
+                                        </div>
+                                    {else}
+                                        <div class="nick" ><i class="fa fa-user m-r-xs"></i><span data-user="{$data->id}">{$data->users->username}</span>
+                                            <div class="text-right time"><i
+                                                        class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
+                                            </div>
+                                        </div>
+                                    {/if}
+                                    {if $data->block == NULL}
+                                        <div class="comment m-t-xs" >
+                                            <span data-content="{$data->id}">{$data->content}</span>
+                                        </div>
+                                    {else}
+                                        <div class="comment m-t-xs">
+                                            <strong>Príspevok bol zablokovaný administrátorom.</strong>
+                                            <br><br>
+                                            {if $user->getIdentity()->role == 'admin'}
+                                                Pôvodné znenie komentára: {$data->content}
+                                            {/if}
+                                        </div>
+                                    {/if}
+                                    <div class="text-right action m-t-xs ">
+                                        {if $user->isLoggedIn()}
+                                            {if $user->getIdentity()->role == 'admin'}
+                                                {if $data->block == NULL}
+                                                    <a href="javascript:void(0);" data-reply="{$data->id}"><i class="fa fa-retweet m-r-xs"></i>Odpovedať</a>
+
+                                                    <a n:href="News:Delete, $data->id, $presenter->user->getId(), backlink => $presenter->storeRequest()"><i
+                                                                class="fa fa-times"></i>Zablokovať</a>
+
+                                                    <a n:href="News:Report, $data->id, backlink => $presenter->storeRequest()"><i
+                                                                class="fa fa-times"></i>Nahlásiť</a>
+                                                {else}
+                                                    <a n:href="News:Unblock, $data->id, backlink => $presenter->storeRequest()"><i
+                                                                class="fa fa-times"></i>Odblokovať</a>
+                                                {/if}
+                                            {/if}
+                                        {/if}
+
+                                    </div>
+
+                                </div>
+                            </div> <!-- End Commnet N.1-->
+                            {*<div class="row text-center">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li>
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li>
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>*}
+                        {/if}
+                    {/snippet}
+
+
+                </div>
+            </div><!-- comments end -->
+            {if $user->isLoggedIn()}
+                {if $user->getIdentity()->ban_post == NULL}
+                    {form commentForm}
+                        <div class="row commentsarea p-w-xs space-20">
+                            <div class="col-lg-1">
+                                <img class="img-circle" src="{$basePath}/img/avatar/{$user->getIdentity()->avatar}"
+                                     alt="avatar">
+                            </div>
+                            <div class="col-lg-10">
+                                {input content}
+                            </div>
+                            <div class="col-lg-12 text-right p-r-mega space-20">
+                                {input submit, class => "btn btn-rewiz"}
+                            </div>
+                        </div>
+                    {/form}
+                {else}
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 nocoments">
+                            Máš ban na prispievanie.
+                        </div>
+                    </div>
+                {/if}
+            {else}
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 nocoments">
+                        Pre pridanie komentára sa musíš prihlásiť.
+                    </div>
+                </div>
+            {/if}
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+
+
+    <!-- The Gallery as lightbox dialog -->
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+
+    <!-- Custom and plugin javascript -->
+    <script src="{$basePath}/js/plugins/pace/pace.min.js"></script>
+
+    <!-- blueimp gallery -->
+    <script src="{$basePath}/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
+    <script n:syntax=off>
+        /*document.getElementById('links').onclick = function (event) {
+         event = event || window.event;
+         var target = event.target || event.srcElement,
+         link = target.src ? target.parentNode : target,
+         options = {index: link, event: event},
+         links = this.getElementsByTagName('a');
+         blueimp.Gallery(links, options);
+         };*/
+
+
+    </script>
+    <script>
+     $(function(){
+                        
+            $("[data-reply]").click(function () {
+                var id = $(this).data("reply");
+
+                var user = $("[data-user='" + id + "']").text();
+                var content = $("[data-content='" + id + "']").text();
+
+                $( "textarea#frm-commentForm-content" ).val(""+ user +": " + content + "");
+                $('html, body').animate({
+                        scrollTop: $("#frm-commentForm-content").offset().top
+                    }, 1000);
+                return false;
+
+            });
+        });
+    </script>
+{/block}
+
+{block head}
+    <!--Head-->
+    <link href="{$basePath}/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+
+{/block}

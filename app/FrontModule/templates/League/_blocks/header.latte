@@ -1,0 +1,65 @@
+{if $league->game == 'Counter-Strike: Global Offensive'}
+<!-- Counter Strike: GO Header -->
+<div class="row img-background csgo">
+    {elseif $league->game == 'Dota 2'}
+    <!-- Dota 2 Header -->
+    <div class="row img-background dota2">
+        {elseif $league->game == 'League of Legends'}
+        <!-- League of Legends Header -->
+        <div class="row img-background lol">
+            {elseif $league->game == 'Hearthstone'}
+            <!-- Hearthstone Header -->
+            <div class="row img-background hs">
+                {/if}
+
+
+                <div class="col-sm-12 m-b b-b">
+                    <h2>{$league->name}</h2>
+                </div>
+                <div class="col-sm-5 b-r">
+                    <ul class="unstyled">
+                        {if $date == TRUE}
+                            <li class="green"><i class="fa fa-check"></i>Liga je otvorená</li>
+                        {else}
+                            <li class="danger-text"><i class="fa fa-check"></i>Liga je uzavretá</li>
+                        {/if}
+                        <li><i class="fa fa-clock-o"></i>Otvorená od: {$league->start_date|date:'j.n.Y'}</li>
+                        <li><i class="fa fa-times-circle-o"></i>Ukončenie: {$league->end_date|date:'j.n.Y'}</li>
+                        <li><i class="fa fa-exclamation-circle"></i>Podmienka: SteamID (Herný účet Steam)</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1">
+                    <div class="info">
+                        {!$league->about}
+                    </div>
+                </div>
+                <div class="col-sm-10" id="main-menu" style="padding-left: 15px;">
+                    <ul id="menu">
+                        <li>
+                            <a n:href="League:default $league->id"><strong>INFORMÁCIE</strong></a>
+                        </li>
+                        <li>
+                            <a n:href="League:contestants $league->id"><strong>TÍMY</strong></a>
+                        </li>
+                        <li>
+                            <a n:href="League:ladder $league->id"><strong>TABUĽKA</strong></a>
+                        </li>
+                        <li>
+                            <a n:href="League:rules $league->id"><strong>PRAVIDLÁ</strong></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-2" id="main-menu">
+                    <ul id="menu">
+                        {if  $user->isLoggedIn()}
+                            {if $user->getIdentity()->team !== NULL}
+                                {if $date == TRUE}
+                                    <li>
+                                        <a style="padding: 0px;" n:href="League:Join $league->id">Registruj svoj tím</a>
+                                    </li>
+                                {/if}
+                            {/if}
+                        {/if}
+                    </ul>
+                </div>
+            </div>

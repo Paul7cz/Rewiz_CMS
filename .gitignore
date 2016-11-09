@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+log/*
+temp/*
+vendor/*
+!.gitignore
+!.htaccess
+!web.config
+app/config/config.local.neon
+.idea/*
+sftp-config.json

@@ -1,0 +1,116 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content league m-b-xl">
+            {include '_blocks/header.latte'}
+
+            <div class="row">
+                <div class="col-lg-12 space-20">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-info-circle"></i>
+                            <h3>Základné informácie</h3>
+                        </div>
+                        <div class="panel-body text-center">
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Hra</div>
+                                <div class="col-sm-9 text-left">{$league->game}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Začiatok</div>
+                                <div class="col-sm-9 text-left">Otvorená od: {$league->start_date|date:'j.n.Y'}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Herný účet</div>
+                                <div class="col-sm-9 text-left">{$league->game_account}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Mód</div>
+                                <div class="col-sm-9 text-left">{$league->players}on{$league->players}Leader
+                                </div>
+                            </div>
+                            {*<div class="row">
+                                <div class="col-sm-3 user-title">Požiadavky</div>
+                                <div class="col-sm-9 text-left">{$league->required}</div>
+                            </div>*}
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Administrátor</div>
+                                <div class="col-sm-9 text-left">
+                                    {foreach $admins as $admin}
+                                        {$admin->ref('users', 'users_id')->username},
+                                    {/foreach}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row prize">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-trophy"></i>
+                            <h3>Ceny</h3>
+                        </div>
+                        <div class="panel-body">
+                            {*                            <table class="table table-bordered text-center">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-center">Pozicia</th>
+                                                                <th class="text-center">Prize money</th>
+                                                                <th class="text-center">Vecné ceny</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td><img src="/img/cup_zlaty.png" alt="icon"> 1. miesto</td>
+                                                                <td>2000€</td>
+                                                                <td>Razer kraken</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><img src="/img/cup_modry.png" alt="icon"> 2. miesto</td>
+                                                                <td>1000€</td>
+                                                                <td>Monitor BenQ</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><img src="/img/cup_zeleny.png" alt="icon"> 3. miesto</td>
+                                                                <td>500€</td>
+                                                                <td>Tiskárna LG</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>*}
+                            {!$league->prices}
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row">
+                <div class="col-sm-12 sponzor space-30"><a href="#"><img src="{$basePath}/img/sponzor_ligy.png"
+                                                                         alt="sponzor"></a></div>
+            </div>
+
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

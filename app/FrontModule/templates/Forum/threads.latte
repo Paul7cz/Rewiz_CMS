@@ -1,0 +1,143 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row">
+        <div class="col-lg-12 text-center content m-l m-b-xl no-padding" style="max-width: 1170px;">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="pull-left forum-desc">
+                    {*                    <a href="#">Rewiz.eu</a> > <a href="#">Fórum</a> > <a href="#">Counter-Strike Global Offensive</a>*}
+                </div>
+                <div class="ibox-content">
+                    <!-- Table -->
+                    <td colspan="5" style="padding-left: 0px !important;">
+                            <span class="pull-right">
+                                <a n:href="Forum:add, $presenter->getParameter('id')"><button class="btn btn-success "
+                                                                                              type="button"><i
+                                                class="fa fa-paste"></i> Vytvořit téma</button></a>
+                            </span>
+                        </td>
+                    <table class="footable table text-left" data-page-size="8" data-filter=#filter>
+                            
+
+                        <thead>
+                        <tr>
+                            <th data-sort-ignore="true">NÁZOV TÉMY</th>
+                            <th data-sort-ignore="true">AUTOR</th>
+                            <th data-sort-ignore="true">ODPOVEDÍ</th>
+                            <th data-sort-ignore="true">PRIDANÉ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr n:foreach="$threads as $data">
+                            <td><i class="fa fa-file-text-o m-r-xs"></i>
+                                <a n:href="Forum:detail, $data->id">{$data->name}</a></td>
+                            <td><a href="#">{$data->ref('users', 'user_id')->username}</a></td>
+                            <td>{$presenter->forumManager->countCommentsThread($data->id)}</td>
+                            <td>{$data->date|date:'j.n.Y H:i:s'}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5" style="padding-left: 0px !important;">
+                                <span class="pull-left">
+                                    <a n:href="Forum:add, $presenter->getParameter('id')"><button
+                                                class="btn btn-success " type="button"><i class="fa fa-paste"></i> Vytvořit téma</button></a>
+                                </span>
+                                <ul class="pagination pull-right p-t"></ul>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!--<div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>-->
+    </div>
+
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <!-- FooTable -->
+    <script src="{$basePath}/js/plugins/footable/footable.all.min.js"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function () {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+
+    </script>
+{/block}
+
+{block head}
+    <!-- FooTable -->
+    <link href="{$basePath}/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <!--Head-->
+    <style>
+        .forum-desc, .forum-desc a {
+            color: #31424b;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 19px;
+        }
+
+        .forum-desc a:hover {
+            color: #337ab7;
+        }
+
+        .forum-desc {
+            padding-left: 20px;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            padding: 0px 15px !important;
+            line-height: 50px !important;
+        }
+
+        thead tr {
+            color: #29373e;
+            font-family: "Titillium Web";
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 19px;
+            border-top: 1px solid #0d1012;
+        }
+
+        tbody tr {
+            background: rgba(19, 24, 27, 1);
+            background: -moz-linear-gradient(top, rgba(19, 24, 27, 1) 0%, rgba(17, 22, 25, 1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(19, 24, 27, 1)), color-stop(100%, rgba(17, 22, 25, 1)));
+            background: -webkit-linear-gradient(top, rgba(19, 24, 27, 1) 0%, rgba(17, 22, 25, 1) 100%);
+            background: -o-linear-gradient(top, rgba(19, 24, 27, 1) 0%, rgba(17, 22, 25, 1) 100%);
+            background: -ms-linear-gradient(top, rgba(19, 24, 27, 1) 0%, rgba(17, 22, 25, 1) 100%);
+            background: linear-gradient(to bottom, rgba(19, 24, 27, 1) 0%, rgba(17, 22, 25, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#13181b', endColorstr='#111619', GradientType=0);
+            border-top: 2px solid #192125;
+            height: 50px;
+            border-bottom: 1px solid transparent;
+        }
+
+        tbody, tbody a {
+            color: #31424b;
+            font-family: "Titillium Web";
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 19px;
+        }
+    </style>
+{/block}

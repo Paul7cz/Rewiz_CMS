@@ -1,0 +1,29 @@
+<div class="row tournament__nav">
+    <div class="col-sm-9" id="main-menu" style="padding-left: 15px;">
+        <ul id="menu">
+            <li>
+                <a n:href="Tournament:Default $tournament->id"><i class="fa fa-info-circle m-r-xs"></i>INFORMÁCIE</a>
+            </li>
+            <li>
+                <a n:href="Tournament:Playoff $tournament->id"><i class="fa fa-code-fork m-r-xs"></i>PLAY-OFF</a>
+            </li>
+            <li>
+                <a n:href="Tournament:Teams $tournament->id"><i class="fa fa-users m-r-xs"></i>TÍMY</a>
+            </li>
+            <li>
+                <a n:href="Tournament:Rules $tournament->id"><i class="fa fa-file-text m-r-xs"></i>PRAVIDLÁ</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-3 text-right" id="main-menu">
+        <ul id="menu" style="padding-left: 50px;">
+            {if $user->getIdentity()->team !== NULL}
+                {if $date == TRUE}
+                    <li>
+                        <a n:href="Tournament:Join $tournament->id">Registruj svoj tím</a>
+                    </li>
+                {/if}
+            {/if}
+        </ul>
+    </div>
+</div>

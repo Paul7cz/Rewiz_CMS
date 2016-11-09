@@ -1,0 +1,456 @@
+{**
+* @param string $basepath web base path
+* @param array  $flashes  flash messages
+*}
+{dump $user}
+
+{block content}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Přehled uživatelů</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domů</a>
+                </li>
+                <li>
+                    <a n:href="Users:default">Uživatelé</a>
+                </li>
+                <li class="active">
+                    <strong>Přehled uživatelů</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-lg-3 ">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content border-top">
+                        <img alt="image" class="img-big" src="{$basePath}/img/avatar/{$info->avatar}">
+                        <h2 class="font-semibold mgbt-xs-5">{$info->username}</h2>
+                        <h4>In work...</h4>{* Job *}
+                        <div class="mgtp-20">
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                <tr>
+                                    <td style="width:60%;">Premium</td>
+                                    <td>
+                                        {if $info->premium == 0}
+                                            <span class="label label-primary">Nie</span>
+                                        {else}
+                                            <span class="label label-primary">Áno</span>
+                                        {/if}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Den registrace</td>
+                                    <td>{$info->registered|date:'j.n.Y'}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-3"> <i class="fa fa-user"></i>Profil</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-desktop"></i> Herní účty</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-5"><i class="fi-crown text-warning"></i>
+                                Premium</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-6"><i class="fa fa-cog"></i> Akce</a>
+                        </li>
+                        {*<li class=""><a data-toggle="tab" href="#tab-7"><i class="fa fa-trophy"></i> Ocenění</a>
+                        </li>*}
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-3" class="tab-pane active">
+                            <div class="panel-body">
+
+                                {*<div class="info-top-right">
+                                <a data-toggle="modal" href="#modal-form" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                                </div>*}
+
+                                <h3 class="mgbt-xs-15 mgtp-10 font-semibold">Základní informace</h3>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">ID uživateľa:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->id}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Nick:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->username}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Email:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->email}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Město:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->city}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Země:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->state}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Rok narodenia:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->birthyear}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Pohlavie:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->gender}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="mgbt-xs-15 mgtp-10 font-semibold">Osobní informace</h3>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Jméno:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->full_name}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Mesto:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->city}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Adresa:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->street} {$info->street_number} {$info->psc}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Tel:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->tel}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-4" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">CS:GO:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->csgo_sid}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">League of Legends:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->lol_nick}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Dota 2:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->dota2_nick}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">HS:</label>
+                                            <div class="col-xs-7 controls">
+                                                {$info->hs_nick}
+                                            </div><!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-5" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row"><h3 class="col-sm-12 text-center">V.I.P. skončí dne 17.12.2016 v
+                                        16:00</h3></div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-horizontal">
+                                    <div class="form-group"><label class="col-sm-2 control-label">Trvání do</label>
+
+                                        <div class="col-sm-10"><input type="text" class="form-control">
+                                            <span class="help-block m-b-none">Ve tvaru: "2016-09-02 17:25:32"</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-2 pull-right">
+                                            {if $info->premium == 0}
+                                                <a n:href="PremiumActive! $info->id" class="btn btn-w-m btn-primary">Aktiovat</a>
+                                            {else}
+                                                <a n:href="PremiumDeactive! $info->id" class="btn btn-w-m btn-danger">Deaktivovat</a>
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-6" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="form-horizontal">
+                                    <h3>
+                                        Nastavení login banu
+                                    </h3>
+                                    {if $info->ban_login == NULL}
+                                        {form banLogin}
+                                            <div class="form-group"><label class="col-sm-2 control-label">Trvání
+                                                    do</label>
+
+                                                <div class="col-sm-10">{input ban_login, class=>'form-control'}
+                                                    <span class="help-block m-b-none">Ve tvaru: "2016-09-02 17:25:32"</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">Permanentní
+                                                    ban</label>
+                                                <div class="col-sm-5">
+                                                    <div class="" style="margin-top: 10px;">
+                                                        {input pernament, id=>'checkbox6', type=>'checkbox', checked=>''}
+                                                        <label for="checkbox6">
+                                                            (Zakliknou pro pernamentní ban)
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-2 pull-right">
+                                                    {input submit, class=>"btn btn-w-m btn-danger"}
+                                                </div>
+                                            </div>
+                                        {/form}
+                                    {else}
+                                        <a n:href="Users:unbanLogin, $info->id">
+                                            <button>Odbanovať</button>
+                                        </a>
+                                    {/if}
+                                </div>
+                                <div class="form-horizontal">
+                                    <h3>
+                                        Nastavení post banu
+                                    </h3>
+                                    {if $info->ban_post == NULL}
+                                        {form banPost}
+                                            <div class="form-group"><label class="col-sm-2 control-label">Trvání
+                                                    do</label>
+
+                                                <div class="col-sm-10">
+                                                    {input ban_post, class=>'form-control'}
+                                                    <span class="help-block m-b-none">Ve tvaru: "2016-09-02 17:25:32"</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">Permanentní
+                                                    ban</label>
+                                                <div class="col-sm-5">
+                                                    <div class="" style="margin-top: 10px;">
+                                                        {input pernament, id=>'checkbox5', type=>'checkbox', checked=>''}
+                                                        <label for="checkbox5">
+                                                            (Zakliknou pro pernamentní ban)
+                                                        </label>
+                                                    </div>
+
+                                                    {*<div class="checkbox checkbox-danger">
+                                                        <input id="checkbox6" type="checkbox" checked="">
+                                                        <label for="checkbox6">
+                                                            (Zakliknou pro pernamentní ban)
+                                                        </label>
+                                                    </div>*}
+                                                </div>
+                                            </div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="form-group">
+                                                <div class="col-sm-2 pull-right">
+                                                    {input submit, class=>"btn btn-w-m btn-danger"}
+                                                </div>
+                                            </div>
+                                        {/form}
+                                    {else}
+                                        <a n:href="Users:unbanPost, $info->id">
+                                            <button>Odbanovať</button>
+                                        </a>
+                                    {/if}
+                                </div>
+
+
+                                {*<div class="row mgbt-xs-0">
+                                        <div class="col-sm-5">
+                                        {if $info->ban_login == NULL}
+                                            <a n:href="LBan! $info->id">
+                                                <button type="button" class="btn btn-danger">LOGIN BAN
+                                                </button>
+                                            </a>
+                                        {else}
+                                            <a n:href="LUnban! $info->id">
+                                                <button type="button" class="btn btn-w-m btn-primary">UNBAN
+                                                    LOGIN BAN
+                                                </button>
+                                            </a>
+                                        {/if}
+
+                                        {if $info->ban_post == NULL}
+                                            <a n:href="PBan! $info->id">
+                                                <button type="button" class="btn btn-w-m btn-danger">POST BAN
+                                                </button>
+                                            </a>
+                                        {else}
+                                            <a n:href="PUnban! $info->id">
+                                                <button type="button" class="btn btn-w-m btn-primary">UNBAN POST
+                                                    BAN
+                                                </button>
+                                            </a>
+                                        {/if}
+                                        </div>
+                                </div>*}
+                            </div>
+                        </div>
+                        {**<div id="tab-7" class="tab-pane">
+                            <div class="panel-body">
+                                {form addAch, class=>'form-horizontal'}
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Vybrat ocenění</label>
+                                        <div class="col-sm-10">
+                                            {input achviements_id, class=>'form-control'}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-white" type="submit">Zrušit</button>
+                                            <button class="btn btn-primary" type="submit">Uložit</button>
+                                        </div>
+                                    </div>
+                                {/form}
+                                <div class="hr-line-dashed"></div>
+                                {if $awards != NULL}
+                                    {dump $awards}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Název</th>
+                                                <th>Datum</th>
+                                                <th>Akce</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr n:foreach="$awards as $data">
+                                                <td>{$data->ref('users_achviements', 'achviements_id')->name}</td>
+                                                <td>{$data->date|date:"j.n.Y H:i:s"}</td>
+                                                <td><a href="#"><i class="fa fa-trash text-navy"></i></a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {else}
+                                    Kod ak nemá žiadne ocenenie
+                                {/if}
+                            </div>
+                        </div>*}
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <!-- Chosen -->
+    <script src="{$basePath}/js/plugins/chosen/chosen.jquery.js"></script>
+    <!-- Data picker -->
+    <script src="{$basePath}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- Clock picker -->
+    <script src="{$basePath}/js/plugins/clockpicker/clockpicker.js"></script>
+    <script n:syntax=off>
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-chosen': {width: "inherit"},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+        $('.clockpicker').clockpicker();
+    </script>
+{/block}
+
+{block head}
+    <!--Head-->
+    <link href="{$basePath}/css/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css">
+    <style>
+        .chosen-container {
+            width: 100% !important;
+        }
+    </style>
+{/block}

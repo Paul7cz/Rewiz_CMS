@@ -1,0 +1,181 @@
+{**
+* @param string $basepath web base path
+* @param array  $flashes  flash messages
+*}
+
+{block content}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Správa fóra</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domů</a>
+                </li>
+                <li>
+                    <a n:href="Forum:default">Fórum</a>
+                </li>
+                <li class="active">
+                    <strong>Správa fóra</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row ">
+            <div class="col-sm-12">
+                <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {$flash->message}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Přidat hlavnu kategorii do fóra</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i
+                                        class=
+                                        "fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        {form category, class=>'form-horizontal'}
+                            <div class="form-group">
+                                <label class="col-sm-2 text-left">Název kategorie</label>
+                                <div class="col-sm-10">
+                                    {input name, class=>'form-control'}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 text-right">
+                                    <button class="btn btn-white" type="submit">Zrušit</button>
+                                    {input submit, class=>'btn btn-primary'}
+                                </div>
+                            </div>
+                        {/form}
+                    </div><!-- .ibox-content -->
+                </div>
+            </div> <!-- .col-6 -->
+
+
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Přida sub-kategoriu</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i
+                                        class=
+                                        "fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        {form subCategory, class=>'form-horizontal'}
+                            <div class="form-group"><label class="col-sm-2 text-left">Název sub kategorie</label>
+
+                                <div class="col-sm-10">{input name, class=>'form-control'}</div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 text-left">Krátky popis sub kategorie</label>
+
+                                <div class="col-sm-10">{input about, class=>'form-control'}
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 text-left">Kagorie</label>
+
+                                <div class="col-sm-10">
+                                    {input categorie_id, class=>'form-control m-b'}
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-12 text-right">
+                                    <button class="btn btn-white" type="submit">Zrušit</button>
+                                    {input submit, class=>'btn btn-primary'}
+                                </div>
+                            </div>
+                        {/form}
+                    </div><!-- .ibox-content -->
+                </div>
+            </div> <!-- .col-6 -->
+
+        </div><!-- .row -->
+
+        <div class="ibox-content forum-container m-b">
+
+            {foreach $categories as $data}
+                <div class="forum-title">
+                    <h3>{$data->name}</h3>
+            </div>
+
+                {control forum:subCategories, $data->id}
+            {/foreach}
+
+        </div>
+
+    </div><!-- .wrapper -->
+
+
+
+
+
+
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!-- TouchSpin -->
+    <script src="{$basePath}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="{$basePath}/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!--Include parents scripts-->
+    <script n:syntax=off>
+        $(document).ready(function () {
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: false,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+            $('.demo4').click(function () {
+                swal({
+                            title: "Jste si jistí?",
+                            text: "Již nebude možné vlákno obnovit!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Ano, smazat!",
+                            cancelButtonText: "Ne, zrušit",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                swal("Smazáno!", "Vlákno bylo odstaněno.", "success");
+                            } else {
+                                swal("Zrušeno", "Vaše vlákno bylo zachováno :)", "error");
+                            }
+                        });
+            });
+        });
+
+    </script>
+
+
+{/block}
+
+{block head}
+    <link href="{$basePath}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="{$basePath}/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+{/block}

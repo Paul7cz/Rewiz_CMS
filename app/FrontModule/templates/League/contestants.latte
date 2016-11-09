@@ -1,0 +1,100 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    {dump $teamsNoActive}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content league m-b-xl">
+            {include '_blocks/header.latte'}
+
+            <div class="row">
+                <div class="col-lg-12 m-t-sm">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading numbers">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                <h3 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapseOne">
+                                        Zaregistrované teamy
+                                    </a>
+                                </h3>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="col-sm-4 p-xxs" n:foreach="$teamsActive as $data">
+                                        <div class="col-sm-12 team">
+                                            <img class="fleft m-r-sm"
+                                                 src="{$basePath}/img/logo/{$data->ref('league_team', 'id_team')->logo}"
+                                                 alt="avatar">
+                                            <div>
+                                                <a n:href="Team:profile $data->ref('league_team', 'id_team')->id">{$data->ref('league_team', 'id_team')->name}</a>
+                                            </div>
+                                            <div class="grey">{$presenter->userManager->getCountPlayersInTeam($data->id_team)}
+                                                členov
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading numbers">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                <h3 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapseTwo">
+                                        Nepotvrdené teamy
+                                    </a>
+                                </h3>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="col-sm-4 p-xxs" n:foreach="$teamsNoActive as $data">
+                                        <div class="col-sm-12 team">
+                                            <img class="fleft m-r-sm"
+                                                 src="{$basePath}/img/logo/{$data->ref('league_team', 'id_team')->logo}"
+                                                 alt="avatar">
+                                            <div>
+                                                <a n:href="Team:profile $data->ref('league_team', 'id_team')->id">{$data->ref('league_team', 'id_team')->name}</a>
+                                            </div>
+                                            <div class="grey">{$presenter->userManager->getCountPlayersInTeam($data->id_team)}
+                                                členov
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- row -->
+
+
+
+    </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

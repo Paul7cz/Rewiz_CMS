@@ -1,0 +1,123 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+
+    <div class="row">
+        <div n:foreach="$flashes as $flash" class="col-sm-8 alert alert-{$flash->type} fade in m-t m-l text-center">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {$flash->message}
+    </div>
+    </div>
+
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 text-center content messages m-b-xl p-sm">
+            <div class="row">
+                <div class="col-sm-12 no-padding head nav">
+                    <a data-toggle="tab" href="#message_1" class="head-l active">Prijaté správy</a>
+                    <a data-toggle="tab" href="#message_2" class="head-r">Odoslané správy</a>
+                    <span class="head-h"><a n:href="Messages:new" >Nová správa</a></span>
+            </div>
+            </div>
+
+            <div class="tab-content">
+                <div id="message_1" class="tab-pane fade in active">
+                    <div class="row">
+                        <div class="col-sm-12 heading no-padding">
+                            <span class="text1">Autor</span>
+                            <span class="text2">Predmet správy</span>
+                            <span class="text3">Čas prijatia</span>
+                    </div>
+                    </div>
+
+                    {if $messages != NULL}
+                        <div class="row pmessage" n:foreach="$messages as $data">
+                            <div class="check">
+                                <div class="squaredThree">
+                        </div>
+                            </div>
+                            <div class="autor">
+                                {if $data->sender_id == NULL}
+                                    <a href="">Systém</a>
+                                {else}
+                                    <a n:href="User:profile, $data->ref('users', 'sender_id')->id">{$data->ref('users', 'sender_id')->username}</a>
+                                {/if}
+                            </div>
+                            <div class="subject">
+                                <a n:href="Messages:receive $data->id">{$data->subject}</a>
+                            </div>
+                            {if $data->seen == NULL}
+                                <span class="badge badge-success">Nová</span>
+                            {/if}
+                            <div class="time">
+                                {$data->date|date:"j.n.Y H:i:s"}
+                            </div>
+                </div>
+                    {else}
+                        <div class="row">
+                            <div class="col-md-12 p-sm">
+                                Nemáte žádné nové prijaté zprávy.
+                            </div>
+                        </div>
+                    {/if}
+
+                </div>
+
+                <div id="message_2" class="tab-pane fade in">
+                    <div class="row">
+                        <div class="col-sm-12 heading no-padding">
+                            <span class="text1">Príjemca</span>
+                            <span class="text2">Predmet správy</span>
+                            <span class="text3">Čas prijatia</span>
+                    </div>
+                    </div>
+
+                    {if $message_send != NULL}
+                        <div class="row pmessage" n:foreach="$message_send as $data">
+                            <div class="check">
+                                <div class="squaredThree">
+                            </div>
+                        </div>
+                            <div class="autor">
+                                <a n:href="User:profile, $data->ref('users', 'sender_id')->id">{$data->ref('users', 'receiver_id')->username}</a>
+                        </div>
+                            <div class="subject">
+                                <a n:href="Messages:send $data->id">{$data->subject}</a>
+                            </div>
+                            <div class="time">
+                                {$data->date|date:"j.n.Y H:i:s"}
+                            </div>
+                        </div>
+                    {else}
+                        <div class="row">
+                            <div class="col-md-12 p-sm">
+                                Zatím jste neodeslal žádnou zprávu.
+                            </div>
+                        </div>
+                    {/if}
+
+                </div>
+
+
+            </div>
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

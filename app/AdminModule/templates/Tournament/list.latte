@@ -1,0 +1,91 @@
+{**
+* @param string $basepath web base path
+* @param array  $flashes  flash messages
+*}
+
+{block content}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Přehled turjnajů</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domů</a>
+                </li>
+                <li>
+                    <a n:href="Tournament:default">Turnaje</a>
+                </li>
+                <li class="active">
+                    <strong>Přehled turjnajů</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Přehled tujnajů</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i
+                                        class=
+                                        "fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Název</th>
+                                <th>Hra</th>
+                                <th>Začátek</th>
+                                <th>Počet týmů</th>
+                                {*<th>Akce</th>*}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$tournament as $data">
+                                <td>{$data->id}</td>
+                                <td>{$data->name}</td>
+                                <td>{$data->ref('leagues', 'leagues_id')->game}</td>
+                                <td>{$data->start}</td>
+                                <td>{$data->max_teams}</td>
+                                {*<td>
+                                    <a href="#"><i class="fa fa-pause-circle-o m-r-xs"></i></a>
+                                    <a href="#"><i class="fa fa-hourglass-end m-r-xs"></i></a>
+                                    <a href="#"><i class="fa fa-trash m-r-xs"></i></a>
+                                </td>*}
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+
+{block scripts}
+    <!-- Peity -->
+    <script src="{$basePath}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$basePath}/js/demo/peity-demo.js"></script>
+
+
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <script src="{$basePath}/js/tinymce/tinymce.min.js"></script>
+    <script n:syntax="off">
+
+    </script>
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

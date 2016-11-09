@@ -1,0 +1,42 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    {dump $notification}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content m-b-xl">
+            <div class="panel panel-default notification m-t">
+                <div class="panel__heading"><i class="fa fa-flag"></i>Notifikácie</div>
+                <div class="panel__body">
+                    <div class="row" n:foreach="$notification as $data">
+                        <div class="col-sm-9">
+                            <i class="fa fa-angle-double-right m-r"></i>
+                            {$data->message}
+                        </div>
+                        <div class="col-sm-3">
+                            {$data->time|date:'j.n.Y H:i:s'}
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+
+{/block}

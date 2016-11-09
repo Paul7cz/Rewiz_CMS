@@ -1,0 +1,223 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    {dump $comment}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content text-left m-b-xl">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="ibox-content forum-post-container">
+                    <div class="media">
+                        <div class="author-info pull-left" style="width: 80%">
+                            <a class="forum-avatar" href="#">
+                                <img src="/img/avatar/{$post->ref('users', 'user_id')->avatar}" class="img-circle"
+                                     alt="image">
+                            </a>
+                            <h4 class="media-heading">{$post->name}</h4>
+                            <div class="author-metainfo">
+                            <span class="m-r-xs"><i
+                                        class="fa fa-user m-r-xs"></i>{$post->ref('users', 'user_id')->username}</span>
+                                <span class="m-r-xs"><i
+                                            class="fa fa-calendar m-r-xs"></i>{$post->date|date:'j.n.Y'}</span>
+                                <span class="m-r-xs"><i
+                                            class="fa fa-clock-o m-r-xs"></i>{$post->date|date:'H:i:s'}</span>
+
+                            </div>
+
+
+                        </div>
+                        {if $user->getIdentity()->role == 'admin'}
+                            <a n:href="Forum:Thread, $post->id" class="btn btn-admin pull-right">Smazat tému</a>
+                        {/if}
+                        <div class="media-body">
+                            {$post->content}
+                        </div>
+                    </div>
+
+                    {*<div class="text-right action m-t-xs p-sm">
+                        <a><i class="fa fa-pencil m-r-xs"></i>Upraviť</a>
+                        <a><i class="fa fa-times m-r-xs"></i>Vymazať</a>
+                    </div>*}
+
+
+                    <div class="row m-t-lg comments" n:foreach="$comment as $data">
+                        <div class="col-lg-1 m-t-xs">
+                            {if $data->ref('users','user_id')->premium == 1}
+                                <img alt="avatar" class="img-circle vip"
+                                     src="/img/avatar/{$data->ref('users','user_id')->avatar}">
+                            {else}
+                                <img alt="avatar" class="img-circle"
+                                     src="/img/avatar/{$data->ref('users','user_id')->avatar}">
+                            {/if}
+                        </div>
+                        <div class="col-lg-10 m-l-md">
+                            {if $data->ref('users','user_id')->premium == 1}
+                                <div class="nick vip">
+                                    <i class="fa fa-star m-r-xs"></i>{$data->ref('users','user_id')->username}
+                                    <div class="text-right time">
+                                        <i class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
+                                    </div>
+                                </div>
+                            {else}
+                                <div class="nick">
+                                    <i class="fa fa-star m-r-xs"></i>{$data->ref('users','user_id')->username}
+                                    <div class="text-right time">
+                                        <i class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
+                                    </div>
+                                </div>
+                            {/if}
+
+                            {if $data->block == NULL}
+                                <div class="comment m-t-xs">
+                                    {$data->content}
+                                </div>
+                            {else}
+                                <div class="comment m-t-xs">
+                                    <strong>Príspevok bol zablokovaný administrátorom.</strong>
+                                    <br><br>
+                                    {if $user->getIdentity()->role == 'admin'}
+                                        Pôvodné znenie komentára: {$data->content}
+                                    {/if}
+                                </div>
+                            {/if}
+                            <div class="text-right action m-t-xs">
+                                {if $user->getIdentity()->role == 'admin'}
+                                    {if $data->block == NULL}
+                                        <a n:href="Forum:delete, $data->id, backlink => $presenter->storeRequest()"><i
+                                                    class="fa fa-pencil m-r-xs"></i>Zablokovať</a>
+                                    {else}
+                                        <a n:href="Forum:delete, $data->id, backlink => $presenter->storeRequest()"><i
+                                                    class="fa fa-pencil m-r-xs"></i>Odblokovať</a>
+                                    {/if}
+                                {/if}
+                                <a n:href="Forum:Report, $data->id, backlink => $presenter->storeRequest()"><i
+                                            class="fa fa-times m-r-xs"></i>Nahlásiť</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row commentsarea p-w-xs space-20">
+                        {if $user->isLoggedIn()}
+                            {if $user->getIdentity()->ban_post == NULL}
+                                {form comment}
+                                    <div class="col-lg-1">
+                                        <img class="img-circle"
+                                             src="/img/avatar/{$user->getIdentity()->avatar}"
+                                             alt="avatar">
+                                    </div>
+                                    <div class="col-lg-10">
+                                        {input content}
+                                    </div>
+                                    <div class="col-lg-12 text-right space-20">
+                                        {input submit, class=>'btn btn-rewiz'}
+                                    </div>
+                                {/form}
+                            {else}
+                                Nemôžeš prispievať máš ban !
+                            {/if}
+                        {else}
+                            Nie si prihlasení
+                        {/if}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+    <style>
+        .comments .comment {
+            background-color: #101518;
+            color: #354751;
+            padding: 20px;
+            word-wrap: break-word;
+        }
+
+        .comments .time {
+            float: right;
+        }
+
+        .comments .action a {
+            color: #2a3941;
+            margin-left: 10px;
+        }
+
+        .comments .action .fa {
+            margin-right: 5px;
+        }
+
+        .comments .action a:hover {
+            color: #268ec3;
+        }
+
+        .comments .comment:after {
+            right: 100%;
+            top: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-right-color: #101518;
+            border-width: 8px;
+            margin-top: -30px;
+            margin-right: -15px;
+        }
+
+        .autor .hr-line-dashed {
+            border-top: 1px dashed #121619;
+            background-color: transparent;
+            color: #121619;
+            height: 1px;
+            margin: 5px 0;
+        }
+
+        .commentsarea {
+            border-top: 1px solid #121619;
+            padding-top: 30px;
+        }
+
+        .commentsarea textarea {
+            margin-left: 20px;
+            min-width: 550px;
+            max-width: 550px;
+            height: 130px;
+            padding: 15px;
+            background-color: #101518;
+            border: none;
+            -webkit-border-top-left-radius: 5px;
+            -webkit-border-top-right-radius: 5px;
+            -moz-border-radius-topleft: 5px;
+            -moz-border-radius-topright: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .commentsarea img {
+            width: 55px;
+        }
+
+        .img-circle {
+            max-width: 60px;
+        }
+    </style>
+{/block}

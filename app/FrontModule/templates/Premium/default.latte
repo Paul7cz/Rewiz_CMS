@@ -1,0 +1,108 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content m-b-xl">
+            
+            <div class="row">
+                <div class="col sm 12 text-center space-20">
+                    <img src="/img/premium.png" alt="premium" width="760px">
+                </div>
+            </div>           
+            
+            <div class="panel panel-default">
+                <div class="panel__heading"><i class="fa fa-bars"></i>Zoznam prémium výhod</div>
+                <div class="panel__body">
+                    <div class="row row__line">
+                        <div class="col-sm-12 text-left premium">Jedinečný vzhľad svojho profilu.</div>
+                    </div>
+					<div class="row row__line">
+                        <div class="col-sm-12 text-left premium">Prémium odznak vo svojom týme.</div>
+                    </div>	
+                    <div class="row row__line">
+                        <div class="col-sm-12 text-left premium">Zvýraznený vzhľad príspevkov vo fóre.</div>
+                    </div>						
+                    <div class="row row__line">
+                        <div class="col-sm-12 text-left premium">Zvýraznený vzhľad žiadostí a protestov.</div>
+                    </div>					
+                    <div class="row row__line">
+                        <div class="col-sm-12 text-left premium">Zvýraznený vzhľad komentárov pri novinkách.</div>
+                    </div>
+                    <div class="row row__line">
+                        <div class="col-sm-12 text-left premium">Prémium ikona na našom TeamSpeak servery. (Nutné požiadať admina, po akticácií prémium účtu.)</div>
+                    </div>
+                </div>
+            </div><!-- panel end-->    
+
+            <div class="row space-20">
+                <div class="col-sm-12 text-center">
+                    <span class="btnpremium"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span><button type="button" class="btn btn-premium">AKTIVOVAŤ</button>
+                </div>
+            </div>
+			<p style="text-align: right"><font color="Gray">Platby prémium účtov na servery Rewiz.Eu zabezpečuje <a href="https://www.gopay.com/cs">GoPay.Com</a></font></p>			
+
+        </div><!-- col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- row -->
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+    <style>
+        .premium{
+            font-family: Titillium Web;
+            font-size: 14px;
+            font-weight: 300;    
+            color: #30414a;
+        }
+        .premium .blue{
+            color: #268ec3;    
+        }
+        .btnpremium{
+            width: 62px;
+            height: 62px;
+            background-color: #0d1113;
+            border-radius: 5px 0 0 5px;
+            color: #268ec3;
+            font-size: 18px;
+            line-height: 62px;
+            font-weight: 400;
+            display: inline-block;
+            text-align: center;
+
+        }
+        .btn.btn-premium{
+            border-radius: 0px 5px 5px 0px;  
+        }
+        .btn-premium{
+            width: 161px;
+            height: 62px;
+            background-color: #111619;
+            color: #2e3f48;
+            font-family: Titillium Web;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            padding: 0px;
+            margin-top: -5px;
+        }
+        .btn-premium:hover,
+        .btn-premium:focus{
+            color: #268ec3; 
+        }
+    </style>
+{/block}

@@ -1,0 +1,87 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Liga</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="Hltv:default">Liga</a>
+            </li>
+            <li class="active">
+                <strong>Zoznam Líg</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {$flash->message}
+        </div>
+    </div><!-- col-12-->
+</div><!-- row -->
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Ligy</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        <a class="close-link"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                <table class="table table-hover">
+                    <thead>
+                        <th><i class="fa fa-flag" aria-hidden="true"></i></th>
+                        <th>Název hry</i></th>
+                        <th>Název ligy</th>
+                        <th>Od</th>
+                        <th>Do</th>
+                        <th>Nastavení</th>
+                    </thead>
+                    <tbody>
+                    <tr n:foreach="$leagues as $data">
+                        <td>{$data->id}</td>
+                        <td>{$data->game} </td>
+                        <td>{$data->name}</td>
+                        <td>{$data->start_date|date:'j.n.Y'}</td>
+                        <td>{$data->end_date|date:'j.n.Y'}</td>
+                        <td><a n:href="League:manage, $data->id">Administrace</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                </div><!-- ibox-content -->
+            </div><!-- ibox  -->
+        </div><!-- col-6 -->
+
+    </div><!-- row -->
+
+</div><!-- wrapper -->
+
+{/block}
+
+{block scripts}
+{include parent}
+
+{/block}
+
+
+{block head}
+    <link href="{$basePath}/css/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet">
+{/block}

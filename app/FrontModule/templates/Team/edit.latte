@@ -1,0 +1,167 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content user-edit m-b-xl">
+            <div class="row text-center space-15">
+                <div class="col-lg-12"><h2>UPRAVIŤ PROFIL <b>TÍMU</b></h2></div>
+            </div>
+            <div class="row text-center space-15">
+                <div class="col-lg-12">
+                    <p>Vyplnte všetky potrebné informácie pre úplnosť profilu tímu</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 space-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-info-circle"></i>
+                            <h3>Pridaj základné informácie</h3>
+                        </div>
+
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Názov tímu</div>
+                                <div class="col-sm-9 text-left"><input type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Tag</div>
+                                <div class="col-sm-9 text-left"><input type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Krajina</div>
+                                <div class="col-sm-9 text-left"><input type="text"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">E-mail</div>
+                                <div class="col-sm-9 text-left"><input type="text"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row">
+                <div class="col-lg-12 space-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-upload"></i>
+                            <h3>Nahraj tímove logo</h3>
+                        </div>
+                        <div class="panel-body p-w-xs">
+                            <div class="row">
+                                <div class="col-sm-4 user-title text-left">
+                                    <div class="block grey"><strong>Pridajte svoje logo</strong></div>
+                                    <div class="block grey">Maximálne rozlíšenie loga je 150x150 px</div>
+
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <div class="fileUpload btn btn-grey m-n">
+                                        <span><i class="fa fa-cloud-upload m-r-sm"></i>Nahrát fotku</span>
+                                        <input type="file" class="upload">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            {*        <div class="row">
+                        <div class="col-lg-12 space-10">
+                            <div class="panel panel-default">
+                                <div class="panel-heading text-left">
+                                    <i aria-hidden="true" class="fa fa-globe"></i>
+                                    <h3>Pridaj socialne siete</h3>
+                                </div>
+                                <div class="panel-body p-w-xs">
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Facebook</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Twitter</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Twitch</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Instagaram</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Youtube</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- row -->*}
+
+            <div class="row">
+                <div class="col-lg-12 space-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-diamond""></i>
+                            <h3>Zmena hesla</h3>
+                        </div>
+                        <div class="panel-body p-w-xs">
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Aktuálne heslo</div>
+                                <div class="col-sm-9 text-left"><input type="password"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Nové heslo</div>
+                                <div class="col-sm-9 text-left"><input type="password"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Zopakovať heslo</div>
+                                <div class="col-sm-9 text-left"><input type="password"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+
+
+            <div class="row">
+                <div class="col-sm-12 space-15  text-center">
+                <input type="submit" class="btn btn-blue" value="Aktualizovať profil">
+                </div>
+            </div>
+
+
+
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+    <style>
+        .btn-blue{
+            color: white !important;
+        }
+    </style>
+{/block}

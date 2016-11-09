@@ -1,0 +1,54 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content text-center login league m-b-xl">
+        <div class="row">
+            <div class="col-lg-12"><h6>LOGÁ &amp; <strong>BANNERY</strong></h6></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 m-b-xl"><p>Umiestnením nášho loga alebo banneru na Váš web podporíte tento projekt</p></div>
+        </div>
+
+        <div class="row banery">
+            <div class="col-lg-12 m-sm ">
+                <div class="m-b"><a href="#"><img src="http://lorempixel.com/468/60/" alt="banner_468x60"></a></div>
+                <textarea class="m-b-xl"><a href="http://rewiz.eu" target="blank"><img src="http://www.rewiz.eu/img/468x60banner.png" alt="banner_468x60"></a></textarea>
+            </div>
+            <div class="col-lg-12 m-sm">
+                <div class="m-b"><a href="#"><img src="http://lorempixel.com/293/88/" alt="banner_293x88"></a></div>
+                <textarea class="m-b-xl"><a href="http://rewiz.eu" target="blank"><img src="http://www.rewiz.eu/img/293x88banner.png" alt="banner_293x88"></a></textarea>
+            </div>
+            <div class="col-lg-12 m-sm">
+                <div class="m-b"><a href="#"><img src="http://lorempixel.com/250/45/" alt="banner_250x45"></a></div>
+                <textarea class="m-b-xl"><a href="http://rewiz.eu" target="blank"><img src="http://www.rewiz.eu/img/250x45banner.png" alt="banner_250x45"></a></textarea>
+            </div>
+            <div class="col-lg-12 m-sm">
+                <div class="m-b"><a href="#"><img src="http://lorempixel.com/88/31/" alt="banner_88x31"></a></div>
+                <textarea class="m-b-xl"><a href="http://rewiz.eu" target="blank"><img src="http://www.rewiz.eu/img/88x31banner.png" alt="banner_88x31"></a></textarea>
+            </div>
+        </div>   
+
+
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

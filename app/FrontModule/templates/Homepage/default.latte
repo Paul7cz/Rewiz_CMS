@@ -1,0 +1,365 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+{block content}
+{dump $news}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+        <div n:foreach="$news as $data" class="item {if $iterator->isFirst()}active{/if}">
+            <img src="{$basePath}/img/slider/{$data->image}">
+            <div class="carousel-caption activ">
+                <div class="row">
+                    <div class="col-sm-10 text14 m-t-xs"><b>></b> {$data->title}
+                    </div>
+                    <div class="com-sm-2 text-right m-r"><a class="btn btn-success no-borders no-boder-radius" href="news/default/{$data->id}">Čitaj
+                            viac</a></div>
+                </div>
+            </div>
+        </div><!-- End Item -->
+
+    </div><!-- End Carousel Inner -->
+
+    <ul class="list-group col-sm-5 no-padding">
+        <li n:foreach="$news as $data" data-target="#myCarousel" data-slide-to="{$iterator->getCounter()-1}" class="list-group-item {if $iterator->isFirst()}active{/if}">
+            <div class="row">
+                <div class="col-sm-6" style="height:auto;">{$data->title}</div>
+                <div class="col-sm-3 m-t"><i class="fa fa-calendar m-r-sm" aria-hidden="true"></i>{$data->date|date:'j.n.Y'}</div>
+                <div class="col-sm-3 m-t"><i class="fa fa-bars m-r-sm" aria-hidden="true"></i>{$data->news_category->name}</div>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Controls -->
+    <div class="carousel-controls">
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+
+</div><!-- End Carousel -->
+    <div class="row m-t">
+        <div class="col-lg-6" style="padding-left: 15px; padding-right: 2px;">
+            <div class="panel panel-default server-status">
+                <div class="panel-heading">
+                    <i aria-hidden="true" class="fa fa-bars"></i>
+                    <h3>Zoznam našich serveroch</h3>
+                </div>
+                <div class="panel-body scroll_content2">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr n:foreach="$servers as $data">
+                            <td><img alt="cs:go icon" src="{$basePath}/img/games_icon/{$data->games->img}"></td>
+                            <td>{$data->name}</td>
+                            <td>{$data->ip}</td>
+                            {if $data->password == NULL}
+                                <td>bez hesla</td>
+                            {else}
+                                <td>{$data->password}</td>
+                            {/if}
+                            <td><a href="steam://connect/{$data->ip}"><i aria-hidden="true" class="fa fa-steam m-r-xs"></i> Pripojiť</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" style="padding-left: 2px; padding-right: 15px;">
+            <div class="panel panel-default league-list">
+                <div class="panel-heading">
+                    <i aria-hidden="true" class="fa fa-gamepad"></i>
+                    <h3>Zoznam hernách líg</h3>
+                </div>
+                <div class="panel-body no-padding scroll_content ">
+                    <div class="panel-group">
+                      <div class="panel panel-default">
+                        <div class="panel-heading no-border">
+                          <h4 class="panel-title no-padding">
+                            <a data-toggle="collapse" href="#collapse1">
+                                <img src="{$basePath}/img/panel/lol.png" alt="lol baner">
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                          <div class="panel-body no-padding">
+                            <div class="panel-group" id="accordion" n:foreach="$lol as $data">
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#lol-{$iterator->counter}">
+                                                {$data->name}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="lol-{$iterator->counter}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul class="unstyled flot-left">
+                                                <li><a n:href="League:ladder $data->id">-Tabuĺky</a></li>
+                                                <li><a n:href="League: $data->id">-Informace</a></li>
+                                                <li><a n:href="League:rules $data->id">-Pravidla</a></li>
+                                            </ul>
+                                            <ul class="unstyled">
+                                                <li><a n:href="League:contestants $data->id">-Zoznam teamov</a></li>
+                                                <li><a n:href="Team:registration">-Vytvoriť tím</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="panel-group">
+                      <div class="panel panel-default">
+                        <div class="panel-heading no-border">
+                          <h4 class="panel-title no-padding">
+                            <a data-toggle="collapse" href="#collapse2">
+                                <img src="{$basePath}/img/panel/csgo.png" alt="csgo baner">
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                          <div class="panel-body no-padding">
+                            <div class="panel-group" id="accordion" n:foreach="$csgo as $data">
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#csgo-{$iterator->counter}">
+                                                {$data->name}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="csgo-{$iterator->counter}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul class="unstyled flot-left">
+                                                <li><a n:href="League:ladder $data->id">-Tabuĺky</a></li>
+                                                <li><a n:href="League: $data->id">-Informace</a></li>
+                                                <li><a n:href="League:rules $data->id">-Pravidla</a></li>
+                                            </ul>
+                                            <ul class="unstyled">
+                                                <li><a n:href="League:contestants $data->id">-Zoznam teamov</a></li>
+                                                <li><a n:href="Team:registration">-Vytvoriť tím</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="panel-group">
+                      <div class="panel panel-default">
+                        <div class="panel-heading no-border">
+                          <h4 class="panel-title no-padding">
+                            <a data-toggle="collapse" href="#collapse3">
+                                <img src="{$basePath}/img/panel/dota2.png" alt="dota2 baner">
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                          <div class="panel-body no-padding">
+                            <div class="panel-group" id="accordion" n:foreach="$dota as $data">
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#dota-{$iterator->counter}">
+                                                {$data->name}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="dota-{$iterator->counter}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul class="unstyled flot-left">
+                                                <li><a n:href="League:ladder $data->id">-Tabuĺky</a></li>
+                                                <li><a n:href="League: $data->id">-Informace</a></li>
+                                                <li><a n:href="League:rules $data->id">-Pravidla</a></li>
+                                            </ul>
+                                            <ul class="unstyled">
+                                                <li><a n:href="League:contestants $data->id">-Zoznam teamov</a></li>
+                                                <li><a n:href="Team:registration">-Vytvoriť tím</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="panel-group">
+                      <div class="panel panel-default">
+                        <div class="panel-heading no-border">
+                          <h4 class="panel-title no-padding">
+                            <a data-toggle="collapse" href="#collapse4">
+                                <img src="{$basePath}/img/panel/hs.png" alt="lol baner">
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse">
+                          <div class="panel-body no-padding">
+                            <div class="panel-group" id="accordion" n:foreach="$hs as $data">
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#hs-{$iterator->counter}">
+                                                {$data->name}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="hs-{$iterator->counter}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul class="unstyled flot-left">
+                                                <li><a n:href="League:ladder $data->id">-Tabuĺky</a></li>
+                                                <li><a n:href="League: $data->id">-Informace</a></li>
+                                                <li><a n:href="League:rules $data->id">-Pravidla</a></li>
+                                            </ul>
+                                            <ul class="unstyled">
+                                                <li><a n:href="League:contestants $data->id">-Zoznam teamov</a></li>
+                                                <li><a n:href="Team:registration">-Vytvoriť tím</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+
+    <div class="row">
+        <div class="col-sm-8" style="padding-left: 15px; padding-right: 0px;">
+            <div class="col-lg-12 m-b" style="padding-left: 0px; padding-right: 3px;">
+                <a href="#"><img async style="width: 100%;" src="../img/premium.png" alt="vip"></a>
+            </div>
+
+            <div class="col-lg-12" style="padding-left: 0px; padding-right: 3px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i aria-hidden="true" class="fa fa-align-left""></i>
+                        <h3>Posledné pridané témy fóra</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row s-m" n:foreach="$forum as $data">
+                            <div class="col-sm-12 forum_preview ">
+                               <div class="icon active"><i class="fa fa-comments"></i></div>
+                               <div class="inline m-l-sm">
+                                   <a class="forum_title" n:href="Forum:detail, $data->id">{$data->name}</a><br>
+                                   <a class="forum_cat">{$data->ref('forum_sub_category', 'sub_category_id')->name}</a>
+                               </div>
+                                <a class="fright p-w-lg m-t-sm" n:href="Forum:detail, $data->id"><i
+                                            class="fa fa-commenting m-r-xs"> Reagovať</i></a>
+                                <a class="fright m-t-sm" n:href="User:profile, $data->ref('users', 'user_id')->id"><i
+                                            class="fa fa-user m-r-xs"></i> {$data->ref('users', 'user_id')->username}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        <div class="col-sm-4 no-padding">
+        {control panels:tournament}
+        </div>
+    </div>
+    <div class="row m-b-md">
+        <!-- Just clerfix -->
+    </div>
+
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <script src="{$basePath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // Add slimscroll to element
+            $('.scroll_content').slimscroll({
+                height: '265px',
+                color: '#268ec3',
+                size: '0.5em',
+                railVisible: true,
+                alwaysVisible: true
+            })
+            $('.scroll_content2').slimscroll({
+                height: '265px',
+                color: '#268ec3',
+                size: '0.5em',
+                railVisible: false,
+                alwaysVisible: true
+            })
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            var clickEvent = false;
+            $('#myCarousel').carousel({
+                interval: 4000
+            }).on('click', '.list-group li', function () {
+                clickEvent = true;
+                $('.list-group li').removeClass('active');
+                $(this).addClass('active');
+            }).on('slid.bs.carousel', function (e) {
+                if (!clickEvent) {
+                    var count = $('.list-group').children().length - 1;
+                    var current = $('.list-group li.active');
+                    current.removeClass('active').next().addClass('active');
+                    var id = parseInt(current.data('slide-to'));
+                    if (count == id) {
+                        $('.list-group li').first().addClass('active');
+                    }
+                }
+                clickEvent = false;
+            });
+        })
+
+        $(window).load(function () {
+            var boxheight = $('#myCarousel .carousel-inner').innerHeight();
+            var itemlength = $('#myCarousel .item').length;
+            var triggerheight = Math.round(boxheight / itemlength - 4);
+            $('#myCarousel .list-group-item').outerHeight(triggerheight);
+        });
+
+    </script>
+{/block}
+
+
+{block head}
+    <!--Head-->
+    <style>
+        .league-list .panel-group{
+        margin-bottom: 1px;
+        }
+        .no-border{
+            border: none !important;
+        }
+    </style>
+
+{/block}

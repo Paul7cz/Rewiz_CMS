@@ -1,0 +1,227 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content user-edit m-b-xl">
+            <div class="row text-center space-15">
+
+      			<div class="col-lg-12"><h2>UPRAVIŤ PROFIL</h2></div>
+            </div>
+            <div class="row text-center space-15">
+                <div class="col-lg-12">
+                    <p>Vyplňte všetky potrebné informácie pre úplnosť Vášho profilu.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 space-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-info-circle"></i>
+                            <h3>Pridaj základné informácie</h3> <a class="list" href="/helpus/rules">Pravidlá portálu Rewiz.Eu</a>
+                        </div>
+                        {form edit}
+                        <div class="col-lg-8 col-lg-offset-2" style="margin-top: 10px" n:if="$form->hasErrors()">
+                            <div class="alert alert-danger">
+                                <li n:foreach="$form->errors as $error">{$error}</li>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Meno &amp; Priezvisko</div>
+                                <div class="col-sm-9 text-left">{input full_name}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Nick</div>
+                                <div class="col-sm-9 text-left">{input username}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Pohlavie</div>
+                                <div class="col-sm-9 text-left">{input gender}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Rok narodenia</div>
+                                <div class="col-sm-9 text-left">{input birthyear}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Krajina</div>
+                                <div class="col-sm-9 text-left">{input state}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">E-mail</div>
+                                <div class="col-sm-9 text-left">{input email}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row">
+                <div class="col-lg-12 space-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-info-circle"></i>
+                            <h3>Pridaj osobné informácie</h3> <a class="list" href="/helpus/osrules">Pravidlá ochrany osobných údajov</a>
+                        </div>
+
+                        <div class="col-lg-8 col-lg-offset-2" style="margin-top: 10px" n:if="$form->hasErrors()">
+                            <div class="alert alert-danger">
+                                
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Město</div>
+                                <div class="col-sm-9 text-left">{input city}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Ulice</div>
+                                <div class="col-sm-9 text-left">{input street}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Číslo popisné</div>
+                                <div class="col-sm-9 text-left">{input street_number}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Směrovací číslo</div>
+                                <div class="col-sm-9 text-left">{input psc}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Telefon</div>
+                                <div class="col-sm-9 text-left">{input tel}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row">
+                <div class="col-lg-12 space-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-upload"></i>
+                            <h3>Pridaj obrázok svojho profilu</h3>
+                        </div>
+                        <div class="panel-body p-w-xs">
+                            <div class="row">
+                                <div class="col-sm-4 user-title text-left">
+                                    <div class="block grey"><strong>Pridajte svoj obrázok</strong></div>
+                                    <div class="block grey">Max. rozlíšenie obrázka je 256x256 px</div>
+
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <div class="fileUpload btn btn-grey m-n">
+                                        <span><i class="fa fa-cloud-upload m-r-sm"></i>Nahrát fotku</span>
+                                        {input avatar, class=>'upload'}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            {*        <div class="row">
+                        <div class="col-lg-12 space-10">
+                            <div class="panel panel-default">
+                                <div class="panel-heading text-left">
+                                    <i aria-hidden="true" class="fa fa-globe"></i>
+                                    <h3>Pridaj socialne siete</h3>
+                                </div>
+                                <div class="panel-body p-w-xs">
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Facebook</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Twitter</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Twitch</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Instagaram</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 user-title text-center">Youtube</div>
+                                        <div class="col-sm-9 text-left"><input type="text" placeholder="Pridaj"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- row -->*}
+
+            <div class="row">
+                <div class="col-lg-12 space-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-diamond""></i>
+                            <h3>Pridaj herné účty</h3>
+                        </div>
+                        <div class="panel-body p-w-xs">
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">CS: Global offensive</div>
+                                <div class="col-sm-9 text-left">{input csgo_sid}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Dota 2</div>
+                                <div class="col-sm-9 text-left">{input dota2_nick}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">League of Legends</div>
+                                <div class="col-sm-9 text-left">{input lol_nick}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title text-center">Hearthstone</div>
+                                <div class="col-sm-9 text-left">{input hs_nick}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row">		
+                <div class="col-lg-12 space-10 text-left">Súhlasím zo spracovaním osobných údajov podľa zákona Slovenskej Republiky č. 122/2013 Z.z. Zákon o ochrane osobných údajov a o zmene a doplnení niektorých zákonov v znení č. 84/2014 Z. z. (ďalej len „<a href="http://rewiz.eu/zakon.pdf">Zákon</a>“). Tak ako zákon, pravidlá ochrany osobných údajov (ďalej len "<a href="/helpus/osrules">OS pravidlá</a>") a pravidlá portálu Rewiz (ďalej len "<a href="/helpus/rules">Pravidlá</a>") som si prečítal, rozumiem im, akceptujem ich a budem sa nimi riadiť!</div>
+            </div>
+				
+            <div class="row">
+                <div class="col-sm-12 space-15  text-right">
+                    {input submit, class=>'btn btn-blue'}
+                </div>
+            </div>
+
+            <div class="row m-b">
+                <div class="col-sm-12 text-right">
+                    <a class="resetpw" href="{$basePath}/user/editpw">Zmena hesla</a>
+                </div>
+            </div>
+
+            
+            {/form}
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

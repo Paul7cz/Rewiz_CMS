@@ -1,0 +1,369 @@
+{**
+* @param string $basepath web base path
+* @param array  $flashes  flash messages
+*}
+
+{block content}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Reklama</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domů</a>
+                </li>
+                <li>
+                    <a n:href="Tournament:default">Reklama</a>
+                </li>
+                <li class="active">
+                    <strong>Přehled</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+
+            <div class="col-lg-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Reklama</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> 
+                            <a class="close-link"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Banner header</label>
+                            <div class="col-sm-5"><input type="file" id="fileUpload" class="form-control"></div>
+                            <div class="col-sm-5">
+                                <div id="image-holder"></div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button class="btn btn-white" type="submit">Zrušit</button>
+                                <button class="btn btn-primary" type="submit">Uložit banner</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Reklama přehled</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> 
+                            <a class="close-link"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    <table class="table table-condensed">
+                    	<thead>
+                    		<tr>
+                    			<th>Náhled</th>
+                    			<th>Akce</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    	</tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-lg-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Reklama</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> 
+                            <a class="close-link"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Baner panel</label>
+                            <div class="col-sm-5"><input type="file" id="fileUpload2" class="form-control"></div>
+                            <div class="col-sm-5">
+                                <div id="image-holder2"></div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button class="btn btn-white" type="submit">Zrušit</button>
+                                <button class="btn btn-primary" type="submit">Uložit banner</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Reklama přehled</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> 
+                            <a class="close-link"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    <table class="table table-condensed">
+                    	<thead>
+                    		<tr>
+                    			<th>Náhled</th>
+                    			<th>Akce</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    	</tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Reklama</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> 
+                            <a class="close-link"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Banner footer</label>
+                            <div class="col-sm-5"><input type="file" id="fileUpload3" class="form-control"></div>
+                            <div class="col-sm-5">
+                                <div id="image-holder3"></div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button class="btn btn-white" type="submit">Zrušit</button>
+                                <button class="btn btn-primary" type="submit">Uložit banner</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Reklama přehled</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> 
+                            <a class="close-link"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    <table class="table table-condensed">
+                    	<thead>
+                    		<tr>
+                    			<th>Náhled</th>
+                    			<th>Akce</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    		<tr>
+                    			<td><a href="#" data-toggle="modal" data-target="#image-gallery">Náhled</a></td>
+                    			<td><a href="#"><i class="fa fa-trash"></i></a></td>
+                    		</tr>
+                    	</tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+		
+		<!-- Modol picture -->
+		<div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+		                <h4 class="modal-title" id="image-gallery-title"></h4>
+		            </div>
+		            <div class="modal-body text-center">
+		                <img src="http://dev.rewiz.eu/img/logo_partner.png">
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+    </div>
+{/block}
+
+{block scripts}
+
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <script>
+    $(document).ready(function() {
+            $("#fileUpload").on('change', function() {
+              //Get count of selected files
+              var countFiles = $(this)[0].files.length;
+              var imgPath = $(this)[0].value;
+              var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+              var image_holder = $("#image-holder");
+              image_holder.empty();
+              if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                if (typeof(FileReader) != "undefined") {
+                  //loop for each file selected for uploaded.
+                  for (var i = 0; i < countFiles; i++) 
+                  {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                      $("<img />", {
+                        "src": e.target.result,
+                        "class": "thumb-image"
+                      }).appendTo(image_holder);
+                    }
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                  }
+                } else {
+                  alert("This browser does not support FileReader.");
+                }
+              } else {
+                alert("Prosím zvolte pouze obrázek!");
+              }
+            });
+            $("#fileUpload2").on('change', function() {
+              //Get count of selected files
+              var countFiles = $(this)[0].files.length;
+              var imgPath = $(this)[0].value;
+              var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+              var image_holder = $("#image-holder2");
+              image_holder.empty();
+              if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                if (typeof(FileReader) != "undefined") {
+                  //loop for each file selected for uploaded.
+                  for (var i = 0; i < countFiles; i++) 
+                  {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                      $("<img />", {
+                        "src": e.target.result,
+                        "class": "thumb-image"
+                      }).appendTo(image_holder);
+                    }
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                  }
+                } else {
+                  alert("This browser does not support FileReader.");
+                }
+              } else {
+                alert("Prosím zvolte pouze obrázek!");
+              }
+            });
+            $("#fileUpload3").on('change', function() {
+              //Get count of selected files
+              var countFiles = $(this)[0].files.length;
+              var imgPath = $(this)[0].value;
+              var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+              var image_holder = $("#image-holder3");
+              image_holder.empty();
+              if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                if (typeof(FileReader) != "undefined") {
+                  //loop for each file selected for uploaded.
+                  for (var i = 0; i < countFiles; i++) 
+                  {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                      $("<img />", {
+                        "src": e.target.result,
+                        "class": "thumb-image"
+                      }).appendTo(image_holder);
+                    }
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                  }
+                } else {
+                  alert("This browser does not support FileReader.");
+                }
+              } else {
+                alert("Prosím zvolte pouze obrázek!");
+              }
+            });
+          });
+    </script>
+{/block}
+
+{block head}
+    <!--Head-->
+    <style>
+        #image-holder img{
+            max-width: 360px;
+            max-height: 125px;
+        }
+        #image-holder2 img{
+            max-width: 210px;
+            max-height: 130px;
+        }
+        #image-holder3 img{
+            max-width: 350px;
+            max-height: 290px;
+        }
+    </style>
+{/block}

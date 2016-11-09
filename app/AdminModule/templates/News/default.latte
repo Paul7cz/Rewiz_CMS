@@ -1,0 +1,91 @@
+{**
+* @param string $basepath web base path
+* @param array  $flashes  flash messages
+*}
+
+{dump $news}
+
+{block content}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Přehled novinek</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="News:default">Novinky</a>
+            </li>
+            <li class="active">
+                <strong>Přehled novinek</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row ">
+        <div class="col-sm-12">
+            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                {$flash->message}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Přehled novinek</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i class=
+                                                                                                                       "fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Název</th>
+                                <th>Autor</th>
+                                <th>Kategoria</th>
+                                <th>Dátum</th>
+                                <th>Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$news as $data">
+                                <td>{$data->title}</td>
+                                <td><a n:href="Users:Detail $data->users->id">{$data->users->username}</a></td>
+                                <td>{$data->news_category->name}</td>
+                                <td>{$data->date}</td>
+                                <td>
+                                    <a n:href="News:Edit $data->id" title="editovat"><i aria-hidden="true"
+                                                                                        class="fa fa-pencil text-navy"></i></a>&nbsp;
+                                    <a href="newsdelete/{$data->id}"
+                                       onClick="return confirm('Naozaj chcete zmazať túto novinku ?')"><i
+                                            aria-hidden="true" class="fa fa-trash text-navy"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block scripts}
+<!--Scripts-->
+{include parent}
+<!--Include parents scripts-->
+{/block}
+
+{block head}
+<!--Head-->
+{/block}

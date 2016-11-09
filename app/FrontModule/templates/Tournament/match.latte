@@ -1,0 +1,692 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+{dump $match}
+{dump $league}
+{dump $logs}
+<div class="row" style="margin-left: 0px;">
+    <div class="col-lg-8 content m-b-xl">
+
+        <header class="match_bg">
+            <div class="row match-title">
+                <div class="col-sm-6 text-left">
+                    {$league->ref('leagues', 'leagues_id')->name}
+                </div>
+                <div class="col-sm-6 text-right">
+                    {$match->time|date:'j.n.Y'} <i
+                        class="fa fa-clock-o m-l-md m-r-xs"></i> {$match->time|date:'H:i'}
+
+                </div>
+            </div><!-- row -->
+
+            <div class="row">
+                <div class="match_header">
+                    <div class="fleft"><img
+                            src="{$basePath}/img/logo/{$match->ref('league_team', 'team1_id')->logo}"
+                            alt="logo1">
+                        <h3>{$match->ref('league_team', 'team1_id')->name}</h3></div>
+                    <div class="match_score fleft">
+                        {if $match->status == 'new'}
+                            <div class="block live">LIVE</div>
+                        {/if}
+                        <div class="block vs">VS</div>
+                        <div class="block">
+                            {if $match->status == 'new'}
+                                <span class="won">?</span>
+                                <span class="lost">?</span>
+                            {else}
+                                <span class="won">{$match->score1}</span>
+                                <span class="lost">{$match->score2}</span>
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="fright"><img
+                            src="{$basePath}/img/logo/{$match->ref('league_team', 'team2_id')->logo}"
+                            alt="logo2">
+                        <h3>{$match->ref('league_team', 'team2_id')->name}</h3></div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row match-info">
+                <div class="col-sm-12 text-center">
+                    {if $match->status == 'new'}
+                        <span>ZÁPAS PREBIEHA</span>
+                    {else}
+                        <span>ZÁPAS SKONČIL</span>
+                    {/if}
+                </div>
+            </div><!-- row -->
+        </header>
+
+        <div class="panel panel-default">
+            <div class="panel__heading"><i class="fa fa-info-circle"></i>Informácie o zápase</div>
+            <div class="panel__body">
+                <div class="row row__line">
+                    <div class="col-sm-2 text-center text-blue">Liga</div>
+                    <div class="col-sm-9 text-left cara">{$league->ref('leagues', 'leagues_id')->name}
+                    </div>
+                </div>
+                <div class="row row__line">
+                    <div class="col-sm-2 text-center text-blue">Turnaj</div>
+                    <div class="col-sm-9 text-left cara">{$match->ref('league_tournament', 'tournament_id')->name}
+                    </div>
+                </div>
+                <div class="row row__line">
+                    <div class="col-sm-2 text-center text-blue">Čas zápasu</div>
+                    <div class="col-sm-9 text-left cara">{$match->time|date:'j.n.Y H:i:s'}</div>
+                </div>
+                <div class="row row__line">
+                    <div class="col-sm-2 text-center text-blue">Mapy</div>
+                    <div class="col-sm-9 text-left cara">???</div>
+                </div>
+                <div class="row row__line">
+                    <div class="col-sm-2 text-center text-blue">Server</div>
+                    <div class="col-sm-9 text-left cara">???</div>
+                </div>
+                <div class="row row__line">
+                    <div class="col-sm-2 text-center text-blue">Stav zápasu</div>
+                    {if $match->status == 'new'}
+                        <div class="col-sm-9 text-left cara">Prebieha</div>
+                    {else}
+                        <div class="col-sm-9 text-left cara red">Ukončený</div>
+                    {/if}
+                </div>
+            </div>
+        </div><!-- panel end-->
+        <div class="row">
+            <div class="col-sm-6" style="padding-right: 5px;">  
+                <div class="panel panel-default">
+                    <div class="panel__heading"><i class="fa fa-picture-o""></i>Screenshoty z hry</div>
+                    <div class="panel__body scroll_content">
+                        <div class="row screanshots" style="margin: 0px;">
+                            <div class="col-sm-4 no-padding text-center" n:foreach="$screenshots as $s">
+                                <a href="{$basePath}/img/screenshot/{$s->img}"><img src="{$basePath}/img/screenshot/thumbs/{$s->img}" alt="IMG"></a>
+                            </div>
+                            {if empty($screenshots)} Žádné screenshoty {/if}
+                        </div>
+                    </div>
+                </div><!-- panel end-->
+            </div>
+            <div class="col-sm-6" style="padding-left: 5px;">  
+                <div class="panel panel-default">
+                    <div class="panel__heading"><i class="fa fa-file-video-o""></i>Demá z hry</div>
+                    <div class="panel__body scroll_content no-padding">
+                        <div class="row demo" n:foreach="$demos as $d" style="margin: 0px;">
+                            <div class="col-sm-5">Názov dema</div>
+                            <div class="col-sm-4"><i class="fa fa-clock-o m-r-xs"></i>{$d->time|date:'%d.%m.%Y'}</div>
+                            <div class="col-sm-3"><a href="{$d->demo_url}"><i class="fa fa-play-circle m-r"></i></a> <a href="#"><i class="fa fa-cloud-download"></i></a></div>
+                        </div>
+                        {if empty($demos)} Žádné dema {/if}
+                    </div>
+                </div><!-- panel end-->
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel__heading"><i class="fa fa-file-text-o"></i>Protesty / Žiadosti</div>
+            <div class="panel__body">
+                <div class="protest row">  
+                    {foreach $reports as $report}
+                        <div class="head">
+                            {if $report->type == 1}
+                                <font color="Green">Žiádosť</font>
+                            {elseif $report->type == 2}
+                                <font color="Red">Protest</font>
+                            {/if}
+                            <a href="/uzivatel/{$report->user_id}"><i class="fa fa-star m-r-xs"></i> <span data-user="{$report->id}">Dominik “Gavrilo” Gavrecký</span></a>
+                            <span class="pull-right"><i class="fa fa-clock-o m-r-xs"></i>{$report->time|date:'%d.%m.%Y'}</span></div>
+                        <div class="body" data-content="{$report->id}">{$report->content}</div>
+                        <div class="foot pull-right">
+                            <a href="javascript:void(0);" data-reply="{$report->id}"><i class="fa fa-retweet m-r-xs"></i>Odpovedať</a>
+                            <a href="#"><i class="fa fa-pencil m-r-xs"></i>Upraviť</a>
+                            <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>
+                        </div>
+                        {sep}<br><br>{/sep}
+                    {/foreach}
+                    {if empty($reports)} Žádné protesty/žádosti {/if}
+                </div>
+            </div>
+        </div><!-- panel end-->
+
+        <div class="panel panel-default">
+            <div class="panel__heading"><i class="fa fa-stack-exchange"></i>Log zápasu</div>
+            <div class="panel__body">
+                <div class="row row__line" n:foreach="$logs as $data">
+                    <div class="col-sm-5 col-sm-offset-1 text-left">{$data->content}</div>
+                    <div class="col-sm-3 text-center"><i
+                            class="fa fa-clock-o m-r-xs"></i> {$data->date|date:"j.n.Y H:i:s"}</div>
+                    <div class="col-sm-3 text-center"><i
+                            class="fa fa-user m-r-xs"></i>{$data->ref('users', 'user_id')->username}</div>
+                </div>
+                {if empty($logs)} Žádné logy {/if}
+            </div>
+        </div><!-- panel end-->
+
+    </div><!-- col-8 -->
+
+    <div class="col-sm-4 no-padding">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i aria-hidden="true" class="fa fa-cogs"></i>
+                    <h3>Uživateľské nastavenia</h3>
+                </div>
+                <div class="panel-body match">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapse1">
+                                        Zadať skóre
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse">
+                                <div class="panel-body no-padding">
+                                    <div class="score">
+                                        <div class="fleft"><img class="logo" src="/img/nightmare.png" alt="logo">
+                                            <span class="team_title">NIGHTMARE</span></div>                
+                                        <div class="vs">VS</div>
+                                        <div class="fright"><img class="logo" src="/img/furios.png" alt="logo">
+                                            <span class="team_title">FURIOUS G.</span></div> 
+                                    </div>
+                                    {form newScore}
+                                        <ul class="errors" n:if="$form->hasErrors()">
+                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                        </ul>
+                                        <div class="col-sm-6 no-padding">
+                                            {input score1, class => "touchspin1"}
+                                        </div>
+                                        <div class="col-sm-6 no-padding">
+                                            {input score2, class => "touchspin1"}
+                                        </div>
+                                        <div class="col-sm-12 p-xs text-right">
+                                            {input submit, class => "btn btn-admin"}
+                                        </div> 
+                                    {/form}                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapse2">
+                                        Podať žiadosť
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    {form newRequest, class => "form-horizontal"}
+                                        <ul class="errors" n:if="$form->hasErrors()">
+                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                        </ul>
+                                        <div class="col-sm-12">
+                                            {input content, class => "form-control"}
+                                        </div>
+                                        <div class="col-sm-12 m-t-sm">
+                                            {input submit, class => "btn btn-admin pull-right"}
+                                        </div>
+                                    {/form}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapse3">
+                                        Podať protest
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    {form newComplaint, class => "form-horizontal"}
+                                        <ul class="errors" n:if="$form->hasErrors()">
+                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                        </ul>
+                                        <div class="col-sm-12">
+                                            {input content, class => "form-control"}
+                                        </div>
+                                        <div class="col-sm-12 m-t-sm">
+                                            {input submit, class => "btn btn-admin pull-right"}
+                                        </div>
+                                    {/form}                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapse4">
+                                        Nahrať screenshot
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    {form newScreenshots, class => "form-horizontal"}
+                                        <ul class="errors" n:if="$form->hasErrors()">
+                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                        </ul>
+                                        <div class="col-sm-12 no-padding">
+                                            {input img}
+                                            <p class="help-block">Maximální počet obrázku pro hromadný upload : 2</p>
+                                            {input submit, class => "btn btn-admin pull-right m-t-sm"}
+                                        </div>  
+                                    {/form} 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapse5">
+                                        Nahrať demo
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body no-padding"> 
+                                    {form newDemo, class => "form-horizontal"}
+                                        <ul class="errors" n:if="$form->hasErrors()">
+                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                        </ul>
+                                        <div class="col-sm-12 m-t-sm">
+                                            {input demo_url, class => "form-control"}
+                                        </div>
+                                        <div class="col-sm-12 m-t-sm">
+                                            {input submit, class => "btn btn-admin pull-right"}
+                                        </div>
+                                    {/form}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i aria-hidden="true" class="fa fa-cogs"></i>
+                    <h3>Administrátorské nastavenia</h3>
+                </div>
+                <div class="panel-body match">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default detail">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse"
+                                       data-parent="#accordion" href="#collapse10">
+                                        Zadať skóre
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse10" class="panel-collapse collapse in">
+                                <div class="panel-body no-padding">
+                                    <div class="score">
+                                        <div class="fleft"><img class="logo" src="/img/nightmare.png" alt="logo">
+                                            <span class="team_title">NIGHTMARE</span></div>                
+                                        <div class="vs">VS</div>
+                                        <div class="fright"><img class="logo" src="/img/furios.png" alt="logo">
+                                            <span class="team_title">FURIOUS G.</span></div> 
+                                    </div>
+                                    {form adminScore}
+                                        <div class="col-sm-6 no-padding">
+                                            {input score1, class => "touchspin1"}
+                                        </div>
+                                        <div class="col-sm-6 no-padding">
+                                            {input score2, class => "touchspin1"}
+                                        </div>
+                                        <div class="col-sm-12 p-xs text-right">
+                                            {input submit, class => "btn btn-admin"}
+                                        </div> 
+                                    {/form} 
+                                    <div class="col-sm-12 m-b">Udelenie tresných bodov</div>
+                                    <div class="col-sm-8"><select class="form-control">
+                                            <option>Team 1</option>
+                                            <option>Team 2</option>
+                                        </select>
+                                    </div> 
+                                    <div class="col-sm-4 m-b" style="padding-left: 0px;"><input type="text" class="form-control" placeholder="Počet bodov">
+                                    </div>
+                                    <div class="col-sm-12 m-b">Důvod</div>
+                                    <div class="col-sm-12"><textarea class="form-control" rows="4"></textarea></div> 
+                                    <div class="col-sm-12 p-sm text-right">
+                                        <button type="button" class="btn btn-admin">Uložiť</button>
+                                    </div>    
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {if $match->status == 'new'}
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i aria-hidden="true" class="fa fa-cog"></i>
+                        <h3>Uživatelské rozhraní</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        {form score}
+                            <div class="row space-20">
+                                <div class="col-sm-12 admin-head">
+                                    <span class="pull-left"><img
+                                            src="{$basePath}/img/logo/{$match->ref('league_team', 'team1_id')->logo}"
+                                            alt="logo"
+                                            class="m-r-sm">{$match->ref('league_team', 'team1_id')->name}</span>VS
+                                    <span class="pull-right"> {$match->ref('league_team', 'team2_id')->name} <img
+                                            src="{$basePath}/img/logo/{$match->ref('league_team', 'team2_id')->logo}"
+                                            alt="logo" class="m-l-sm"></span></div>
+                            </div>
+                            <div class="row space-5">
+                                <div class="col-sm-6">
+                                    {*<input class="touchspin1" type="text" name="demo1" placeholder="Team 1">*}
+                                    {input score1, class=>'touchspin1'}
+                                </div>
+                                <div class="col-sm-6">
+                                    {input score2, class=>'touchspin1'}
+                                </div>
+                            </div>
+                            <div class="row space-5 text-left p-sm">
+                                <div class="fileUpload btn btn-grey m-n">
+                                    <span><i class="fa fa-cloud-upload m-r-sm"></i>Nahrát screanshot</span>
+                                    {input screenshot, class=>'upload', id=>'frm-edit-avatar'}
+                                </div>
+                            </div>
+                            <div class="row space-5 text-left" style="margin-top: 0px">
+                                <div class="col-sm-12">
+                                    <label class="help-text">Url na demo záznam</label>
+                                    {input demo, class=>'form-control'}
+                                </div>
+                            </div>
+
+                            <div class="row space-20 text-left">
+                                <div class="col-sm-12">
+                                    {input submit, class=>'btn btn-admin'}
+                                    <button type="button" class="btn btn-admin" data-toggle="modal"
+                                            data-target="#zadost">Napsat žádost
+                                    </button>
+                                    <button type="button" class="btn btn-admin" data-toggle="modal"
+                                            data-target="#prostest">Napsat protest
+                                    </button>
+                                </div>
+                            </div>
+                        {/form}
+                    </div>
+                </div>
+            </div>
+        {/if}
+
+        {*<div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i aria-hidden="true" class="fa fa-cog"></i>
+                    <h3>Admin nastavení</h3>
+                </div>
+                <div class="panel-body text-center">
+                    <form role="form">
+                        <div class="row space-20">
+                            <div class="col-sm-12 admin-head"><span class="pull-left"><img src="/img/logo/ugu5.png"
+                                                                                           alt="logo"
+                                                                                           class="m-r-sm">Team 1</span>
+                                VS <span class="pull-right"> Team 2 <img src="/img/logo/ugu5.png" alt="logo"
+                                                                         class="m-l-sm"></span></div>
+                        </div>
+                        <div class="row space-5">
+                            <div class="col-sm-6">
+                                <input class="touchspin1" type="text" name="demo1" placeholder="Team 1">
+                            </div>
+                            <div class="col-sm-6">
+                                <input class="touchspin1" type="text" name="demo1" placeholder="Team 2">
+                            </div>
+                        </div>
+                        <div class="row space-20 text-left">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-admin">Uložit</button>
+                            </div>
+                        </div>
+                        <div class="row space-20 text-left" style="margin-bottom: 0px">
+                            <div class="col-sm-12">
+                                <label for="help-text">Prostest:</label>
+                                <br>
+                                <span for="help-text block"><a href="#">Hráč 1: </a></span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore.</p>
+                                <span for="help-text"><a href="#">Hráč 2: </a></span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore.</p>
+                            </div>
+                        </div>
+                        <div class="row space-20 text-left">
+                            <div class="col-sm-12">
+                                <label for="help-text">Screanshot:</label>
+                                <div><i class="fa fa-file-image-o m-r-xs" aria-hidden="true"></i> <a href="#">Odkaz
+                                        na screanshot 1</a></div>
+                                <div><i class="fa fa-file-image-o m-r-xs" aria-hidden="true"></i> <a href="#">Odkaz
+                                        na screanshot 2</a></div>
+
+                            </div>
+                        </div>
+                        <div class="row space-5 text-left" style="margin-top: 0px">
+                            <div class="col-sm-12">
+                                <label for="help-text">Demo záznam:</label>
+                                <div><i class="fa fa-file-video-o m-r-xs" aria-hidden="true"></i><a href="#">Odkaz
+                                        na demo záznam 1</a></div>
+                                <div><i class="fa fa-file-video-o m-r-xs" aria-hidden="true"></i><a href="#">Odkaz
+                                        na demo záznam 2</a></div>
+
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row space-5 text-left" style="margin-top: 0px">
+                            <div class="col-sm-12">
+                                <label class="help-text">Vyjádření admina</label>
+                                <textarea class="form-control" cols="10" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <!--<div class="row space-5 text-left" style="margin-top: 0px">
+                            <div class="col-sm-6">
+                                <label class="help-text">Trest pro:</label>
+
+                                <select class="form-control">
+                                    <option value="">Team1</option>
+                                    <option value="">Team2</option>
+                                </select>
+                             </div>
+                             <div class="col-sm-6">
+                                <label class="help-text">Odečet bodů:</label>
+                                <input class="touchspin1" type="text" name="demo1" placeholder="Bodů">
+                             </div>
+                        </div>  -->
+
+                        <div class="row space-20">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-admin">Uložit</button>
+                                <button type="button" class="btn btn-admin">Tým 1 výhra!</button>
+                                <button type="button" class="btn btn-admin">Tým 2 výhra!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>*}
+
+        {control panels:tournament}
+        {control panels:advertisment}
+
+    </div>
+</div><!-- row -->
+
+<div class="modal fade" id="zadost" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button btn-admin" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Žádost</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Obsah žádosti:</h5>
+                <textarea class="form-control" cols="10" rows="4"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-admin" data-dismiss="modal">Zavřít</button>
+                <button type="button" class="btn btn-admin">Odeslat</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="prostest" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button btn-admin" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Protest</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Obsah protestu:</h5>
+                <textarea class="form-control" cols="10" rows="4"></textarea>
+            </div>
+            <div class="modal-footer">ST49
+                <button type="button" class="btn btn-admin" data-dismiss="modal">Zavřít</button>
+                <button type="button" class="btn btn-admin">Odeslat</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{/block}
+
+{block scripts}
+<!--Scripts-->
+{include parent}
+<!--Include parents scripts-->
+<!-- TouchSpin -->
+<script src="{$basePath}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{$basePath}/js/jquery.filer.js" type="text/javascript"></script>
+<script src="{$basePath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        // Add slimscroll to element
+        $('.scroll_content').slimscroll({
+            height: '247px',
+            color: '#268ec3',
+            size: '0.5em',
+            railVisible: true,
+            alwaysVisible: true
+        })
+
+    });
+</script>
+<script>
+    $(".touchspin1").TouchSpin({
+        buttondown_class: 'btn btn-white',
+        buttonup_class: 'btn btn-white'
+    });
+    $(document).ready(function () {
+
+        $('#filer_input').filer({
+            showThumbs: true,
+            addMore: true,
+            box: null,
+            allowDuplicates: false
+        });
+
+    });
+</script>
+{/block}
+
+{block head}
+<!--Head-->
+<link href="{$basePath}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+<link href="{$basePath}/css/plugins/jQuery-filer/jquery.filer.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+<style>
+    /* Amidn */
+    .form-control {
+        border: 1px solid #192125 !important;
+        height: auto !important;
+    }
+
+    .admin-head img {
+        width: 30px;
+    }
+
+    .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group,
+    .input-group-btn:first-child > .btn, .input-group-btn:first-child > .btn-group {
+        z-index: 2;
+        margin-left: -1px;
+        background-color: #101518;
+        border: 1px solid #192125 !important;
+        height: 32px;
+
+    }
+
+    .space-5 {
+        margin: 5px 0px;
+    }
+
+    .modal-content {
+        background: #13181b !important;
+    }
+    .screanshots img{
+        max-width: 115px;
+        margin-top: 5px;
+    }
+    .screanshots img:hover{
+        opacity: 0.8;
+        cursor: pointer;
+    }
+    .demo{
+        background: rgba(19,24,27,1)!important;
+        background: rgba(19,24,27,1)!important;
+        background: -moz-linear-gradient(top, rgba(19,24,27,1) 0%, rgba(17,22,25,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(19,24,27,1)), color-stop(100%, rgba(17,22,25,1)));
+        background: -webkit-linear-gradient(top, rgba(19,24,27,1) 0%, rgba(17,22,25,1) 100%);
+        background: -o-linear-gradient(top, rgba(19,24,27,1) 0%, rgba(17,22,25,1) 100%);
+        background: -ms-linear-gradient(top, rgba(19,24,27,1) 0%, rgba(17,22,25,1) 100%);
+        background: linear-gradient(to bottom, rgba(19,24,27,1) 0%, rgba(17,22,25,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#13181b', endColorstr='#111619', GradientType=0 );
+        border-top: 1px solid #192125!important;
+        height: 50px;
+        line-height: 50px;
+        color: #30414a;
+        font-family: "Titillium Web";
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 2px !important;
+    }
+    .protest.row {
+        width: 90%;
+        margin: 20px auto;
+    }
+    .body {
+        background-color: #0d1114;
+        border-radius: 5px 5px 0;
+        padding: 15px;
+        margin: 10px 0px;
+    }
+    .foot a {
+        margin-left: 10px;
+    }
+</style>
+{/block}

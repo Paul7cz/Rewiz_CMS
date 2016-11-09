@@ -1,0 +1,561 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+    <!--Content-->
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Kontakty</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domov</a>
+                </li>
+                <li>
+                    <a n:href="Contact:default">Kontakty</a>
+                </li>
+                <li class="active">
+                    <strong>Prehľad</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-sm-12">
+            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                {$flash->message}
+            </div>
+        </div><!-- col-12-->
+    </div><!-- row -->
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6">
+                {form contactForm}
+                    <div class="ibox">
+                        <div class="ibox-content back-change">
+                            <div class="row">
+                                <div class="col-lg-12 form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Jméno:</label>
+                                        <div class="col-sm-10">
+                                            {input name, class => "form-control"}
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Sekce:</label>
+                                        <div class="col-sm-10">
+                                            {input section, class => "form-control m-b"}
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Pozice v týmu:</label>
+                                        <div class="col-sm-10">
+                                            {input possition, class => "form-control"}
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Email:</label>
+                                        <div class="col-sm-10">
+                                            {input email, class => "form-control"}
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6 col-sm-offset-2">
+                                            <button class="btn btn-white" type="submit">Cancel</button>
+                                            {input submit, class => "btn btn-success"}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {/form}
+            </div><!-- col.6 -->
+            <div class="col-sm-6">
+                <div class="ibox">
+                    <div class="ibox-content back-change">
+                        <h3>Sekcia - Management webovej stránky</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Meno</th>
+                                <th>Pozice v týmu</th>
+                                <th>email</th>
+                                <th>Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$managment as $data">
+                                <td>{$data->name}</td>
+                                <td>{$data->possition}</td>
+                                <td>{$data->email}</td>
+                                <td><a href="delete/{$data->id}"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="hr-line-dashed"></div>
+                        <h3>Sekce - Counter-Strike: Global Offensive</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Jméno</th>
+                                <th>Pozice v týmu</th>
+                                <th>email</th>
+                                <th>Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$csgo as $data">
+                                <td>{$data->name}</td>
+                                <td>{$data->possition}</td>
+                                <td>{$data->email}</td>
+                                <td><a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="hr-line-dashed"></div>
+                        <h3>Sekcia - League of Legends</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Jméno</th>
+                                <th>Pozice v týmu</th>
+                                <th>email</th>
+                                <th>Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$lol as $data">
+                                <td>{$data->name}</td>
+                                <td>{$data->possition}</td>
+                                <td>{$data->email}</td>
+                                <td><a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="hr-line-dashed"></div>
+                        <h3>Sekce - Hearthstone</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Jméno</th>
+                                <th>Pozice v týmu</th>
+                                <th>email</th>
+                                <th>Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$hs as $data">
+                                <td>{$data->name}</td>
+                                <td>{$data->possition}</td>
+                                <td>{$data->email}</td>
+                                <td><a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="hr-line-dashed"></div>
+                        <h3>Sekce - Dota 2</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Jméno</th>
+                                <th>Pozice v týmu</th>
+                                <th>email</th>
+                                <th>Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$dota as $data">
+                                <td>{$data->name}</td>
+                                <td>{$data->possition}</td>
+                                <td>{$data->email}</td>
+                                <td><a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- row -->
+
+    </div><!-- wrapper -->
+
+    <!-- Nápověda k formuláři
+    <div class="tooltip-demo p-xl">
+            <span class=" m-l-lg text-navy" style="height: 14px;" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-info-circle"></i></span>
+    </div>
+    -->
+
+{/block}
+
+{block scripts}
+    {include parent}
+    <!-- Chosen -->
+    <script src="{$basePath}/js/plugins/chosen/chosen.jquery.js"></script>
+
+    <!-- jqueryui -->
+    <script src="{$basePath}/js/jquery-ui.min.js"></script>
+
+    <!-- JSKnob -->
+    <script src="{$basePath}/js/plugins/jsKnob/jquery.knob.js"></script>
+
+    <!-- Input Mask-->
+    <script src="{$basePath}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <!-- Data picker -->
+    <script src="{$basePath}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <!-- NouSlider -->
+    <script src="{$basePath}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+    <!-- Switchery -->
+    <script src="{$basePath}/js/plugins/switchery/switchery.js"></script>
+
+    <!-- IonRangeSlider -->
+    <script src="{$basePath}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <!-- iCheck
+<script src="{$basePath}/js/plugins/iCheck/icheck.min.js"></script>-->
+
+    <!-- MENU -->
+    <script src="{$basePath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Color picker -->
+    <script src="{$basePath}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+    <!-- Clock picker -->
+    <script src="{$basePath}/js/plugins/clockpicker/clockpicker.js"></script>
+
+    <!-- Image cropper -->
+    <script src="{$basePath}/js/plugins/cropper/cropper.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="{$basePath}/js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Date range picker -->
+    <script src="{$basePath}/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="{$basePath}/js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- TouchSpin -->
+    <script src="{$basePath}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+
+
+    <script n:syntax=off>
+        $(document).ready(function () {
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+                    if (!files.length) {
+                        return;
+                    }
+                    file = files[0];
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+            $("#download").click(function () {
+                window.open($image.cropper("getDataURL"));
+            });
+            $("#zoomIn").click(function () {
+                $image.cropper("zoom", 0.1);
+            });
+            $("#zoomOut").click(function () {
+                $image.cropper("zoom", -0.1);
+            });
+            $("#rotateLeft").click(function () {
+                $image.cropper("rotate", 45);
+            });
+            $("#rotateRight").click(function () {
+                $image.cropper("rotate", -45);
+            });
+            $("#setDrag").click(function () {
+                $image.cropper("setDragMode", "crop");
+            });
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+            $('#data_2 .input-group.date').datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+            $('#data_3 .input-group.date').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+            $('#data_4 .input-group.date').datepicker({
+                minViewMode: 1,
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                todayHighlight: true
+            });
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, {color: '#1AB394'});
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, {color: '#ED5565'});
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, {color: '#1AB394'});
+            $('.demo1').colorpicker();
+            var divStyle = $('.back-change')[0].style;
+            $('#demo_apidemo').colorpicker({
+                color: divStyle.backgroundColor
+            }).on('changeColor', function (ev) {
+                divStyle.backgroundColor = ev.color.toHex();
+            });
+            $('.clockpicker').clockpicker();
+            $('input[name="daterange"]').daterangepicker();
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+            $('#reportrange').daterangepicker({
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2016',
+                dateLimit: {days: 60},
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'right',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-default',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Cancel',
+                    fromLabel: 'Od',
+                    toLabel: 'Do',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            });
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+            $(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 1000,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                max: 2000,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+        });
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': {allow_single_deselect:true},
+            '.chosen-select-no-single': {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width': {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+        $(".dial").knob();
+        $('input[type=radio]').change(function () {
+            var $p = $(this).closest('.controls');
+            var $checked = $p.find(':checked');
+            $('#travelDetails_' + this.id.slice(-1)).prop('disabled', $checked.val() == 'No');
+        }).change();
+    </script>
+    <script src="http://dev.rewiz.eu/js/tinymce/tinymce.min.js"></script>
+    <script n:syntax="off">
+        $(function () {
+            tinymce.init({
+                selector: ".mceEditor",
+                language_url: 'http://dev.rewiz.eu/js/tinymce/langs/sk.js',  // site absolute URL
+                height: 200,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor "
+                ],
+                toolbar: "insertfile undo redo | styleselect | pre bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons ",
+                style_formats: [
+                    {
+                        title: "Headers", items: [
+                        {title: "Header 1", format: "h1"},
+                        {title: "Header 2", format: "h2"},
+                        {title: "Header 3", format: "h3"},
+                        {title: "Header 4", format: "h4"},
+                        {title: "Header 5", format: "h5"},
+                        {title: "Header 6", format: "h6"}
+                    ]
+                    },
+                    {
+                        title: "Inline", items: [
+                        {title: "Bold", icon: "bold", format: "bold"},
+                        {title: "Italic", icon: "italic", format: "italic"},
+                        {title: "Underline", icon: "underline", format: "underline"},
+                        {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                        {title: "Superscript", icon: "superscript", format: "superscript"},
+                        {title: "Subscript", icon: "subscript", format: "subscript"},
+                    ]
+                    },
+                    {
+                        title: "Blocks", items: [
+                        {title: "Paragraph", format: "p"},
+                        {title: "Blockquote", format: "blockquote"},
+                    ]
+                    },
+                    {
+                        title: "Kód", items: [
+                        {title: "Kód (nezvýrazněný)", icon: "code", format: "code"},
+                        {title: "Kód (zvýrazněný)", icon: "code", format: "pre"}
+                    ]
+                    },
+                    {
+                        title: "Alignment", items: [
+                        {title: "Left", icon: "alignleft", format: "alignleft"},
+                        {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                        {title: "Right", icon: "alignright", format: "alignright"},
+                        {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+                    ]
+                    }
+                ]
+            });
+        });
+    </script>
+    <!--<script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>-->
+{/block}
+
+
+{block head}
+    <link href="{$basePath}/css/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <!--<link href="{$basePath}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$basePath}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">-->
+{/block}

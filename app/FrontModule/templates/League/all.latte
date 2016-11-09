@@ -1,0 +1,122 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content m-b-xl p-xxs">
+
+
+            <div class="panel panel-default">
+                <div class="panel-body league-all">
+                    <div class="row title">
+                        <div class="col-sm-6 text-left">
+                            COUNTER-STRIKE GLOBAL OFFENSIVE
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            ZAČIATOK - KONIEC   
+                        </div>
+                    </div>
+                    <div class="row" n:foreach="$csgo as $data">
+                        <div class="col-sm-1 p-xs">
+                            <img src="/img/league_icon/csgo.png" alt="icon">
+                        </div>
+                        <div class="col-sm-5 p-xs">
+                            <a href="#">{$data->name}</a>
+                        </div>
+                        <div class="col-sm-6 p-xs text-right">
+                            <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body league-all">
+                    <div class="row title">
+                        <div class="col-sm-6 text-left">
+                            DOTA 2
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            ZAČIATOK - KONIEC   
+                        </div>
+                    </div>
+                    <div class="row" n:foreach="$dota as $data">
+                        <div class="col-sm-1 p-xs">
+                            <img src="/img/league_icon/csgo.png" alt="icon"> //TODO: Ikonku
+                        </div>
+                        <div class="col-sm-5 p-xs">
+                            <a href="#">{$data->name}</a>
+                        </div>
+                        <div class="col-sm-6 p-xs text-right">
+                            <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body league-all">
+                    <div class="row title">
+                        <div class="col-sm-6 text-left">
+                            HEARTHSTONE
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            ZAČIATOK - KONIEC   
+                        </div>
+                    </div>
+                    <div class="row" n:foreach="$hs as $data">
+                        <div class="col-sm-1 p-xs">
+                            <img src="/img/league_icon/dota.png" alt="icon"> //TODO: Ikonku
+                        </div>
+                        <div class="col-sm-5 p-xs">
+                            <a href="#">{$data->name}</a>
+                        </div>
+                        <div class="col-sm-6 p-xs text-right">
+                            <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body league-all">
+                    <div class="row title">
+                        <div class="col-sm-6 text-left">
+                            LEAGUE OF LEGENDS    
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            ZAČIATOK - KONIEC   
+                        </div>
+                    </div>
+                    <div class="row" n:foreach="$lol as $data">
+                        <div class="col-sm-1 p-xs">
+                            <img src="/img/league_icon/lol.png" alt="icon"> //TODO: ikonku
+                        </div>
+                        <div class="col-sm-5 p-xs">
+                            <a href="#">{$data->name}</a>
+                        </div>
+                        <div class="col-sm-6 p-xs text-right">
+                            <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- panel end-->
+        </div>
+
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+
+
+    </div><!-- row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+    <style>
+        .panel{
+            background-color: #0d1012 !important;
+        }
+    </style>
+{/block}

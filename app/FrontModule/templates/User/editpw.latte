@@ -1,0 +1,76 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 text-center content m-b-xl p-sm">
+
+            <div class="row">
+                <div class="col-sm-12"><h2>ZMENA HESLA</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="subtext">
+                        Pre zmenu hesla je potrebné vyplniť všetky informácie.
+                    </div>
+                </div>
+            </div>
+            {form password}
+
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 alert alert-danger fade in m-t text-center" n:if="$form->hasErrors()">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <li n:foreach="$form->errors as $error">{$error}</li>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel__heading"><i class="fa fa-krw"></i>Zmena hesla</div>
+                    <div class="panel__body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row row__line">
+                                    <div class="col-sm-2 text-center text-blue">Nové heslo</div>
+                                    <div class="col-sm-9 text-left cara">
+                                        {input password, class=>"user_input"}
+                                    </div>
+                                </div>
+                                <div class="row row__line">
+                                    <div class="col-sm-2 text-center text-blue">Zopakovať heslo</div>
+                                    <div class="col-sm-9 text-left cara">
+                                        {input check_password, class=>"user_input"}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 m-b-xl">
+                        {input submit, class=>"submit"}
+                    </div>
+                </div>
+            {/form}
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

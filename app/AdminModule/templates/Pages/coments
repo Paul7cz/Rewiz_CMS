@@ -1,0 +1,67 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Nahalášené komentáře</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="Pages:default">Podstránky</a>
+            </li>
+            <li class="active">
+                <strong>Nahlášené komentáře</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {$flash->message}
+        </div>
+    </div><!-- col-12-->
+</div><!-- row -->
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+
+                        <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                               placeholder="Vyhledej...">
+
+                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                        </table>
+
+                    </div>
+                </div>                
+            </div>
+    </div><!-- row -->
+
+</div><!-- wrapper -->
+
+
+{/block}
+
+{block scripts}
+{include parent}
+
+    <script n:syntax="off">
+
+    </script>
+{/block}
+
+
+{block head}
+    
+{/block}

@@ -1,0 +1,101 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+        
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-sm-8 content m-b-xl">
+
+            <header class="about_head space-20">
+                <h3 class="about_title">O projekte Rewiz.Eu</h3>
+            </header>
+
+            <p class="about_text"><font color="Gray">Herná liga Rewiz.Eu bola spustená 1.Januára 2017 ako novovytvorený projekt pre rozvoj a podporu elektronického športu v Slovenskej a Českej Republike. Každým dňom prinášam novinky zo sveta elektronického športu.
+			Pre užívateľov usporiadavame krotkodobé aj dlhodobé turnaje. Náš portál ponúka množstvo možností ako Fórum, Galériu s možnosťou nahrávania fotografií a videí, sútaže o skvelé ceny a mnoho ďalšieho...
+            <br> <br>
+            Tento projekt je zameraný hlavne na štýri typy počítačových hier a to je: Counter - Strike: Global Offensive, League of Legends, Hearthstone: Heroes of Warcraft a Dota 2. 
+			V budúcnosti do tejto skupiny pribudnú ďalšie počítačové hry.
+            </font>
+			</p>
+
+            <header class="about_head space-20">
+                <h3 class="about_title">Prevádzkovateľom serveru Rewiz.Eu je</h3>
+            </header>
+            <p class="about_text"><font color="Gray">
+			občianske združenie Rewiz<br>
+			Továrenská 315/27, 984 01 Lučenec - Opatová<br>
+			IČO: 50381849<br>
+			Zápis v EOZ: 10.06.2016, Ministerstvo vnútra SR v Bratislave
+			</font></p>
+			<p style="text-align: right"><font color="Gray">Chod serveru Rewiz.Eu zabezpečuje <a href="https://www.websupport.sk/">WebSupport.Sk</a></font></p>
+        </div>
+
+
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+	</div>
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <!-- TouchSpin -->
+    <script src="{$basePath}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script>
+        $(".touchspin1").TouchSpin({
+            buttondown_class: 'btn btn-white',
+            buttonup_class: 'btn btn-white'
+        });
+    </script>
+{/block}
+
+{block head}
+    <!--Head-->
+    <link href="{$basePath}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <style>
+        .about_head{
+            background-image: url("/img/about_bg.png");
+            min-width: 100%;
+            height: 60px;
+        }
+        .about_title{
+            line-height: 60px;
+            color: #268ec3;
+            font-size: 20px;
+            font-weight: 400;
+        }
+        .about_text{
+            color: #2a3941;
+            font-family: Titillium Web;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 20px;
+        }
+        /* Amidn */
+        .form-control{
+            border: 1px solid #192125 !important;
+            height: auto !important;
+        }
+        .admin-head img{
+            width: 30px;
+        }
+        .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group,
+        .input-group-btn:first-child>.btn, .input-group-btn:first-child>.btn-group {
+            z-index: 2;
+            margin-left: -1px;
+            background-color: #101518;
+            border: 1px solid #192125 !important;
+            height: 32px;
+
+        }
+        .space-5{
+            margin: 5px 0px;
+        }
+    </style>
+{/block}

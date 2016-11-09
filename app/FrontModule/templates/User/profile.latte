@@ -1,0 +1,193 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 text-center content user-profil m-b-xl p-xxs">
+
+            <!-- VIP HEADER FOR USERS -->
+            {if $userdata->premium == 1}
+                <div class="row user_bg vip">
+                <div class="col-lg-12 ">
+                    <div class="row vip_title">
+                        {*<div class="col-sm-6 text-left"><i class="fa fa-clock-o m-r-xs"></i>Premium účet je aktivovaný
+                            ešte na 10 dní!
+                        </div>*}
+                        <div class="col-sm-6 text-right"><a href="">Predĺžiť prémium </a></div>
+                    </div>
+                    <div class="row user_avatar">
+                        <div class="col-sm-2 ">
+                            <div class="border_avatar"><img class="user_avatarimg"
+                                                            src="{$basePath}/img/avatar/{$userdata->avatar}"
+                                                            alt="Avatar"></div>
+                        </div>
+                        <div class="col-sm-8 text-left user_nick">
+                            <h3>{$userdata->username}</h3>
+                            <!-- vip hodnost -->
+                            <span class="vip"><i class="fa fa-star" aria-hidden="true"></i> {$userdata->role}  </span>
+                        </div>
+                        {if $userdata->team !== NULL}
+                            <div class="col-sm-2">
+                                <div class="clan_logo"><img
+                                            src="{$basePath}/img/logo/{$userdata->ref('league_team', 'team')->logo}"
+                                            alt="Clan_Logo"></div>
+                            </div>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            {else}
+                <div class="row user_bg">
+                <div class="col-lg-12 ">
+                    <div class="row user_avatar">
+                        <div class="col-sm-2 ">
+                            <div class="border_avatar"><img class="user_avatarimg"
+                                                            src="{$basePath}/img/avatar/{$userdata->avatar}"
+                                                            alt="Avatar"></div>
+                        </div>
+                        <div class="col-sm-8 text-left user_nick">
+                            <h3>{$userdata->username}</h3>
+                            <i class="fa fa-user" aria-hidden="true"></i> {$userdata->role}
+                        </div>
+                        {if $userdata->team !== NULL}
+                            <div class="col-sm-2">
+                                <div class="clan_logo"><img
+                                            src="{$basePath}/img/logo/{$userdata->ref('league_team', 'team')->logo}"
+                                            alt="Clan_Logo"></div>
+                            </div>
+                        {/if}
+                    </div>
+                </div>
+                </div>
+            {/if}
+
+            <div class="row basic-info">
+                <div class="col-lg-11 m-lg m-b-sm">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-info-circle"></i>
+                            <h3>Základné informácie</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Dátum registrácie</div>
+                                <div class="col-sm-9 text-left">{$userdata->registered|date:'j.n.Y'}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Pohlavie</div>
+                                <div class="col-sm-9 text-left"><i class="fa fa-venus" aria-hidden="true"></i> &nbsp;
+                                    {$userdata->gender} {*Ikonka muža + podmieka*}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Vek</div>
+                                <div class="col-sm-9 text-left">Približne {$date} rokov</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 user-title">Krajina</div>
+                                <div class="col-sm-9 text-left">{$userdata->state}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+            <div class="row" style="padding: 0px 27px">
+                <div class="col-lg-5" style="width: 375px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-crosshairs"></i>
+                            <h3>Ocenenia</h3>
+                        </div>
+                        <div class="panel-body scroll_content">
+                            <div class="">
+                                {if $awards != NULL}
+                                    <div class="row p-w-xs m-t-xxs" n:foreach="$awards as $data">
+                                        <div class="col-sm-3">
+                                            <img class="team-logo"
+                                                 src="{$basePath}/img/awards/{$data->ref('users_achviements', 'achviements_id')->icon}"
+                                                 alt="teamlogo"></div>
+                                    <div class="col-sm-9 text-left no-padding">
+                                        <div class="block">{$data->ref('users_achviements', 'achviements_id')->name}</div>
+                                        <i class="fa fa-clock-o m-r-xs"
+                                           aria-hidden="true"></i>{$data->date|date:"j.n.Y"}
+                                    </div>
+                                </div>
+                                {else}
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <h4>Zatiaľ ste nezískali žiadne umiestnenie v našich turnajoch, skúste svoje
+                                            šťastie <a href="{$basePath}/tournament/all">TU</a>.</h4>
+                                    </div>
+                                </div>
+                                
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5" style="width: 370px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-laptop"></i>
+                            <h3>Herné účty</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row m-t-xxs">
+                                <div class="col-sm-2"><img alt="cs:go icon" src="{$basePath}/img/csgo.png"></div>
+                                <div class="col-sm-10 text-left">{$userdata->csgo_sid}</div>
+                            </div>
+                            <div class="row m-t-xxs">
+                                <div class="col-sm-2"><img alt="cs:go icon" src="{$basePath}/img/dota2.gif"></div>
+                                <div class="col-sm-10 text-left">{$userdata->dota2_nick}</div>
+                            </div>
+                            <div class="row m-t-xxs">
+                                <div class="col-sm-2"><img alt="cs:go icon" src="{$basePath}/img/lol.gif"></div>
+                                <div class="col-sm-10 text-left">{$userdata->lol_nick}</div>
+                            </div>
+                            <div class="row m-t-xxs">
+                                <div class="col-sm-2"><img alt="cs:go icon" src="{$basePath}/img/hs.gif"></div>
+                                <div class="col-sm-10 text-left">{$userdata->hs_nick}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- .col-8 -->
+
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+
+            {control panels:advertisment}
+        </div>
+
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <script src="{$basePath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // Add slimscroll to element
+            $('.scroll_content').slimscroll({
+                height: '210px'
+            })
+
+        });
+
+    </script>
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

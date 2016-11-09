@@ -1,0 +1,136 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content contact m-b-xl">
+            <div class="panel-body">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h5 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" href=
+                                "#collapseOne"><span class="m-r"><img alt="icon"
+                                                                      src="{$basePath}/img/subpages/contact/management.png"></span>
+                                    Management webovej stránky</a></h5>
+                        </div>
+                        <div class="panel-collapse collapse in" id="collapseOne">
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr n:foreach="$managment as $data">
+                                        <td>{$data->name}</td>
+                                        <td>{$data->possition}</td>
+                                        <td>{$data->email}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a class="collapsed" data-parent="#accordion" data-toggle="collapse"
+                                                       href="#collapseTwo"><span class="m-r"><img alt="icon"
+                                                                                                  src="{$basePath}/img/subpages/contact/csgo.png"></span>
+                                    Counter-Strike: Global Offensive</a></h4>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapseTwo">
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr n:foreach="$csgo as $data">
+                                        <td>{$data->name}</td>
+                                        <td>{$data->possition}</td>
+                                        <td>{$data->email}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a class="collapsed" data-parent="#accordion" data-toggle="collapse"
+                                                       href="#collapseThree"><span class="m-r"><img alt="icon"
+                                                                                                    src="{$basePath}/img/subpages/contact/lol.png"></span>
+                                    League of Legends</a></h4>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapseThree">
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr n:foreach="$lol as $data">
+                                        <td>{$data->name}</td>
+                                        <td>{$data->possition}</td>
+                                        <td>{$data->email}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a class="collapsed" data-parent="#accordion" data-toggle="collapse"
+                                                       href="#collapseFive"><span class="m-r"><img alt="icon"
+                                                                                                   src="{$basePath}/img/subpages/contact/hs.png"></span>
+                                    Hearthstone: Heroes of Warcraft</a></h4>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapseFive">
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr n:foreach="$hs as $data">
+                                        <td>{$data->name}</td>
+                                        <td>{$data->possition}</td>
+                                        <td>{$data->email}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a class="collapsed" data-parent="#accordion" data-toggle="collapse"
+                                                       href="#collapseFour"><span class="m-r"><img alt="icon"
+                                                                                                   src="{$basePath}/img/subpages/contact/dota2.png"></span>
+                                    Dota 2</a></h4>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapseFour">
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr n:foreach="$dota as $data">
+                                        <td>{$data->name}</td>
+                                        <td>{$data->possition}</td>
+                                        <td>{$data->email}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

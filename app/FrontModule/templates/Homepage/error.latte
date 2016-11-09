@@ -1,0 +1,36 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content text-center m-b-xl">
+            <img class="m-t-xl" src="/img/sad.png" alt="404">
+            <h2>
+                NOT FOUND
+            </h2>
+            <div class="m-b-xl">
+                Ups.. Stránka sa nenašla. Ak sa chcete
+                vrátiť kliknite <a href="/">sem</a>.
+            </div>
+        </div>
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div>
+
+
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

@@ -1,0 +1,67 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    {form messageSend}
+        <div class="row" n:if="$form->hasErrors()">
+            <div class="col-sm-8 col-sm-offset-0 alert alert-danger fade in m-t m-l text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <li n:foreach="$form->errors as $error">{$error}</li>
+            </div>
+        </div>
+
+        <div class="row" style="margin-left: 0px;">
+
+        <div class="col-lg-8 text-center content m-b-xl p-lg">
+
+        <div class="row form-group">
+            <div class="col-sm-2 control-label">
+                Názov správy
+            </div>
+            <div class="col-lg-10">
+                {input subject, class=>"form-control"}
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-2 control-label">
+                Zadaj príjemcu
+            </div>
+            <div class="col-lg-10">
+                {input receiver_id, class=>"form-control"}
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-2 control-label">
+                Obsah správy
+            </div>
+            <div class="col-lg-10">
+                {input message, class=>"form-control"}
+            </div>
+        </div>
+
+        <div class="row none">
+            <div class="col-sm-12 no-padding">
+                {input submit, class=>"button"}
+            </div>
+        </div>
+    {/form}
+    </div><!-- .col-8 -->
+    <div class="col-sm-4 no-padding">
+        {control panels:tournament}
+        {control panels:advertisment}
+    </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+{/block}

@@ -1,0 +1,114 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Giveaway</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="Homepage:default">Nástěnka</a>
+            </li>
+            <li class="active">
+                <strong>Přehled</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {$flash->message}
+        </div>
+    </div><!-- col-12-->
+</div><!-- row -->
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Výherce je: <strong>Gavarilo</strong></h1>
+            <button class="ladda-button btn btn-primary dim btn-large-dim m-t" type="button" data-style="zoom-in"><i class="fa fa-money m-r" ></i>Losovat</button>
+            
+        </div>           
+    </div><!-- row -->
+
+</div><!-- wrapper -->
+
+
+
+{/block}
+
+{block scripts}
+{include parent}
+<!-- Ladda -->
+<script src="{$basePath}/js/plugins/ladda/spin.min.js"></script>
+<script src="{$basePath}/js/plugins/ladda/ladda.min.js"></script>
+<script src="{$basePath}/js/plugins/ladda/ladda.jquery.min.js"></script>
+
+<script>
+
+    $(document).ready(function (){
+
+        // Bind normal buttons
+        $( '.ladda-button' ).ladda( 'bind', { timeout: 2000 } );
+
+        // Bind progress buttons and simulate loading progress
+        Ladda.bind( '.progress-demo .ladda-button',{
+            callback: function( instance ){
+                var progress = 0;
+                var interval = setInterval( function(){
+                    progress = Math.min( progress + Math.random() * 0.1, 1 );
+                    instance.setProgress( progress );
+
+                    if( progress === 1 ){
+                        instance.stop();
+                        clearInterval( interval );
+                    }
+                }, 200 );
+            }
+        });
+
+
+        var l = $( '.ladda-button-demo' ).ladda();
+
+        l.click(function(){
+            // Start loading
+            l.ladda( 'start' );
+
+            // Timeout example
+            // Do something in backend and then stop ladda
+            setTimeout(function(){
+                l.ladda('stop');
+            },12000)
+
+
+        });
+
+    });
+
+</script>
+
+{/block}
+
+
+{block head}
+    <link href="{$basePath}/css/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet">
+        <!-- Ladda style -->
+    <link href="{$basePath}/css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet">
+    <style>
+        .btn-large-dim {
+            min-width: 230px!important;
+            height: 60px!important;
+            font-size: 32px!important;
+        }
+    </style>
+
+{/block}

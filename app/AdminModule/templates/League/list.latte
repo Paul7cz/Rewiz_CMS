@@ -1,0 +1,571 @@
+{**
+* @param string   $basePath web base path
+* @param array    $flashes  flash messages
+*}
+
+{block content}
+<!--Content-->
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Liga</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="League:default">Liga</a>
+            </li>
+            <li class="active">
+                <strong>League</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-sm-12">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {$flash->message}
+        </div>
+    </div><!-- col-12-->
+</div><!-- row -->
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-content back-change">
+                        
+                        <h2 class="mgbt-xs-5 mgtp-10 font-semibold"><i class="fa fa-trophy mgr-10"></i> Přidat ligu</h2>
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    <div class="form-group m-t-xl"> 
+                                        
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Název ligy:</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" value="" placeholder="Název ligy" />
+                                                </div>
+                                            </div><!-- col-8 -->
+                                        </div><!-- row -->
+                                        
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Zvolte htu:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control">
+                                                    <option value="1">Counter Strike: Global Offense</option>
+                                                    <option value="2">League of Legends</option>
+                                                    <option value="3">Dota2</option>
+                                                    <option value="4">Hearthstone</option>
+                                                </select>
+                                            </div><!-- col-8 -->                                         
+                                        </div><!-- row -->
+    
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Datum konání:</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" name="daterange" value="" placeholder="datum od->do" />
+                                                </div>
+                                            </div><!-- col-8 -->
+                                        </div><!-- row -->
+
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Základní počet bodů:</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <input class="touchspin3" type="text" value="1000" name="demo3" placeholder="">
+                                                </div>
+                                            </div><!-- col-8 -->
+                                        </div><!-- row -->                                    
+
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Maximálny počet hráčov v tíme:</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <input class="touchspin3" type="text" value="0" name="demo3" placeholder="Zadajte číslo">
+                                                </div>
+                                            </div><!-- col-8 -->
+                                        </div><!-- row -->
+
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Minimálny počet hráčov v tíme:</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <input class="touchspin3" type="text" value="0" name="demo3" placeholder="Zadajte číslo">
+                                                </div>
+                                            </div><!-- col-8 -->
+                                        </div><!-- row -->                                        
+                                        
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Mapy v lige:</label>
+                                            <div class="col-sm-8 controls">
+                                                <span class="i-checks m-r"><label> <input type="radio" name="travel" data-travelNumber="1" id="travel_yes_1" value="Yes"> <i></i> Použít  </label></span>
+                                                <span class="i-checks"><label> <input name="travel" type="radio" data-travelNumber="1" id="travel_no_1" value="No" checked> <i></i> Nepoužít </label></span>
+                                            </div><!-- col-8 -->
+                                        </div><!-- row -->
+
+                                    </div><!-- form-group -->
+
+                                 </div><!-- col-6 -->
+
+                                 <div class="col-lg-6">
+
+                                    <div class="form-group m-t-xl"> 
+
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Zoznam máp:</label>
+                                            <div class="col-sm-8 controls">
+                                                <textarea name="travelDetails" id="travelDetails_1" rows="4" class="form-control" placeholder="Zadajte mapy pre ligu. Mapy oddelujte čiarkou..."></textarea>
+                                                
+                                            </div><!-- col-8 -->
+                                        </div><!-- row -->
+
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Podávanie žiadostí (začiatok):</label>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="touchspin3" type="text" value="" name="demo3" placeholder="Zadajte číslo a zvoľte typ">
+                                                </div>
+                                            </div><!-- col-6 -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <select class="form-control">
+                                                        <option value="">Minuty</option>
+                                                        <option value="">Hodiny</option>
+                                                        option
+                                                    </select>
+                                                </div>
+                                            </div><!-- col-4 -->
+                                        </div><!-- row -->
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Podávanie žiadostí (koniec):</label>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="touchspin3" type="text" value="" name="demo3" placeholder="Zadajte číslo a zvoľte typ">
+                                                </div>
+                                            </div><!-- col-6 -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <select class="form-control">
+                                                        <option value="">Minuty</option>
+                                                        <option value="">Hodiny</option>
+                                                        option
+                                                    </select>
+                                                </div>
+                                            </div><!-- col-4 -->
+                                        </div><!-- row -->
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Podávanie protestov (začiatok):</label>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="touchspin3" type="text" value="" name="demo3" placeholder="Zadajte číslo a zvoľte typ">
+                                                </div>
+                                            </div><!-- col-6 -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <select class="form-control">
+                                                        <option value="">Minuty</option>
+                                                        <option value="">Hodiny</option>
+                                                        option
+                                                    </select>
+                                                </div>
+                                            </div><!-- col-4 -->
+                                        </div><!-- row -->
+                                        <div class="row">
+                                            <label class="col-lg-12 control-label">Podávanie protestov (koniec):</label>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="touchspin3" type="text" value="" name="demo3" placeholder="Zadajte číslo a zvoľte typ">
+                                                </div>
+                                            </div><!-- col-6 -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <select class="form-control">
+                                                        <option value="">Minuty</option>
+                                                        <option value="">Hodiny</option>
+                                                        option
+                                                    </select>
+                                                </div>
+                                            </div><!-- col-4 -->
+                                        </div><!-- row -->
+                                        
+                                    </div><!-- form-group -->
+                                    
+                                 </div><!-- col-6 -->
+                            </div><!-- row -->
+                            
+                            <div class="row">
+                            <div class="col-sm-12">
+                                <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                    <div class="col-sm-3 col-sm-offset-9">
+                                        <button class="btn btn-white" type="submit">Cancel</button>
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+    </div><!-- row -->
+
+</div><!-- wrapper -->
+
+<!-- Nápověda k formuláři
+<div class="tooltip-demo p-xl">
+        <span class=" m-l-lg text-navy" style="height: 14px;" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="fa fa-info-circle"></i></span>  
+</div>
+-->
+
+{/block}
+
+{block scripts}
+{include parent}
+<!-- Chosen -->
+    <script src="{$basePath}/js/plugins/chosen/chosen.jquery.js"></script>
+
+     <!-- jqueryui -->
+    <script src="{$basePath}/js/jquery-ui.min.js"></script>
+
+   <!-- JSKnob -->
+   <script src="{$basePath}/js/plugins/jsKnob/jquery.knob.js"></script>
+
+   <!-- Input Mask-->
+    <script src="{$basePath}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+   <!-- Data picker -->
+   <script src="{$basePath}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+   <!-- NouSlider -->
+   <script src="{$basePath}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+   <!-- Switchery -->
+   <script src="{$basePath}/js/plugins/switchery/switchery.js"></script>
+
+    <!-- IonRangeSlider -->
+    <script src="{$basePath}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <!-- iCheck 
+    <script src="{$basePath}/js/plugins/iCheck/icheck.min.js"></script>-->
+
+    <!-- MENU -->
+    <script src="{$basePath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Color picker -->
+    <script src="{$basePath}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+    <!-- Clock picker -->
+    <script src="{$basePath}/js/plugins/clockpicker/clockpicker.js"></script>
+
+    <!-- Image cropper -->
+    <script src="{$basePath}/js/plugins/cropper/cropper.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="{$basePath}/js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Date range picker -->
+    <script src="{$basePath}/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="{$basePath}/js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- TouchSpin -->
+    <script src="{$basePath}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+
+
+<script n:syntax=off>
+        $(document).ready(function(){
+
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function(data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function() {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+            $("#download").click(function() {
+                window.open($image.cropper("getDataURL"));
+            });
+
+            $("#zoomIn").click(function() {
+                $image.cropper("zoom", 0.1);
+            });
+
+            $("#zoomOut").click(function() {
+                $image.cropper("zoom", -0.1);
+            });
+
+            $("#rotateLeft").click(function() {
+                $image.cropper("rotate", 45);
+            });
+
+            $("#rotateRight").click(function() {
+                $image.cropper("rotate", -45);
+            });
+
+            $("#setDrag").click(function() {
+                $image.cropper("setDragMode", "crop");
+            });
+
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $('#data_2 .input-group.date').datepicker({
+                startView: 1,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+
+            $('#data_3 .input-group.date').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            $('#data_4 .input-group.date').datepicker({
+                minViewMode: 1,
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+            var elem = document.querySelector('.js-switch');
+            var switchery = new Switchery(elem, { color: '#1AB394' });
+
+            var elem_2 = document.querySelector('.js-switch_2');
+            var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+            var elem_3 = document.querySelector('.js-switch_3');
+            var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+
+            $('.demo1').colorpicker();
+
+            var divStyle = $('.back-change')[0].style;
+            $('#demo_apidemo').colorpicker({
+                color: divStyle.backgroundColor
+            }).on('changeColor', function(ev) {
+                        divStyle.backgroundColor = ev.color.toHex();
+                    });
+
+            $('.clockpicker').clockpicker();
+
+            $('input[name="daterange"]').daterangepicker();
+
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+
+            $('#reportrange').daterangepicker({
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2016',
+                dateLimit: { days: 60 },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'right',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-default',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Cancel',
+                    fromLabel: 'Od',
+                    toLabel: 'Do',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            }, function(start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            });
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+
+
+            $(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 1000,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                max: 2000,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+        });
+        var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+                }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true, 
+            hideFromTo: false
+        });
+
+        $(".dial").knob();
+
+        $('input[type=radio]').change(function(){
+        var $p = $(this).closest('.controls');
+        var $checked = $p.find(':checked');
+        $('#travelDetails_' + this.id.slice(-1)).prop('disabled',$checked.val() == 'No');   
+        }).change();
+
+    </script>
+    <!--<script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });        
+    </script>-->
+{/block}
+
+
+{block head}
+    <link href="{$basePath}/css/plugins/jQueryUI/jquery-ui.min.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <!--<link href="{$basePath}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$basePath}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">-->
+{/block}

@@ -1,0 +1,100 @@
+{**
+* @param string  web base path
+* @param array   flash messages
+*}
+
+<!--Content-->
+{block content}
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 text-center login m-b-xl">
+
+            <div class="row">
+                <div class="col-lg-12"><h2>Registrujte sa</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12"><p>Registrujte sa a získajte plný prístup na stránke, pridaj sa k nám aj ty!</p></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                    </div>
+                </div>
+            </div>
+
+            {form registrationForm}
+                <div class="row" n:if="$form->hasErrors()">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>
+                            <li n:foreach="$form->errors as $error">{$error}</li>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 m-sm">
+                        <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                        {input username}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 m-sm">
+                        <span><i class="fa fa-key" aria-hidden="true"></i></span>
+                        {input password}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 m-sm">
+                        <span><i class="fa fa-key" aria-hidden="true"></i></span>
+                        {input passwordVerify}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 m-sm">
+                        <span><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                        {input email}
+                    </div>
+                </div>
+                <div class="row rules">
+                    <div class="col-lg-12 m-sm">
+                    <input type="checkbox" name="" value="">
+                    <div style="width: 250px; color: #30414b;" class="inline">Registráciou na webe <a href="/">www.rewiz.eu</a> užívateľ potvrdzuje že si <a href="/helpus/rules">pravidlá portálu</a> prečítal, rozumie týmto <a href="/helpus/rules">pravidlám</a>, a bude sa nimi riadiť. </div>
+                    </div>    
+                </div>				
+                <div class="row rules">
+                    <div class="col-lg-12 m-sm">
+                    <input type="checkbox" name="" value="">
+					<div style="width: 250px; color: #30414b;" class="inline">Registráciou na webe <a href="/">www.rewiz.eu</a> užívateľ potvrdzuje že si <a href="/helpus/osrules">pravidlá osobných údajov</a> prečítal, rozumie týmto <a href="/helpus/osrules">OS pravidlám</a>, a súhlasi s nimi. </div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 m-sm">
+                        {input submit}
+                    </div>
+                </div>
+            {/form}
+
+            <div class="row ">
+                <div class="col-lg-6 col-lg-offset-3 text-left m-t">
+                    <a style="margin-left:50px;" n:href=":Front:Login:Default">Zabudnuté heslo</a>
+                </div>
+            </div>
+
+        </div><!-- .col-8 -->
+        <div class="col-sm-4 no-padding">
+            {control panels:tournament}
+            {control panels:advertisment}
+        </div>
+    </div><!-- .row -->
+{/block}
+
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+{/block}
+
+{block head}
+    <!--Head-->
+
+{/block}

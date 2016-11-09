@@ -1,0 +1,112 @@
+{**
+* @param string $basepath web base path
+* @param array  $flashes  flash messages
+*}
+
+{block content}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2 n:block=title>Přehled uživatelů</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a n:href="Homepage:default">Domů</a>
+            </li>
+            <li>
+                <a n:href="Users:default">Uživatelé</a>
+            </li>
+            <li class="active">
+                <strong>Přehled uživatelů</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Přehled uživatelů</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i class=
+                        "fa fa-times"></i></a>
+                    </div>
+                </div>
+                    <div class="ibox-content table-responsive">
+                        <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Vyhledejte uživatele">
+
+                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <thead>
+                            <tr>
+                                <th data-sort-ignore="true"><i class="fa fa-picture-o"></i></th>
+                                <th data-type="numeric">ID</th>
+                                
+                                <th>Nick</th>
+                                <th>Meno</th>
+                                <th>E-mail</th>
+                                <th>Pozícia</th>
+                                <th data-sort-ignore="true">Nastavenia</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr n:foreach="$users as $data" class="gradeX">
+                                
+                                <td><img alt="image" class="small-img-circle" src="{$basePath}/img/avatar/{$data->avatar}"></td>   
+                                <td>{$data->id}</td>           
+                                <td>{$data->username}</td>
+                                <td>{$data->full_name}</td>
+                                <td>{$data->email}</td>
+                                <td>{$data->role}</td>
+                                <td>
+                                    <a n:href="Users:detail $data->id" title=""><i class="fa fa-eye"                                                                                       aria-hidden="true"></i></a>
+                                    <a n:href="Users:edit $data->id" title=""><i class="fa fa-cog text-navy"                                                                                     aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="7">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+{/block}
+
+{block scripts}
+    <!-- Peity -->
+    <script src="{$basePath}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$basePath}/js/demo/peity-demo.js"></script>
+
+<!--Scripts-->
+{include parent}
+<!--Include parents scripts-->
+<!-- FooTable -->
+    <script src="{$basePath}/js/plugins/footable/footable.all.min.js"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable();
+        $('.footable2').footable();
+
+    });
+
+</script>
+
+{/block}
+
+{block head}
+<!--Head-->
+ <!-- FooTable -->
+    <link href="{$basePath}/css/plugins/footable/footable.core.css" rel="stylesheet">
+{/block}
