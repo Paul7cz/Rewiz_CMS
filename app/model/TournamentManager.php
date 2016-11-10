@@ -32,12 +32,22 @@ class TournamentManager extends BaseManager
 
     public function getAllTournament()
     {
-        return $this->database->table(self::TOURNAMENT_TABLE);
+        return $this->database->table(self::TOURNAMENT_TABLE)->order('start DESC');
+    }
+
+    public function getAllTournament2()
+    {
+        return $this->database->table(self::TOURNAMENT_TABLE)->order('start DESC');
     }
 
     public function getRegisteredTeamsActive($id)
     {
         return $this->database->table(self::REGISTERED_TABLE)->where('tournament_id = ? AND confirmed = ? ', $id, 1);
+    }
+
+    public function getRegisteredTeamsActive2($id)
+    {
+        return $this->database->table(self::REGISTERED_TABLE)->where('tournament_id = ? AND confirmed = ?', $id, 1)->count('*');
     }
 
     public function getRegisteredTeamsNoactive($id)

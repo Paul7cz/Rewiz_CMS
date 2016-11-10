@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: Dominik Gavrecký
@@ -20,14 +19,15 @@ use Nette\Utils\Html;
 use Nette\Utils\Image;
 use Tracy\Debugger;
 
+
 /**
  * Class LoginPresenter
  * @package App\FrontModule\Presenters
  * @author  Dominik Gavrecký <dominikgavrecky@icloud.com>
  * Presenter na prihlásenie do systému
  */
-class TournamentPresenter extends BasePresenter {
-
+class TournamentPresenter extends BasePresenter
+{
     /** @var TournamentManager */
     private $tournamentManager;
 
@@ -47,57 +47,71 @@ class TournamentPresenter extends BasePresenter {
      * @param MessagesManager   $messagesManager
      * @param UserManager       $userManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
      */
-    public function __construct(TournamentManager $tournamentManager, LeagueManager $leagueManager, MessagesManager $messagesManager, UserManager $userManager) {
+    public function __construct(TournamentManager $tournamentManager, LeagueManager $leagueManager, MessagesManager $messagesManager, UserManager $userManager)
+    {
         $this->tournamentManager = $tournamentManager;
         $this->leagueManager = $leagueManager;
         $this->messagesManager = $messagesManager;
         $this->userManager = $userManager;
     }
 
+
     /**
      * Porovnávanie času
      * @param $id
      * @return bool
      */
-    public function tournamentDateCompare($id) {
+    public function tournamentDateCompare($id)
+    {
         $row = $this->tournamentManager->getTournament($id);
 
         $today = new DateTime();
 
         $compare = new DateTime($row['start']);
 
-        if ($today <= $compare) {
-            return TRUE; /* vypršala */
+        if ($today >= $compare) {
+            return TRUE; /*vypršala*/
         } else {
-            return FALSE; /* beží */
+            return FALSE; /*beží*/
         }
     }
 
-    public function renderDefault($id) {
+    public function renderDefault($id)
+    {
         $this->template->tournament = $this->tournamentManager->getTournament($id);
         $this->template->team_count = $this->tournamentManager->getRegisteredTeamsActive($id)->count('*');
         $this->template->date = $this->tournamentDateCompare($id);
     }
 
-    public function renderRules($id) {
+    public function renderRules($id)
+    {
         $this->template->tournament = $this->tournamentManager->getTournament($id);
         $this->template->team_count = $this->tournamentManager->getRegisteredTeamsActive($id)->count('*');
         $this->template->date = $this->tournamentDateCompare($id);
     }
 
-    public function renderTeams($id) {
+    public function renderTeams($id)
+    {
         $this->template->tournament = $this->tournamentManager->getTournament($id);
         $this->template->active = $this->tournamentManager->getRegisteredTeamsActive($id);
         $this->template->noactive = $this->tournamentManager->getRegisteredTeamsNoactive($id);
         $this->template->team_count = $this->tournamentManager->getRegisteredTeamsActive($id)->count('*');
         $this->template->date = $this->tournamentDateCompare($id);
+
     }
 
-    public function renderAll() {
+    public function teamsCount($id)
+    {
+        return $this->tournamentManager->getRegisteredTeamsActive($id)->count('*');
+    }
+
+    public function renderAll()
+    {
         $this->template->data = $this->tournamentManager->getAllTournament();
     }
 
-    public function renderPlayoff($id) {
+    public function renderPlayoff($id)
+    {
         $this->template->tournament = $this->tournamentManager->getTournament($id);
         $this->template->team_count = $this->tournamentManager->getRegisteredTeamsActive($id)->count('*');
         $this->template->date = $this->tournamentDateCompare($id);
@@ -105,11 +119,11 @@ class TournamentPresenter extends BasePresenter {
         $this->template->rounds = $this->tournamentManager->test($id);
     }
 
-    public function renderMatch($id) {
+    public function renderMatch($id)
+    {
         $this->template->match = $this->tournamentManager->getMatch($id);
         $this->template->league = $this->tournamentManager->getLeague($id);
         $this->template->logs = $this->tournamentManager->getMatchLogs($id)->fetchAll();
-        
         $this->template->screenshots = $this->tournamentManager->getScreenshots($id)->fetchAll();
         $this->template->demos = $this->tournamentManager->getDemos($id)->fetchAll();
         $this->template->reports = $this->tournamentManager->getReports($id)->fetchAll();
@@ -119,7 +133,8 @@ class TournamentPresenter extends BasePresenter {
      * Registrácia do turnaja
      * @param $id
      */
-    public function actionJoin($id) {
+    public function actionJoin($id)
+    {
         $tournament = $this->tournamentManager->getTournament($id);
 
         /**
@@ -140,13 +155,13 @@ class TournamentPresenter extends BasePresenter {
                     $join = $this->tournamentManager->joinTournament($id, $this->user->getIdentity()->team);
 
                     $this->messagesManager->sendMessage(array(
-                        /* 'sender_id' => '', */
+                        /*'sender_id' => '',*/
                         'receiver_id' => $team->owner,
                         'subject' => 'Registrácia do turnaja',
                         'message' => 'Pre dokončenie registrácie do turnaja kliknite na link <a href="' . $this->link('Tournament:confirm', $join->getPrimary()) . '">dokončiť registráciu do turnaja</a>',
                     ));
-                    $this->userManager->insertNotification($this->user->getId(), 'Tvoj tým bol zaregistrovaný do turnaja.');
                     $this->flashMessage('Uspešne si sa registroval do turnaja');
+
                 } else {
                     $this->flashMessage('Turnaj už vypršala a preto sa do nej nemôžeš registrovať');
                 }
@@ -159,7 +174,8 @@ class TournamentPresenter extends BasePresenter {
         $this->redirect('Tournament:Default', $id);
     }
 
-    public function actionConfirm($id) {
+    public function actionConfirm($id)
+    {
 
         //TODO: Overiť ownera teamu
         $this->tournamentManager->confirmTeam($id);
@@ -171,18 +187,21 @@ class TournamentPresenter extends BasePresenter {
      * Nešahať na to !!!
      * @param $id
      */
-    public function actionGenerate($id) {
-        $team_count = $this->tournamentManager->getRegisteredTeamsActive($id);
+    public function actionGenerate($id)
+    {
+        $team_count = $this->tournamentManager->getRegisteredTeamsActive2($id);
 
+        /** Lukáš !!! */
         if ($team_count != 8 OR $team_count != 16 OR $team_count != 32 OR $team_count != 64) {
             $this->flashMessage('Nemôžeš spustiť turnaj kvôli nedostatku hračov');
+            $this->redirect('Tournament:playoff', $this->getParameter('id'));
         }
 
-        $createPairs = function ($_maxTeams, $_ids, $_shuffle = FALSE) {
+            $createPairs = function ($_maxTeams, $_ids, $_shuffle = FALSE) {
 
-            if ($_shuffle) {
-                shuffle($_ids);
-            }
+                if ($_shuffle) {
+                    shuffle($_ids);
+                }
 
             for ($i = 0; count($_ids) < $_maxTeams; $i++) {
                 $_ids[] = NULL;
@@ -198,6 +217,7 @@ class TournamentPresenter extends BasePresenter {
             }
 
             return $matches;
+
         };
 
         // aktualni kolo
@@ -216,6 +236,7 @@ class TournamentPresenter extends BasePresenter {
             $maxTeams = $this->tournamentManager->getRound($id);
 
             $generatedMatches = $createPairs($maxTeams, $ids, TRUE);
+
         } else {
 
             if ($this->tournamentManager->getNotClosedMatches($id, $currentRound)->count('*')) {
@@ -239,6 +260,7 @@ class TournamentPresenter extends BasePresenter {
                     $this->tournamentManager->updateWinner($currentRound + 1, $winners[0]);
                     $this->tournamentManager->closeTournament($id);
                 }
+
             }
         }
 
@@ -253,25 +275,86 @@ class TournamentPresenter extends BasePresenter {
         }
 
         $this->redirect('Tournament:Playoff', $id);
+
     }
 
-    public function createComponentTournament() {
+    public function createComponentTournament()
+    {
         $control = new Tournament($this->tournamentManager);
         return $control;
     }
 
+    protected function createComponentScore()
+    {
+        $form = new Form();
+
+        $form->addText('score1')->setType('number');
+        $form->addText('score2')->setType('number');
+        $form->addUpload('screenshot');
+        $form->addText('demo');
+        $form->addSubmit('submit');
+
+        $form->onSuccess[] = [$this, 'scoreSucceeded'];
+
+        return $form;
+
+    }
+
+    public function scoreSucceeded(Form $form, $values)
+    {
+
+        $match = $this->tournamentManager->getMatch($this->getParameter('id'));
+        $values->match_id = $this->getParameter('id');
+        $values->tournament_id = $match->tournament_id;
+        $values->team_id = $this->user->getIdentity()->team;
+
+        if ($values['screenshot']->isImage() and $values['screenshot']->isOk()) {
+            $file = $values['screenshot']; //Prehodenie do $file
+            $file_name = $file->getSanitizedName();
+            $file->move($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
+            $image = Image::fromFile($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
+            $image->save($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
+            $values['screenshot'] = $file_name;
+            //TODO: random string na meno
+        }
+
+        if ($values->team_id != $match->team1_id) {
+            $form->addError('Score môže pridať iba prvý team druhý ho potvrdzuje !');
+        }
+
+        $this->tournamentManager->confirmScore($values);
+        $this->tournamentManager->createMatchLog('Vložil score do zápasu' . $values->score1 . ':' . $values->score2 . ' čaká sa na potvrdenie. Ak so skore nesúhlasíš podaj protest', $this->user->getId(), $values->match_id);
+
+        $this->messagesManager->sendMessage(array(
+            'receiver_id' => $match->team2->owner,
+            'subject' => 'Potvrdenie skore zo zápasu',
+            'message' => 'Pre úspešne uzavretie zápasu potvrdte skore zápasu <a href="' . $this->link('Tournament:score', $values->match_id) . '">kliknutím na tento link</a> alebo sa proti nemu odvolajte a podajte protest.',
+        ));
+        $this->flashMessage('Score bolo vložené a čaká sa na potvdenie druhého teamu');
+
+    }
+
+   /* public function actionScore($id)
+    {
+        $data = $this->tournamentManager->confirmScoreFetch($id);
+        $this->tournamentManager->confirmScoreMatch($id, $data);
+        $this->tournamentManager->createMatchLog('Zápas bol potvrdený a uzatvorený', $this->user->getId(), $this->getParameter('id'));
+        $this->flashMessage('Skore zápasu bolo atualizované a zápas bol uzatvorený');
+        $this->redirect('Tournament:all');
+    }*/
+
     public function actionScore($id) {
-        
+
 //        Vytahnu data ze zapasu
 //        zjistim jestli sedi zakladatel druheho teamu s mojim id
 //        potvrdim score (vice v modelu)
-        
+
         $match = $this->tournamentManager->getMatch($id);
-        
+
         if ($match->team2->owner == $this->user->getId()) {
-            
+
             $this->tournamentManager->newConfirmScore($id);
-            
+
             $this->tournamentManager->createMatchLog('Zápas bol potvrdený a uzatvorený', $this->user->getId(), $this->getParameter('id'));
             $this->flashMessage('Skore zápasu bolo atualizované a zápas bol uzatvorený');
         } else {
@@ -292,19 +375,19 @@ class TournamentPresenter extends BasePresenter {
 
         return $form;
     }
-    
+
     public function newScoreSucceeded(Form $form, $values) {
-        
+
         // TODO: ošetrit zobrazeni formu pro majitele teamu
         // TODO: ošetrit opetovne zadavani score (když uz bylo jednou zadane)
         // TODO: odeslat score druhemu teamu pro zkontrolovani
-        
+
         $match = $this->tournamentManager->getMatch($this->getParameter('id'));
         $values->match_id = $this->getParameter('id');
-        
+
         $dataTeam1 = $this->leagueManager->getTeam($match->team1_id);
         //$dataTeam2 = $this->leagueManager->getTeam($match->team2_id);
-        
+
         $values->tournament_id = $match->tournament_id;
         $values->owner_score = $this->user->getId();
 
@@ -324,11 +407,11 @@ class TournamentPresenter extends BasePresenter {
         $this->flashMessage('Score bolo vložené a čaká sa na potvdenie druhého teamu');
         $this->redirect('this');
     }
-    
+
     /* ADMIN SCORE */
     public function createComponentAdminScore() {
         $form = new Form();
-        
+
         $match = $this->tournamentManager->getMatch($this->getParameter('id'));
 
         $form->addText('score1', '')->setDefaultValue($match->score1)->setRequired();
@@ -339,17 +422,17 @@ class TournamentPresenter extends BasePresenter {
 
         return $form;
     }
-    
+
     public function adminScoreSucceeded(Form $form, $values) {
-        
+
         // TODO: ošetrit zobrazeni formu pro admina
-        
+
         $match = $this->tournamentManager->updateScore($this->getParameter('id'), ["score1" => $values->score1, "score2" => $values->score2]);
         $this->tournamentManager->createMatchLog('Administrátor upravil scóre zápasu', $this->user->getId(), $this->getParameter('id'));
         $this->flashMessage('Score bolo upravené');
         $this->redirect('this');
     }
-    
+
     /* REQUEST */
     public function createComponentNewRequest() {
         $form = new Form();
@@ -361,26 +444,26 @@ class TournamentPresenter extends BasePresenter {
 
         return $form;
     }
-    
+
     public function newRequestSucceeded(Form $form, $values) {
-        
+
         // TODO: ošetrit pro hrace teamu
-        
+
         $values->match_id = $this->getParameter('id');
         $values->user_id = $this->user->getId();
         $values->status = 'new';
         $values->type = 1;
         $values->time = new DateTime;
-        
+
         $this->tournamentManager->insertReport($values);
         $this->tournamentManager->createMatchLog('Podal žádost', $this->user->getId(), $values->match_id);
 
         $this->flashMessage('Žádost byla vložená');
         $this->redirect('this');
     }
-    
+
     /* COMPLAINT */
-    
+
     public function createComponentNewComplaint() {
         $form = new Form();
 
@@ -391,54 +474,54 @@ class TournamentPresenter extends BasePresenter {
 
         return $form;
     }
-    
+
     public function newComplaintSucceeded(Form $form, $values) {
-        
+
         // TODO: ošetrit pro hrace teamu
-       
+
         $values->match_id = $this->getParameter('id');
         $values->user_id = $this->user->getId();
         $values->status = 'new';
         $values->type = 2;
         $values->time = new DateTime;
-        
-        $this->tournamentManager->insertReport($values);  
+
+        $this->tournamentManager->insertReport($values);
         $this->tournamentManager->createMatchLog('Podal stížnost', $this->user->getId(), $values->match_id);
 
         $this->flashMessage('Stížnost byla vložená');
         $this->redirect('this');
     }
-    
+
     /* SCREENSHOTS */
-    
+
     public function createComponentNewScreenshots() {
         $form = new Form();
 
         $form->addMultiUpload('img', 'Obrázky')
-                ->setAttribute('id', 'filer_input')
-                ->addRule(Form::MAX_LENGTH,'Maximální počet souborů : 2',2)
-                ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.')
-                ->setRequired();
+            ->setAttribute('id', 'filer_input')
+            ->addRule(Form::MAX_LENGTH,'Maximální počet souborů : 2',2)
+            ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.')
+            ->setRequired();
 
         $form->addSubmit('submit','Nahrať');
         $form->onSuccess[] = [$this, 'newScreenshotsSucceeded'];
 
         return $form;
     }
-    
+
     public function newScreenshotsSucceeded(Form $form, $values) {
-        
+
         // TODO: ošetrit pro hrace teamu
-        
+
         $values->match_id = $this->getParameter('id');
         $values->user_id = $this->user->getId();
-        
+
         foreach ($values['img'] as $img) {
             if ($img->isOk()) {
-                
+
                 $file = $img;
                 $file_name = substr(str_shuffle(md5(md5(rand(0, 100) . "" . time() . "" . rand(0, 100)))), 0, 10) . $file->getSanitizedName();
-                
+
                 $file->move($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
                 $image = Image::fromFile($file);
                 $image->resize(115, 115,IMAGE::EXACT);
@@ -453,9 +536,9 @@ class TournamentPresenter extends BasePresenter {
         $this->flashMessage('Vloženo');
         $this->redirect('this');
     }
-    
+
     /* DEMO */
-    
+
     public function createComponentNewDemo() {
         $form = new Form();
 
@@ -466,20 +549,21 @@ class TournamentPresenter extends BasePresenter {
 
         return $form;
     }
-    
+
     public function newDemoSucceeded(Form $form, $values) {
-        
+
         // TODO: ošetrit pro hrace teamu
-        
+
         $values->match_id = $this->getParameter('id');
         $values->user_id = $this->user->getId();
         $values->time = new DateTime;
-        
-        $this->tournamentManager->insertDemo($values);       
+
+        $this->tournamentManager->insertDemo($values);
         $this->tournamentManager->createMatchLog('Přidal demo', $this->user->getId(), $values->match_id);
 
         $this->flashMessage('Demo bylo vloženo');
         $this->redirect('this');
     }
+
 
 }

@@ -101,7 +101,10 @@ class ForumManager extends BaseManager
     public function saveComment($id)
     {
         return $this->database->table(self::COMMENTS)->where('id', $id)->update(array(
-            'reports' => NULL
+            'reports' => NULL,
+            'block_by' => NULL,
+            'block' => NULL,
+            'report_by' => NULL,
         ));
     }
 
@@ -114,7 +117,7 @@ class ForumManager extends BaseManager
         return $this->database->table(self::COMMENTS)->where('id', $id)->update(array(
             'block' => '1',
             'block_by' => $block_by,
-            'reports' => NULL
+            'reports' => NULL,
         ));
     }
 

@@ -157,12 +157,17 @@ class LeaguePresenter extends BasePresenter
                     /*'sender_id' => '',*/
                     'receiver_id' => $team->owner,
                     'subject' => 'Registrácia do ligy',
-                    'message' => 'Tvoj team bol úspešne registrovaný do ligy. Pre úspešne dokončenie registrácie potvrď voľbu na ' . $this->link('Front:league:confirm', $join->getPrimary()),
+                    'message' => 'Tvoj team bol úspešne registrovaný do ligy. Pre úspešne dokončenie registrácie potvrď voľbu na <a href="' . $this->link('League:confirm', $join->getPrimary()) . '">',
                 ));
                 $this->userManager->insertNotification($this->user->getId(), 'Tvoj tým bol zaregistrovaný do ligy.');
+                $this->leagueManager->insertToPoints(array(
+                    'team_id' => $this->user->getIdentity()->team,
+                    'league_id' => $this->getParameter('id'),
+                    'points' => 0
+                ));
                 $this->flashMessage('Uspešne si sa registroval do ligy');
             } else {
-                $this->flashMessage('Liga už vypršala a preto sa do nej nemôžeš registrovať');
+                $this->flashMessage('Lisga už vypršala a preto sa do nej nemôžeš registrovať');
             }
         } else {
             $this->flashMessage('Tvoj team už je registrovaný v tejto lige');
@@ -179,18 +184,7 @@ class LeaguePresenter extends BasePresenter
 
     public function teamStats($id)
     {
-        //TODO: fetch wins
-        //TODO: fetch lose
-
-        // Za výhru 3 body
-        $wins_points = 3 * $wins;
-
-        // Za prehru 1 bod
-        $lose_points = $lose;
-
-        $team_points = $wins_points + $lose_points;
-
-        //TODO: Zoradiť podľa počtu bodov
+        //TODO: Výpis teamov spolu s bodmi
     }
 
 }

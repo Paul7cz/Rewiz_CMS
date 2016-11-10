@@ -61,6 +61,7 @@ abstract class BasePresenter extends Presenter
 
         if ($this->user->isLoggedIn()) {
             $this->template->messages_count = $this->messageManager->unseenMessageCount($this->user->getId());
+            $this->template->not = $this->userManager->getUnseenNotoficatin($this->user->getId());
         }
 
     }

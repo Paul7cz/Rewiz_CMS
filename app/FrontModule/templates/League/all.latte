@@ -24,7 +24,7 @@
                             <img src="/img/league_icon/csgo.png" alt="icon">
                         </div>
                         <div class="col-sm-5 p-xs">
-                            <a href="#">{$data->name}</a>
+                            <a n:href="League:Default, $data->id">{$data->name}</a>
                         </div>
                         <div class="col-sm-6 p-xs text-right">
                             <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>
@@ -42,10 +42,10 @@
                     </div>
                     <div class="row" n:foreach="$dota as $data">
                         <div class="col-sm-1 p-xs">
-                            <img src="/img/league_icon/csgo.png" alt="icon"> //TODO: Ikonku
+                            <img src="/img/league_icon/csgo.png" alt="icon">
                         </div>
                         <div class="col-sm-5 p-xs">
-                            <a href="#">{$data->name}</a>
+                            <a n:href="League:Default, $data->id">{$data->name}</a>
                         </div>
                         <div class="col-sm-6 p-xs text-right">
                             <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>
@@ -63,10 +63,10 @@
                     </div>
                     <div class="row" n:foreach="$hs as $data">
                         <div class="col-sm-1 p-xs">
-                            <img src="/img/league_icon/dota.png" alt="icon"> //TODO: Ikonku
+                            <img src="/img/league_icon/dota.png" alt="icon">
                         </div>
                         <div class="col-sm-5 p-xs">
-                            <a href="#">{$data->name}</a>
+                            <a n:href="League:Default, $data->id">{$data->name}</a>
                         </div>
                         <div class="col-sm-6 p-xs text-right">
                             <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>
@@ -84,10 +84,10 @@
                     </div>
                     <div class="row" n:foreach="$lol as $data">
                         <div class="col-sm-1 p-xs">
-                            <img src="/img/league_icon/lol.png" alt="icon"> //TODO: ikonku
+                            <img src="/img/league_icon/lol.png" alt="icon">
                         </div>
                         <div class="col-sm-5 p-xs">
-                            <a href="#">{$data->name}</a>
+                            <a n:href="League:Default, $data->id">{$data->name}</a>
                         </div>
                         <div class="col-sm-6 p-xs text-right">
                             <span class="date">{$data->start_date|date:'j.n.Y'} - {$data->end_date|date:'j.n.Y'}</span>

@@ -8,6 +8,7 @@
 
 namespace App\AdminModule\Presenters;
 
+use App\Model\LeagueManager;
 use App\Model\UserManager;
 use Nette\Application\UI\Form;
 use Nette\Utils\Image;
@@ -25,15 +26,20 @@ class UsersPresenter extends BasePresenter
     /** @var userManager Instance triedy modelu pre prácu s uživateľmi */
     public $userManager;
 
+    /** @var  LeagueManager */
+    public $leagueManager;
+
     /**
      * UsersPresenter constructor.
-     * @param UserManager $userManager Automaticky injektovaná trieda modelu pre prácu s uživateľmi
+     * @param UserManager $userManager
+     * @param LeagueManager $leagueManager
      */
-    public function __construct(UserManager $userManager)
+    public function __construct(UserManager $userManager, LeagueManager $leagueManager)
     {
-        parent::__construct();
         $this->userManager = $userManager;
+        $this->leagueManager = $leagueManager;
     }
+
 
     /**
      * Render dát do Default.latte
@@ -293,6 +299,10 @@ class UsersPresenter extends BasePresenter
 
     public function banPostSucceeded(Form $form, $values)
     {
+        if ($values->pernament == TRUE){
+            $values->ban_post = '2100-01-01 00:00:00';
+        }
+
         $this->userManager->giveBanPost($this->getParameter('id'), $values);
         $this->flashMessage('POST BAN');
         $this->redirect('this');
@@ -312,6 +322,9 @@ class UsersPresenter extends BasePresenter
 
     public function banLoginSucceeded(Form $form, $values)
     {
+        if ($values->pernament == TRUE){
+            $values->ban_login = '2100-01-01 00:00:00';
+        }
         $this->userManager->giveBanLogin($this->getParameter('id'), $values);
         $this->flashMessage('Login BAN');
         $this->redirect('this');
@@ -322,7 +335,7 @@ class UsersPresenter extends BasePresenter
         $this->userManager->unbanBanPost($id);
         $this->flashMessage('Užvateľ dostal unban');
         $this->userManager->insertNotification($id, 'Práve si dostal unban na písanie príspevkov. Pozri si profil ...');
-        $this->redirect('this');
+        $this->redirect('Users:detail', $id);
     }
 
     public function actionUnbanLogin($id)
@@ -330,7 +343,7 @@ class UsersPresenter extends BasePresenter
         $this->userManager->unbanBanLogin($id);
         $this->flashMessage('Užvateľ dostal unban');
         $this->userManager->insertNotification($id, 'Práve si dostal unban na login. Pozri si profil ...');
-        $this->redirect('this');
+        $this->redirect('Users:detail', $id);
     }
 
     /**  */
@@ -364,6 +377,30 @@ class UsersPresenter extends BasePresenter
         $this->userManager->createTeamAwards($values);
         $this->flashMessage('Cena vytvorená');
         $this->redirect('Users:Default');
+    }
+
+    protected function createComponentUserAchTeam()
+    {
+        $form = new Form();
+
+        $team = $this->leagueManager->getAllTeam()->fetchPairs('id', 'name');
+        $achviements = $this->userManager->getAwards2()->fetchPairs('id', 'name');
+
+        $form->addSelect('team_id')->setItems($team)->setRequired();
+        $form->addSelect('achviement_id')->setItems($achviements)->setRequired();
+        $form->addText('summary')->setRequired();
+        $form->addSubmit('submit');
+
+        $form->onSuccess[] = [$this, 'userAchTeamSucceeded'];
+
+        return $form;
+    }
+
+    public function userAchTeamSucceeded(Form $form, $values)
+    {
+        $this->leagueManager->teamAchviementInsert($values);
+        $this->flashMessage('Bol pridaný');
+        $this->redirect('this');
     }
 
 }

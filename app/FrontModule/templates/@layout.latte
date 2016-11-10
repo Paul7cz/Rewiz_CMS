@@ -151,7 +151,10 @@
                                 <span class="label label-success">{$messages_count}</span>
                             {/if}
                         </li>
-                        <li><a n:href="User:notification">Notifikace</a</li>
+                        <li style="margin-right: 20px;">
+                            <a n:href="User:notification">Notifikace</a>
+                            <span class="label label-success">{$not}</span>
+                        </li>
                         {if $user->getIdentity()->team == NULL}
                             <li>
                                 <a n:href="Team:registration">Zaregistrovat tím</a>

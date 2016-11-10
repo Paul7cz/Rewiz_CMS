@@ -100,6 +100,7 @@
                                 <th>Status</th>
                                 <th>Nahlásil</th>
                                 <th>Admin</th>
+                                <th>Akcia</th>
 
                             </tr>
                             </thead>
@@ -113,12 +114,21 @@
                                     <td class="text-info">POVOLEN!</td>
                                 {else}
                                     <td class="text-info">Zamietnutý</td>
-                                {/if}
-                                <td><a href="#">{$data->comment->ref('users', 'report_by')->username}</a></td>
-                                {if $data->comment->ref('users', 'block_by') != NULL}
-                                <td><a href="#">{$data->comment->ref('users', 'block_by')->username}</a></td>
+                                {/if }
+                                {if $data->comment->report_by != NULL}
+                                    <td><a href="#">{$data->comment->ref('users', 'report_by')->username}</a></td>
                                 {else}
                                     <td><a href="#">Bez zablokovania</a></td>
+                                {/if}
+                                {if $data->comment->block_by != NULL}
+                                    <td><a href="#">{$data->comment->ref('users', 'block_by')->username}</a></td>
+                                {else}
+                                    <td><a href="#">Bez zablokovania</a></td>
+                                {/if}
+                                {if $data->status == 1}
+                                    <td class="text-info"><a n:href="News:Del, $data->comment_id">Zakázať</a></td>
+                                {else}
+                                    <td class="text-info"><a n:href="News:Save, $data->comment_id">Povoliť</a></td>
                                 {/if}
                             </tr>
                             </tbody>

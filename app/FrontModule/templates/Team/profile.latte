@@ -88,7 +88,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading text-left">
                             <i aria-hidden="true" class="fa fa-bars"></i>
-                            <h3>Výpis bodov</h3>
+                            <h3>Výpis bodov v ligách</h3>
                         </div>
                         <div class="panel-body text-left team_info scroll_content2">
                             <div class="row">
@@ -101,21 +101,21 @@
                             <div class="row">
                                  <div class="col-sm-8"><img class="m-r-xs" src="/img/games_icon/LoL.png" alt="icon">
                                  LYNX League of Legends Nightcup #125
-                                 </div>   
+                                 </div>
                                  <div class="col-sm-2">2v2</div>
                                  <div class="col-sm-2 cara text-blue">250 bodov</div>
                             </div>
                             <div class="row">
                                  <div class="col-sm-8"><img class="m-r-xs" src="/img/games_icon/LoL.png" alt="icon">
                                  LYNX League of Legends Nightcup #125
-                                 </div>   
+                                 </div>
                                  <div class="col-sm-2">5v5</div>
                                  <div class="col-sm-2 cara text-blue">420 bodov</div>
                             </div>
                             <div class="row">
                                  <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png" alt="icon">
                                  Crucial CS:GO Cup - Kvalifikácia #1
-                                 </div>   
+                                 </div>
                                  <div class="col-sm-2">1v1</div>
                                  <div class="col-sm-2 cara text-blue">0 bodov</div>
                             </div>
@@ -133,43 +133,25 @@
                         </div>
                         <div class="panel-body text-left team_info scroll_content2">
                             <div class="aw">
-                                <div class="row p-w-xs m-t-xxs">
+                                {if $awards != NULL}
+                                <div class="row p-w-xs m-t-xxs" n:foreach="$awards as $data">
                                     <div class="col-sm-2">
-                                        <img class="team-logo" src="{$basePath}/img/avatar.png" alt="teamlogo">
+                                        <img class="team-logo" src="{$basePath}/img/awards/{$data->achviement->icon}" alt="teamlogo">
                                     </div>
                                     <div class="col-sm-9 text-left no-padding">
-                                        <div class="block">1. miesto v turnaji <a href="#">CS:GO 1v1 Ledder</a></div>
+                                        <div class="block">{$data->summary}</div>
                                         <i class="fa fa-clock-o m-r-xs"
-                                           aria-hidden="true"></i>24. Apríla 2016 
+                                           aria-hidden="true"></i>{$data->time|date:'j.n.Y'}
                                     </div>
                                 </div>
-                                <div class="row p-w-xs m-t-xxs">
-                                    <div class="col-sm-2">
-                                        <img class="team-logo" src="{$basePath}/img/avatar.png" alt="teamlogo">
-                                    </div>
-                                    <div class="col-sm-9 text-left no-padding">
-                                        <div class="block">1. miesto v turnaji <a href="#">CS:GO 1v1 Ledder</a></div>
-                                        <i class="fa fa-clock-o m-r-xs"
-                                           aria-hidden="true"></i>24. Apríla 2016 
-                                    </div>
-                                </div>
-                                <div class="row p-w-xs m-t-xxs">
-                                    <div class="col-sm-2">
-                                        <img class="team-logo" src="{$basePath}/img/avatar.png" alt="teamlogo">
-                                    </div>
-                                    <div class="col-sm-9 text-left no-padding">
-                                        <div class="block">1. miesto v turnaji <a href="#">CS:GO 1v1 Ledder</a></div>
-                                        <i class="fa fa-clock-o m-r-xs"
-                                           aria-hidden="true"></i>24. Apríla 2016 
-                                    </div>
-                                </div>
-
-                                {*<div class="row">
+                                {else}
+                                <div class="row">
                                     <div class="col-sm-12 text-center">
                                         <h4>Zatiaľ ste nezískali žiadne umiestnenie v našich turnajoch, skúste svoje
                                             šťastie <a href="{$basePath}/tournament/all">TU</a>.</h4>
                                     </div>
-                                </div>*}
+                                </div>
+                                {/if}
                             </div>
                         </div>
                     </div>

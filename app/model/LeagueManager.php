@@ -24,7 +24,9 @@ class LeagueManager extends BaseManager
         TEAM_TABLE = "league_team",
         ADMINS_TABLE = "league_admins",
         TEAM_LOGS_TABLE = "league_team_logs",
-        TEAM_REGISTERED = "league_registered_team";
+        TEAM_REGISTERED = "league_registered_team",
+        TEAM_ACHVIEMENT = "team_achviement",
+        TEAM_LEAGUE_POINTS = "";
 
 
     /**
@@ -93,10 +95,15 @@ class LeagueManager extends BaseManager
         return $this->database->table(self::TEAM_TABLE)->where('id', $id)->fetch();
     }
 
+    public function getAllTeam()
+    {
+        return $this->database->table(self::TEAM_TABLE);
+    }
+
     /**
-     * @param int    $team     ID teamu
-     * @param int    $username ID uživateľa
-     * @param string $action   popis akcie
+     * @param int $team ID teamu
+     * @param int $username ID uživateľa
+     * @param string $action popis akcie
      * @return bool|int|\Nette\Database\Table\IRow
      */
     public function createTeamLog($team, $username, $action)
@@ -214,6 +221,27 @@ class LeagueManager extends BaseManager
         return $this->database->table(self::TEAM_REGISTERED)->where('id = ?', $id)->update(array(
             'confirmed' => '1'
         ));
+    }
+
+    /** Body a názov ligy */
+    public function getPoints($id)
+    {
+        return $this->database->table(self::TEAM_LEAGUE_POINTS)->where('team_id = ?', $id)->fetchAll();
+    }
+
+    public function insertToPoints($values)
+    {
+        return $this->database->table(self::TEAM_LEAGUE_POINTS);
+    }
+
+    public function teamAchviementInsert($values)
+    {
+        return $this->database->table(self::TEAM_ACHVIEMENT)->insert($values);
+    }
+
+    public function getTeamAchviement($id)
+    {
+        return $this->database->table(self::TEAM_ACHVIEMENT)->where('team_id = ?', $id)->order('id DESC')->fetchAll();
     }
 
 }

@@ -280,6 +280,10 @@ class UserManager extends BaseManager implements IAuthenticator
         ));
     }
 
+    public function getUnseenNotoficatin($id){
+        return $this->database->table(self::TABLE_NOTIFICATION)->where('user_id = ? AND see IS NULL', $id)->count('*');
+    }
+
 
 }
 

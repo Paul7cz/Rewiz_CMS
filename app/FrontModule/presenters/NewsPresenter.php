@@ -84,6 +84,7 @@ class NewsPresenter extends BasePresenter
     public function actionDelete($id, $block_by)
     {
         $this->newsManager->deleteComment($id, $block_by);
+        $this->newsManager->createCommentLog($id, '0');
         $this->flashMessage('Komentár bol úspešne vymazaný', self::RED);
         $this->restoreRequest($this->backlink);
     }
@@ -101,6 +102,7 @@ class NewsPresenter extends BasePresenter
 
     public function actionUnblock($id){
         $this->newsManager->unblock($id);
+        $this->newsManager->createCommentLog($id, '1');
         $this->flashMessage('Komentár bol odblkovaní.');
         $this->restoreRequest($this->backlink);
     }

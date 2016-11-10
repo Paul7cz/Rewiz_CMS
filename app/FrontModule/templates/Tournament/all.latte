@@ -58,10 +58,11 @@
                                 <img class="fleft" src="{$basePath}/img/lol_avatar.png" alt="csgo">
                             {/if}
                             <div class="text-left" style="width: 50%; float: left; height: 60px; margin-top: 10px;">
-                                <div class="title">{$tournament->name}</div>
+                                <div class="title">
+                                    <a n:href="Tournament:default $tournament->id">{$tournament->name}</a></div>
                                 <span class="info"><i
                                             class="fa fa-clock-o m-r-xs"></i>{$tournament->start|date:"j.n.Y G.i.s"}</span>
-                                <span class="info">Registrovaných : 16/20</span>
+                                <span class="info">Registrovaných : {$presenter->teamsCount($tournament->id)}/{$tournament->max_teams}</span>
                             </div>
                             <div class="m-t-xs text-right" style="margin-top: 20px;">
                                 {if $presenter->tournamentDateCompare($tournament->id) == FALSE}

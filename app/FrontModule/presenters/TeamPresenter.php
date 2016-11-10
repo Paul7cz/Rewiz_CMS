@@ -31,8 +31,8 @@ class TeamPresenter extends BasePresenter
 
     /**
      * TeamPresenter constructor.
-     * @param LeagueManager     $leagueManager
-     * @param UserManager       $userManager
+     * @param LeagueManager $leagueManager
+     * @param UserManager $userManager
      * @param TournamentManager $tournamentManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
      */
     public function __construct(LeagueManager $leagueManager, UserManager $userManager, TournamentManager $tournamentManager)
@@ -44,9 +44,9 @@ class TeamPresenter extends BasePresenter
 
 
     /**
-     * @param int    $team     ID teamu
-     * @param int    $username ID uživateľa
-     * @param string $action   popis akcie
+     * @param int $team ID teamu
+     * @param int $username ID uživateľa
+     * @param string $action popis akcie
      */
     public function createLeagueLogs($team, $username, $action)
     {
@@ -73,6 +73,9 @@ class TeamPresenter extends BasePresenter
         $this->template->wins = $this->tournamentManager->getTeamWin($id);
         $this->template->played = $this->tournamentManager->getTeamRegistrationTournament($id);
         $this->template->matches = $this->tournamentManager->getTeamMatches($id)->fetchAll();
+        /** @var  league_points */
+        /*$this->template->league_points = $this->leagueManager->getPoints($id);*/
+        $this->template->awards = $this->leagueManager->getTeamAchviement($id);
     }
 
     /**
@@ -140,7 +143,7 @@ class TeamPresenter extends BasePresenter
 
 
     /**
-     * @param Form      $form
+     * @param Form $form
      * @param ArrayHash $values
      */
     public function joinFormSucceeded(Form $form, $values)
@@ -199,7 +202,7 @@ class TeamPresenter extends BasePresenter
     }
 
     /**
-     * @param Form      $form
+     * @param Form $form
      * @param ArrayHash $values
      */
     public function registrationFormSucceeded(Form $form, $values)
