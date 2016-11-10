@@ -154,7 +154,7 @@
 
         <div class="panel panel-default">
             <div class="panel__heading"><i class="fa fa-stack-exchange"></i>Log zápasu</div>
-            <div class="panel__body">
+            <div class="panel__body scroll_content2">
                 <div class="row row__line" n:foreach="$logs as $data">
                     <div class="col-sm-5 col-sm-offset-1 text-left">{$data->content}</div>
                     <div class="col-sm-3 text-center"><i
@@ -588,6 +588,14 @@
         // Add slimscroll to element
         $('.scroll_content').slimscroll({
             height: '247px',
+            color: '#268ec3',
+            size: '0.5em',
+            railVisible: true,
+            alwaysVisible: true
+        })
+        // Add slimscroll to element
+        $('.scroll_content2').slimscroll({
+            height: '266px',
             color: '#268ec3',
             size: '0.5em',
             railVisible: true,
