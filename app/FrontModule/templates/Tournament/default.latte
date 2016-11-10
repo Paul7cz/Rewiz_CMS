@@ -49,6 +49,15 @@
 			</div>
 
 			<div class="panel panel-default">
+			 	<div class="panel__heading"><i class="fa fa-trophy"></i>Umístění</div>
+			 	<div class="panel__body">
+			 		<div class="price"><img src="/img/silver.png" alt="silver">2.Místo</div>
+			 		<div class="price"><img src="/img/gold.png" alt="gold">1.Místo</div>
+			 		<div class="price"><img src="/img/bronze.png" alt="bronze">3.Místo</div>				
+			  	</div>
+			</div>
+
+			<div class="panel panel-default">
 			 	<div class="panel__heading"><i class="fa fa-trophy"></i>Ceny</div>
 			 	<div class="panel__body">
 					{$tournament->prices}
@@ -90,4 +99,30 @@
 
 {block head}
     <!--Head-->
+    <style>
+    	.price{
+    		display: inline-block;
+    		margin: 0 auto;
+    		padding: 15px 30px;
+    		height: 100px;
+    		text-transform: uppercase;
+    		font-weight: bold;
+    	}
+    	.panel__body .price:nth-child(1){
+    		position: relative;
+    		top: 15px;
+    	}
+    	.panel__body .price:nth-child(2){
+    		position: relative;
+    		top: 0px;
+    	} 
+    	.panel__body .price:nth-child(3){
+    		position: relative;
+    		top: 30px;
+    	}  
+    	.price img{
+    		margin: 0 auto;
+    		display: block;
+    	}
+    </style>
 {/block}
