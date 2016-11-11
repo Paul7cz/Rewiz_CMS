@@ -47,21 +47,25 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="panel panel-default">
-			 	<div class="panel__heading"><i class="fa fa-trophy"></i>Umístění</div>
-			 	<div class="panel__body">
-			 		<div class="price"><img src="/img/silver.png" alt="silver">2.Místo</div>
-			 		<div class="price"><img src="/img/gold.png" alt="gold">1.Místo</div>
-			 		<div class="price"><img src="/img/bronze.png" alt="bronze">3.Místo</div>				
-			  	</div>
+			<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+				 	<div class="panel__heading"><i class="fa fa-trophy"></i>Umístění</div>
+				 	<div class="panel__body">
+				 		<div class="price"><img src="/img/silver.png" alt="silver">2.Místo</div>
+				 		<div class="price"><img src="/img/gold.png" alt="gold">1.Místo</div>
+				 		<div class="price"><img src="/img/bronze.png" alt="bronze">3.Místo</div>				
+				  	</div>
+				</div>
 			</div>
-
-			<div class="panel panel-default">
-			 	<div class="panel__heading"><i class="fa fa-trophy"></i>Ceny</div>
-			 	<div class="panel__body">
-					{$tournament->prices}
-			  	</div>
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+				 	<div class="panel__heading"><i class="fa fa-trophy"></i>Ceny</div>
+				 	<div class="panel__body">
+						{$tournament->prices}
+				  	</div>
+				</div>
+			</div>
 			</div>
 
 		</div>
