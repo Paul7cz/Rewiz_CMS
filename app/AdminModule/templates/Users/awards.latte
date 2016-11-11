@@ -32,12 +32,12 @@
                         <h5>Vytvoření ocenění</h5>
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-striped">
+                        <table class="footable table table-striped">
                             <thead>
                             <tr>
-                                <th><i class="fa fa-picture-o" aria-hidden="true"></i></th>
+                                <th data-sort-ignore="true"><i class="fa fa-picture-o" aria-hidden="true"></i></th>
                                 <th>Ocenění</th>
-                                <th>Akce</th>
+                                <th data-sort-ignore="true">Akce</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -48,7 +48,9 @@
                                 <td>
                                     <a n:href="Users:delete $data->id"
                                             onClick="return confirm('Naozaj chcete zmazať túto kategoriu ?')"><i
-                                                aria-hidden="true" class="fa fa-trash text-navy"></i></a>
+                                                aria-hidden="true" class="fa fa-trash text-navy m-r"></i></a>
+                                    <a href="#"><i
+                                                aria-hidden="true" class="fa fa-pencil text-navy"></i></a>
                                 </td>
                             </tr>
                             </tbody>
@@ -97,10 +99,24 @@
     <!--Scripts-->
     {include parent}
     <!--Include parents scripts-->
+    <!-- FooTable -->
+        <script src="{$basePath}/js/plugins/footable/footable.all.min.js"></script>
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+
+    </script>
 {/block}
 
 {block head}
     <!--Head-->
+    <!-- FooTable -->
+    <link href="{$basePath}/css/plugins/footable/footable.core.css" rel="stylesheet">
     <style>
         .table img {
             width: 40px;

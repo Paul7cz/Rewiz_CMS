@@ -37,7 +37,7 @@
                     <div class="ibox-content">
                         <div class="row">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Vyber ID týmu</label>
+                            <label class="col-sm-2 control-label">Vyber týmu</label>
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <select data-placeholder="Vyber..." class="chosen-select" style="width:350px;" tabindex="2">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                            <label class="col-sm-2 control-label">Vyber ID ocenění</label>
+                            <label class="col-sm-2 control-label">Vyber ocenění</label>
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <select data-placeholder="Vyber..." class="chosen-select" style="width:350px;" tabindex="2">
@@ -76,6 +76,92 @@
 
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Přehled ocenění pro tým</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            <a class="close-link"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                            <thead>
+                            <tr>
+                                <th data-type="numeric">ID</th>
+                                <th>Název ocenení</th>
+                                <th data-sort-ignore="true">Týmy s ocenením</th>
+                                <th data-sort-ignore="true">Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr></tr>
+                            <tr>
+                                <td>1</td>
+                                <td>5 přihlášení</td>
+                                <td><a href="#">Esuba</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">H2K</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Extatus</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Fnatic</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a></td>
+                                <td>
+                                    <a class="btn btn-danger btn-trash">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-pencil">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Vyhrá 1v1</td>
+                                <td><a href="#">Esuba</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">H2K</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Extatus</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Fnatic</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a></td>
+                                <td>
+                                    <a class="btn btn-danger btn-trash">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-pencil">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>10 přihlášení</td>
+                                <td><a href="#">Esuba</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">H2K</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Extatus</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Fnatic</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a></td>
+                                <td>
+                                    <a class="btn btn-danger btn-trash">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-pencil">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="7">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
     </div>
 {/block}
 
