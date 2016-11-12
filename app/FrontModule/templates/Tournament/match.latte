@@ -116,7 +116,7 @@
                     <div class="panel__heading"><i class="fa fa-file-video-o""></i>Demá z hry</div>
                     <div class="panel__body scroll_content no-padding">
                         <div class="row demo" n:foreach="$demos as $d" style="margin: 0px;">
-                            <div class="col-sm-5">Názov dema</div>
+                            <div class="col-sm-5">{$d->user_id->username}</div>
                             <div class="col-sm-4"><i class="fa fa-clock-o m-r-xs"></i>{$d->time|date:'%d.%m.%Y'}</div>
                             <div class="col-sm-3"><a href="{$d->demo_url}"><i class="fa fa-play-circle m-r"></i></a> <a href="#"><i class="fa fa-cloud-download"></i></a></div>
                         </div>

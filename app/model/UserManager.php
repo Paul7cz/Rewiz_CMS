@@ -8,6 +8,7 @@ use Nette\Security\Identity;
 use Nette\Security\Passwords;
 use Nette\Security\User;
 use Nette\Utils\ArrayHash;
+use Nette\Utils\DateTime;
 
 /**
  * Class UserManager
@@ -146,7 +147,8 @@ class UserManager extends BaseManager implements IAuthenticator
         return $this->database->table(self::USERS_TABLE)->where('username', $username)->fetch();
     }
 
-    public function leaveTeam($id){
+    public function leaveTeam($id)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id', $id)->update(array(
             'team' => NULL
         ));
@@ -227,61 +229,119 @@ class UserManager extends BaseManager implements IAuthenticator
         ));
     }
 
-    public function deleteBanPost($id){
+    public function deleteBanPost($id)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id', $id)->update(array(
             'ban_post' => NULL,
         ));
     }
 
-    public function deleteBanLogin($id){
+    public function deleteBanLogin($id)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id', $id)->update(array(
             'ban_login' => NULL,
         ));
     }
 
-    public function giveBanPost($id, $values){
+    public function giveBanPost($id, $values)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id', $id)->update(array(
             'ban_post' => $values->ban_post,
         ));
     }
 
-    public function unbanBanPost($id){
+    public function unbanBanPost($id)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id', $id)->update(array(
             'ban_post' => NULL,
         ));
     }
 
-    public function giveBanLogin($id, $values){
+    public function giveBanLogin($id, $values)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id', $id)->update(array(
             'ban_login' => $values->ban_login,
         ));
     }
 
-    public function unbanBanLogin($id){
+    public function unbanBanLogin($id)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id', $id)->update(array(
             'ban_login' => NULL,
         ));
     }
 
-    public function getNotification($id){
+    public function getNotification($id)
+    {
         return $this->database->table(self::TABLE_NOTIFICATION)->where('user_id', $id)->order('time DESC')->fetchAll();
     }
 
-    public function insertNotification($user_id, $string){
+    public function insertNotification($user_id, $string)
+    {
         return $this->database->table(self::TABLE_NOTIFICATION)->insert(array(
             'user_id' => $user_id,
             'message' => $string,
         ));
     }
 
-    public function seeNotification(){
+    public function seeNotification()
+    {
         return $this->database->table(self::TABLE_NOTIFICATION)->update(array(
             'see' => 1,
         ));
     }
 
-    public function getUnseenNotoficatin($id){
+    public function getUnseenNotoficatin($id)
+    {
         return $this->database->table(self::TABLE_NOTIFICATION)->where('user_id = ? AND see IS NULL', $id)->count('*');
+    }
+
+    public function userInsertDataVIP($data, $id)
+    {
+        return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
+            'premium_time' => $data->premium_time,
+        ));
+    }
+
+    public function checkVip($id)
+    {
+        $user = $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->fetchAll();
+
+        if ($user->premium == 0 AND $user->premium_time == NULL) {
+            return TRUE;
+        } elseif ($user->premium == 0 AND $user->premium_time != NULL) {
+            return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
+                'premium' => '1'
+            ));
+        } elseif ($user->premium == 1 AND $user->premium_time == NULL) {
+            return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
+                'premium' => '0'
+            ));
+        }
+    }
+
+    public function checkVipDate($id)
+    {
+        $user = $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->fetchAll();
+        $today = new DateTime();
+
+        if ($user->premium_time >= $today){
+        return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
+            'premium_time' => NULL
+        ));
+        }
+    }
+
+    public function vip_deactive($id){
+        return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
+            'premium_time' => NULL
+        ));
+    }
+
+    public function vipact($id, $int){
+        return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
+            'premium' => $int
+        ));
     }
 
 

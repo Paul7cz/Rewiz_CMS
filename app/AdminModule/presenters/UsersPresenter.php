@@ -221,8 +221,10 @@ class UsersPresenter extends BasePresenter
 
     public function renderAwards()
     {
+        /* sss*/
         $this->template->awards = $this->userManager->getAwards();
     }
+
 
     protected function createComponentUserAch()
     {
@@ -299,7 +301,7 @@ class UsersPresenter extends BasePresenter
 
     public function banPostSucceeded(Form $form, $values)
     {
-        if ($values->pernament == TRUE){
+        if ($values->pernament == TRUE) {
             $values->ban_post = '2100-01-01 00:00:00';
         }
 
@@ -322,7 +324,7 @@ class UsersPresenter extends BasePresenter
 
     public function banLoginSucceeded(Form $form, $values)
     {
-        if ($values->pernament == TRUE){
+        if ($values->pernament == TRUE) {
             $values->ban_login = '2100-01-01 00:00:00';
         }
         $this->userManager->giveBanLogin($this->getParameter('id'), $values);
@@ -402,5 +404,24 @@ class UsersPresenter extends BasePresenter
         $this->flashMessage('Bol pridaný');
         $this->redirect('this');
     }
+
+    protected function createComponentPremium()
+    {
+        $form = new Form();
+        $form->addText('premium_time');
+
+        $form->addSubmit('submit')->setAttribute('placeholder', 'Udeliť prémium');
+
+        $form->onSuccess[] = [$this, 'premiumSucceeded'];
+        return $form;
+    }
+
+    public function premiumSucceeded(Form $form, $values)
+    {
+        $this->userManager->userInsertDataVIP($values, $this->getParameter('id'));
+        $this->flashMessage('Premium aktivované');
+        $this->redirect('this');
+    }
+
 
 }

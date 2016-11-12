@@ -139,6 +139,7 @@ class ForumPresenter extends BasePresenter
         $block_by = $this->user->getId();
 
         $this->forumManager->deleteComment($id, $block_by);
+        $this->forumManager->createCommentLog($id, '0');
         $this->flashMessage('Uživateľ bol nahlasení');
         $this->restoreRequest($this->backlink);
         $this->redirect();
@@ -154,6 +155,7 @@ class ForumPresenter extends BasePresenter
     public function actionUnblock($id)
     {
         $this->forumManager->unblock($id);
+        $this->forumManager->createCommentLog($id, '1');
         $this->flashMessage('Komentár bol odblkovaní.');
         $this->restoreRequest($this->backlink);
     }

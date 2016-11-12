@@ -123,7 +123,7 @@ class TournamentPresenter extends BasePresenter
     {
         $this->template->match = $this->tournamentManager->getMatch($id);
         $this->template->league = $this->tournamentManager->getLeague($id);
-        $this->template->logs = $this->tournamentManager->getMatchLogs($id)->fetchAll();
+        $this->template->logs = $this->tournamentManager->getMatchLogs($id)->order('id DESC')->fetchAll();
         $this->template->screenshots = $this->tournamentManager->getScreenshots($id)->fetchAll();
         $this->template->demos = $this->tournamentManager->getDemos($id)->fetchAll();
         $this->template->reports = $this->tournamentManager->getReports($id)->fetchAll();
@@ -177,7 +177,6 @@ class TournamentPresenter extends BasePresenter
     public function actionConfirm($id)
     {
 
-        //TODO: Overiť ownera teamu
         $this->tournamentManager->confirmTeam($id);
         $this->flashMessage('Uspešne ste sa registrovali do turnaja čakajte na dalšie pokyny administrátora Turnaja');
         $this->redirect('Homepage:Default');
@@ -558,6 +557,7 @@ class TournamentPresenter extends BasePresenter
         $values->user_id = $this->user->getId();
         $values->time = new DateTime;
 
+        /*Pridať colum user_id*/
         $this->tournamentManager->insertDemo($values);
         $this->tournamentManager->createMatchLog('Přidal demo', $this->user->getId(), $values->match_id);
 

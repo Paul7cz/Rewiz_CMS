@@ -36,9 +36,9 @@ abstract class BasePresenter extends Presenter
 
     /**
      * BasePresenter constructor.
-     * @param UserManager       $userManager
+     * @param UserManager $userManager
      * @param TournamentManager $tournamentManager
-     * @param MessagesManager   $messageManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
+     * @param MessagesManager $messageManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
      */
     public function inject(UserManager $userManager, TournamentManager $tournamentManager, MessagesManager $messageManager)
     {
@@ -57,6 +57,8 @@ abstract class BasePresenter extends Presenter
             $this->reauthenticate($this->user->getId());
             $this->banPostExpired();
             $this->banLoginExpired();
+            $this->checkVipDate($this->user->getId());
+            $this->checkVip($this->user->getId());
         }
 
         if ($this->user->isLoggedIn()) {
@@ -91,14 +93,15 @@ abstract class BasePresenter extends Presenter
     }
 
 
-    public function banPostExpired(){
-       $ban = $this->user->getIdentity()->ban_post;
+    public function banPostExpired()
+    {
+        $ban = $this->user->getIdentity()->ban_post;
 
-        if ($ban != NULL){
+        if ($ban != NULL) {
             $today = new DateTime();
             $ban_time = new DateTime($ban);
 
-            if ($today >= $ban_time){
+            if ($today >= $ban_time) {
                 $this->userManager->deleteBanPost($this->user->getId());
             }
 
@@ -106,27 +109,51 @@ abstract class BasePresenter extends Presenter
         }
     }
 
-    public function banLoginExpired(){
+    public function banLoginExpired()
+    {
         $ban = $this->user->getIdentity()->ban_login;
 
-        if ($ban != NULL){
+        if ($ban != NULL) {
             $this->user->logout();
             $today = new DateTime();
             $ban_time = new DateTime($ban);
 
-            if ($today >= $ban_time){
+            if ($today >= $ban_time) {
                 $this->userManager->deleteBanLogin($this->user->getId());
             }
 
-            //TODO: LOG
         }
     }
+
+    public function checkVipDate($id)
+    {
+        $user = $this->userManager->getUser($id);
+        $today = new DateTime();
+        if ($user->premium_time >= $today) {
+            $this->userManager->vip_deactive($id);
+        }
+    }
+
+    public function checkVip($id)
+    {
+        $user = $this->userManager->getUser($id);
+
+        if ($user->premium == 0 AND $user->premium_time == NULL) {
+            return TRUE;
+        } elseif ($user->premium == 0 AND $user->premium_time != NULL) {
+            $this->userManager->vipact($id, 1);
+        } elseif ($user->premium == 1 AND $user->premium_time == NULL) {
+            $this->userManager->vipact($id, 0);
+        }
+    }
+
 
     /**
      * Turnajový panel
      * @return Panels
      */
-    protected function createComponentPanels()
+    protected
+    function createComponentPanels()
     {
         $control = new Panels($this->tournamentManager);
         return $control;

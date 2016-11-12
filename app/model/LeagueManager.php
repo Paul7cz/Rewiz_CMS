@@ -244,4 +244,8 @@ class LeagueManager extends BaseManager
         return $this->database->table(self::TEAM_ACHVIEMENT)->where('team_id = ?', $id)->order('id DESC')->fetchAll();
     }
 
+    public function getAllTeamAchviement(){
+        return $this->database->table(self::TEAM_ACHVIEMENT)->fetchAll();
+    }
+
 }
