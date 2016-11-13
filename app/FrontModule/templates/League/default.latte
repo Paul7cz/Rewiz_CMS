@@ -7,7 +7,16 @@
 {block content}
     <div class="row" style="margin-left: 0px;">
         <div class="col-lg-8 content league m-b-xl">
+
             {include '_blocks/header.latte'}
+
+            <div class="row">
+                <div class="col-lg-12 m-t">
+                    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-lg-12 space-20">

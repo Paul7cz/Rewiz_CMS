@@ -64,6 +64,14 @@
                 </div>
             {/if}
 
+            <div class="row">
+                <div class="col-lg-12 m-t">
+                    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                    </div>
+                </div>
+            </div>
+
             <div class="row basic-info">
                 <div class="col-lg-11 m-lg m-b-sm">
                     <div class="panel panel-default">
