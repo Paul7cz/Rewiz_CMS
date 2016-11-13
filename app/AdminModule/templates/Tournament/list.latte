@@ -45,7 +45,7 @@
                                 <th>Hra</th>
                                 <th>Začátek</th>
                                 <th>Počet týmů</th>
-                                {*<th>Akce</th>*}
+                                <th>Akce</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -55,11 +55,9 @@
                                 <td>{$data->ref('leagues', 'leagues_id')->game}</td>
                                 <td>{$data->start}</td>
                                 <td>{$data->max_teams}</td>
-                                {*<td>
-                                    <a href="#"><i class="fa fa-pause-circle-o m-r-xs"></i></a>
-                                    <a href="#"><i class="fa fa-hourglass-end m-r-xs"></i></a>
-                                    <a href="#"><i class="fa fa-trash m-r-xs"></i></a>
-                                </td>*}
+                                <td>
+                                    <a n:href="Tournament:Edit, $data->id"><i class="fa fa-pencil m-r-xs"></i></a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

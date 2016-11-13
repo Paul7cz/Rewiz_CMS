@@ -171,6 +171,10 @@ class TournamentManager extends BaseManager
         return $this->database->table(self::TOURNAMENT_TABLE)->insert($values);
     }
 
+    public function updateTournament($id, $values){
+        return $this->database->table(self::TOURNAMENT_TABLE)->where('id = ?', $id)->update($values);
+    }
+
     /**
      * @param $content
      * @param $user_id
@@ -254,9 +258,9 @@ class TournamentManager extends BaseManager
 //        vytahnu data
 //        a udelam update score v zapasu
         
-        $this->database->table(self::CONFIRM_SCORE)->where('match_id',$match_id)->update(["confirmed" => 1]);
+        $this->database->table(self::CONFIRM_SCORE)->where('match_id',$match_id)->order('id DESC')->update(["confirmed" => 1]);
         
-        $data = $this->database->table(self::CONFIRM_SCORE)->where('match_id',$match_id)->fetch();
+        $data = $this->database->table(self::CONFIRM_SCORE)->where('match_id',$match_id)->order('id DESC')->fetch();
         $this->database->table(self::MATCHES_TABLE)->where('id',$match_id)->update(["status" => "closed","score1" => $data->score1, "score2" => $data->score2]);
         
         return true;
@@ -265,6 +269,17 @@ class TournamentManager extends BaseManager
     public function updateScore($match_id, $values)
     {
         return $this->database->table(self::MATCHES_TABLE)->where('id',$match_id)->update($values);
+    }
+
+    public function getRequest(){
+        return $this->database->table('league_tournament_matches_reports')->where('status = ?', 'new')->fetchAll();
+    }
+
+    public function updateRequest($id, $values){
+        return $this->database->table('league_tournament_matches_reports')->where('id = ?', $id)->update(array(
+            'status' => 'closed',
+            'answer' => $values->answer
+        ));
     }
 
 

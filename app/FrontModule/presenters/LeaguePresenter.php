@@ -158,7 +158,7 @@ class LeaguePresenter extends BasePresenter
                     /*'sender_id' => '',*/
                     'receiver_id' => $team->owner,
                     'subject' => 'Registrácia do ligy',
-                    'message' => 'Tvoj team bol úspešne registrovaný do ligy. Pre úspešne dokončenie registrácie potvrď voľbu na <a href="' . $this->link('League:confirm', $join->getPrimary()) . '">tomto odkaze</a>',
+                    'message' => 'Tvoj team bol úspešne registrovaný do ligy. Pre úspešne dokončenie registrácie potvrď voľbu na <a href="' . $this->link('League:confirm', $join->getPrimary(), $id) . '">tomto odkaze</a>',
                 ));
                 $this->leagueManager->insertToPoints(array(
                     'team_id' => $this->user->getIdentity()->team,
@@ -175,10 +175,10 @@ class LeaguePresenter extends BasePresenter
         $this->redirect('League:Default', $id);
     }
 
-    public function actionConfirm($id)
+    public function actionConfirm($id, $league_id)
     {
         $values = new ArrayHash();
-        $values->league_id = $this->getParameter('id');
+        $values->league_id = $league_id;
         $values->team_id = $this->user->getIdentity()->team;
 
         $this->leagueManager->confirmTeam($id);

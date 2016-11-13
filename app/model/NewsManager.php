@@ -126,6 +126,11 @@ class NewsManager extends BaseManager
         return $this->database->table(self::TABLE_COMMENTS)->where('news_id', $id)->fetchAll();
     }
 
+    public function getComments2($id)
+    {
+        return $this->database->table(self::TABLE_COMMENTS)->where('news_id', $id);
+    }
+
     public function getComment($id){
         return $this->database->table(self::TABLE_COMMENTS)->where('id', $id)->fetch();
     }

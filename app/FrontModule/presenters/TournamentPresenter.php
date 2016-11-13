@@ -69,7 +69,7 @@ class TournamentPresenter extends BasePresenter
 
         $compare = new DateTime($row['start']);
 
-        if ($today >= $compare) {
+        if ($today <= $compare) {
             return TRUE; /*vypršala*/
         } else {
             return FALSE; /*beží*/
@@ -283,65 +283,6 @@ class TournamentPresenter extends BasePresenter
         return $control;
     }
 
-    protected function createComponentScore()
-    {
-        $form = new Form();
-
-        $form->addText('score1')->setType('number');
-        $form->addText('score2')->setType('number');
-        $form->addUpload('screenshot');
-        $form->addText('demo');
-        $form->addSubmit('submit');
-
-        $form->onSuccess[] = [$this, 'scoreSucceeded'];
-
-        return $form;
-
-    }
-
-    public function scoreSucceeded(Form $form, $values)
-    {
-
-        $match = $this->tournamentManager->getMatch($this->getParameter('id'));
-        $values->match_id = $this->getParameter('id');
-        $values->tournament_id = $match->tournament_id;
-        $values->team_id = $this->user->getIdentity()->team;
-
-        if ($values['screenshot']->isImage() and $values['screenshot']->isOk()) {
-            $file = $values['screenshot']; //Prehodenie do $file
-            $file_name = $file->getSanitizedName();
-            $file->move($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
-            $image = Image::fromFile($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
-            $image->save($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
-            $values['screenshot'] = $file_name;
-            //TODO: random string na meno
-        }
-
-        if ($values->team_id != $match->team1_id) {
-            $form->addError('Score môže pridať iba prvý team druhý ho potvrdzuje !');
-        }
-
-        $this->tournamentManager->confirmScore($values);
-        $this->tournamentManager->createMatchLog('Vložil score do zápasu' . $values->score1 . ':' . $values->score2 . ' čaká sa na potvrdenie. Ak so skore nesúhlasíš podaj protest', $this->user->getId(), $values->match_id);
-
-        $this->messagesManager->sendMessage(array(
-            'receiver_id' => $match->team2->owner,
-            'subject' => 'Potvrdenie skore zo zápasu',
-            'message' => 'Pre úspešne uzavretie zápasu potvrdte skore zápasu <a href="' . $this->link('Tournament:score', $values->match_id) . '">kliknutím na tento link</a> alebo sa proti nemu odvolajte a podajte protest.',
-        ));
-        $this->flashMessage('Score bolo vložené a čaká sa na potvdenie druhého teamu');
-
-    }
-
-   /* public function actionScore($id)
-    {
-        $data = $this->tournamentManager->confirmScoreFetch($id);
-        $this->tournamentManager->confirmScoreMatch($id, $data);
-        $this->tournamentManager->createMatchLog('Zápas bol potvrdený a uzatvorený', $this->user->getId(), $this->getParameter('id'));
-        $this->flashMessage('Skore zápasu bolo atualizované a zápas bol uzatvorený');
-        $this->redirect('Tournament:all');
-    }*/
-
     public function actionScore($id) {
 
 //        Vytahnu data ze zapasu
@@ -396,12 +337,12 @@ class TournamentPresenter extends BasePresenter
         }
 
         $this->tournamentManager->confirmScore($values);
-        $this->tournamentManager->createMatchLog('Vložil score do zápasu čaká sa na potvrdenie.', $this->user->getId(), $values->match_id);
+        $this->tournamentManager->createMatchLog('Vložil score do zápasu ' . $values->score1 . ':' . $values->score2 . ' čaká sa na potvrdenie.', $this->user->getId(), $values->match_id);
 
         $this->messagesManager->sendMessage(array(
             'receiver_id' => $match->team2->owner,
             'subject' => 'Potvrdenie skore zo zápasu',
-            'message' => 'Pre úspešne uzavretie zápasu potvrdte skore zápasu <a href="' . $this->link('Tournament:score', $values->match_id) . '">kliknutím na tento link</a> alebo sa proti nemu odvolajte a podajte protest LINK',
+            'message' => 'Pre úspešne uzavretie zápasu potvrdte skore zápasu ' . $values->score1 . ':' . $values->score2 . ' <a href="' . $this->link('Tournament:score', $values->match_id) . '">kliknutím na tento link</a> alebo sa proti nemu odvolajte a podajte protest <a href="' . $this->link('Tournament:match', $this->getParameter('id')) . '">Tu</a>'
         ));
         $this->flashMessage('Score bolo vložené a čaká sa na potvdenie druhého teamu');
         $this->redirect('this');

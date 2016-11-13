@@ -10,6 +10,7 @@ namespace App\AdminModule\Presenters;
 
 use App\Model\LeagueManager;
 use App\Model\TournamentManager;
+use App\Model\UserManager;
 use Nette\Application\UI\Form;
 
 
@@ -28,15 +29,20 @@ class TournamentPresenter extends BasePresenter
     /** @var LeagueManager */
     private $leagueManager;
 
+    /** @var UserManager */
+    private $userManager;
+
     /**
      * TournamentPresenter constructor.
      * @param TournamentManager $tournamentManager
-     * @param LeagueManager     $leagueManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
+     * @param LeagueManager $leagueManager
+     * @param UserManager $userManager
      */
-    public function __construct(TournamentManager $tournamentManager, LeagueManager $leagueManager)
+    public function __construct(TournamentManager $tournamentManager, LeagueManager $leagueManager, UserManager $userManager)
     {
         $this->tournamentManager = $tournamentManager;
         $this->leagueManager = $leagueManager;
+        $this->userManager = $userManager;
     }
 
 
@@ -67,15 +73,51 @@ class TournamentPresenter extends BasePresenter
 
     public function createTournamentSucceeded(Form $form, $values)
     {
+        if ($this->action != 'edit'){
         $this->tournamentManager->createTournament($values);
         $this->flashMessage('turnaj bol vytvorený');
-        $this->redirect('this');
+        }
+        else{
+            $this->flashMessage('turnaj bol editovaný');
+            $this->tournamentManager->updateTournament($this->getParameter('id'), $values);
+        }
+        $this->redirect('Tournament:list');
 
     }
 
     public function renderList()
     {
         $this->template->tournament = $this->tournamentManager->getAllTournament();
+    }
+
+    public function renderEdit($id)
+    {
+        $query = $this->tournamentManager->getTournament($id);
+        $this['createTournament']->setDefaults($query);
+    }
+
+    public function renderReply(){
+        $this->template->reply = $this->tournamentManager->getRequest();
+    }
+
+    protected function createComponentReplyForm($id){
+        $form = new Form();
+
+        $form->addTextArea('answer');
+        $form->addHidden('id');
+        $form->addHidden('user_id');
+        $form->addSubmit('submit');
+
+        $form->onSuccess[] = [$this, 'createReplySucceeded'];
+
+        return $form;
+    }
+
+    public function createReplySucceeded(Form $form, $values){
+        $this->tournamentManager->updateRequest($values->id, $values);
+        $this->flashMessage('Na žiadosť|sťažnosť bolo odpovedané');
+        $this->userManager->insertNotification($values->user_id, 'Na tvoju sťažnosť žiadosť bolo odpovedané');
+        $this->redirect('this');
     }
 
 

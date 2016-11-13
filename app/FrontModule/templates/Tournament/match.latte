@@ -141,17 +141,18 @@
                                     <font color="Red">Protest</font>
                                 {/if}
                                 <a href="/uzivatel/{$report->user_id}"><i class="fa fa-star m-r-xs"></i> <span
-                                            data-user="{$report->id}">Dominik “Gavrilo” Gavrecký</span></a>
+                                            data-user="{$report->id}">{$report->ref('users','user_id')->username}</span></a>
                                 <span class="pull-right"><i
                                             class="fa fa-clock-o m-r-xs"></i>{$report->time|date:'%d.%m.%Y'}</span>
                             </div>
                             <div class="body" data-content="{$report->id}">{$report->content}</div>
-                            <div class="foot pull-right">
-                                <a href="javascript:void(0);" data-reply="{$report->id}"><i
-                                            class="fa fa-retweet m-r-xs"></i>Odpovedať</a>
-                                <a href="#"><i class="fa fa-pencil m-r-xs"></i>Upraviť</a>
-                                <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>
-                            </div>
+                            {if $user->isLoggedIn()}
+                                {if $user->getIdentity()->role == 'admin'}
+                                    <div class="foot pull-right">
+                                        <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>
+                                    </div>
+                                {/if}
+                            {/if}
                             {sep}<br><br>{/sep}
                         {/foreach}
                         {if empty($reports)} Žádné protesty/žádosti {/if}
@@ -185,257 +186,220 @@
                     </div>
                     <div class="panel-body match">
                         <div class="panel-group" id="accordion">
-                            <div class="panel panel-default detail">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                           data-parent="#accordion" href="#collapse1">
-                                            Zadať skóre
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse1" class="panel-collapse collapse">
-                                    <div class="panel-body no-padding">
-                                        <div class="score">
-                                            <div class="fleft"><img class="logo" src="/img/nightmare.png" alt="logo">
-                                                <span class="team_title">NIGHTMARE</span></div>
-                                            <div class="vs">VS</div>
-                                            <div class="fright"><img class="logo" src="/img/furios.png" alt="logo">
-                                                <span class="team_title">FURIOUS G.</span></div>
+                            {if $match->ref('league_team', 'team1_id')->owner == $user->getIdentity()->id}
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#collapse1">
+                                                Zadať skóre
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse">
+                                        <div class="panel-body no-padding">
+                                            <div class="score">
+                                                <div class="fleft"><img class="logo"
+                                                                        src="{$basePath}/img/logo/{$match->ref('league_team', 'team1_id')->logo}"
+                                                                        alt="logo">
+                                                    <span class="team_title">{$match->ref('league_team', 'team1_id')->name}</span>
+                                                </div>
+                                                <div class="vs">VS</div>
+                                                <div class="fright"><img class="logo"
+                                                                         src="{$basePath}/img/logo/{$match->ref('league_team', 'team2_id')->logo}"
+                                                                         alt="logo">
+                                                    <span class="team_title">{$match->ref('league_team', 'team2_id')->name}</span>
+                                                </div>
+                                            </div>
+                                            {form newScore}
+                                                <ul class="errors" n:if="$form->hasErrors()">
+                                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                                </ul>
+                                                <div class="col-sm-6 no-padding">
+                                                    {input score1, class => "touchspin1"}
+                                                </div>
+                                                <div class="col-sm-6 no-padding">
+                                                    {input score2, class => "touchspin1"}
+                                                </div>
+                                                <div class="col-sm-12 p-xs text-right">
+                                                    {input submit, class => "btn btn-admin"}
+                                                </div>
+                                            {/form}
                                         </div>
-                                        {form newScore}
-                                            <ul class="errors" n:if="$form->hasErrors()">
-                                                <li n:foreach="$form->errors as $error">{$error}</li>
-                                            </ul>
-                                            <div class="col-sm-6 no-padding">
-                                                {input score1, class => "touchspin1"}
-                                            </div>
-                                            <div class="col-sm-6 no-padding">
-                                                {input score2, class => "touchspin1"}
-                                            </div>
-                                            <div class="col-sm-12 p-xs text-right">
-                                                {input submit, class => "btn btn-admin"}
-                                            </div>
-                                        {/form}
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default detail">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                           data-parent="#accordion" href="#collapse2">
-                                            Podať žiadosť
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse2" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        {form newRequest, class => "form-horizontal"}
-                                            <ul class="errors" n:if="$form->hasErrors()">
-                                                <li n:foreach="$form->errors as $error">{$error}</li>
-                                            </ul>
-                                            <div class="col-sm-12">
-                                                {input content, class => "form-control"}
-                                            </div>
-                                            <div class="col-sm-12 m-t-sm">
-                                                {input submit, class => "btn btn-admin pull-right"}
-                                            </div>
-                                        {/form}
+                            {/if}
+                            {if $match->team1_id == $user->getIdentity()->team OR $match->team2_id == $user->getIdentity()->team}
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#collapse2">
+                                                Podať žiadosť
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            {form newRequest, class => "form-horizontal"}
+                                                <ul class="errors" n:if="$form->hasErrors()">
+                                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                                </ul>
+                                                <div class="col-sm-12">
+                                                    {input content, class => "form-control"}
+                                                </div>
+                                                <div class="col-sm-12 m-t-sm">
+                                                    {input submit, class => "btn btn-admin pull-right"}
+                                                </div>
+                                            {/form}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default detail">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                           data-parent="#accordion" href="#collapse3">
-                                            Podať protest
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse3" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        {form newComplaint, class => "form-horizontal"}
-                                            <ul class="errors" n:if="$form->hasErrors()">
-                                                <li n:foreach="$form->errors as $error">{$error}</li>
-                                            </ul>
-                                            <div class="col-sm-12">
-                                                {input content, class => "form-control"}
-                                            </div>
-                                            <div class="col-sm-12 m-t-sm">
-                                                {input submit, class => "btn btn-admin pull-right"}
-                                            </div>
-                                        {/form}
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#collapse3">
+                                                Podať protest
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse3" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            {form newComplaint, class => "form-horizontal"}
+                                                <ul class="errors" n:if="$form->hasErrors()">
+                                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                                </ul>
+                                                <div class="col-sm-12">
+                                                    {input content, class => "form-control"}
+                                                </div>
+                                                <div class="col-sm-12 m-t-sm">
+                                                    {input submit, class => "btn btn-admin pull-right"}
+                                                </div>
+                                            {/form}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default detail">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                           data-parent="#accordion" href="#collapse4">
-                                            Nahrať screenshot
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse4" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        {form newScreenshots, class => "form-horizontal"}
-                                            <ul class="errors" n:if="$form->hasErrors()">
-                                                <li n:foreach="$form->errors as $error">{$error}</li>
-                                            </ul>
-                                            <div class="col-sm-12 no-padding">
-                                                {input img}
-                                                <p class="help-block">Maximální počet obrázku pro hromadný upload :
-                                                    2</p>
-                                                {input submit, class => "btn btn-admin pull-right m-t-sm"}
-                                            </div>
-                                        {/form}
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#collapse4">
+                                                Nahrať screenshot
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse4" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            {form newScreenshots, class => "form-horizontal"}
+                                                <ul class="errors" n:if="$form->hasErrors()">
+                                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                                </ul>
+                                                <div class="col-sm-12 no-padding">
+                                                    {input img}
+                                                    <p class="help-block">Maximální počet obrázku pro hromadný upload :
+                                                        2</p>
+                                                    {input submit, class => "btn btn-admin pull-right m-t-sm"}
+                                                </div>
+                                            {/form}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default detail">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                           data-parent="#accordion" href="#collapse5">
-                                            Nahrať demo
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse5" class="panel-collapse collapse">
-                                    <div class="panel-body no-padding">
-                                        {form newDemo, class => "form-horizontal"}
-                                            <ul class="errors" n:if="$form->hasErrors()">
-                                                <li n:foreach="$form->errors as $error">{$error}</li>
-                                            </ul>
-                                            <div class="col-sm-12 m-t-sm">
-                                                {input demo_url, class => "form-control"}
-                                            </div>
-                                            <div class="col-sm-12 m-t-sm">
-                                                {input submit, class => "btn btn-admin pull-right"}
-                                            </div>
-                                        {/form}
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                               data-parent="#accordion" href="#collapse5">
+                                                Nahrať demo
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse5" class="panel-collapse collapse">
+                                        <div class="panel-body no-padding">
+                                            {form newDemo, class => "form-horizontal"}
+                                                <ul class="errors" n:if="$form->hasErrors()">
+                                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                                </ul>
+                                                <div class="col-sm-12 m-t-sm">
+                                                    {input demo_url, class => "form-control"}
+                                                </div>
+                                                <div class="col-sm-12 m-t-sm">
+                                                    {input submit, class => "btn btn-admin pull-right"}
+                                                </div>
+                                            {/form}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {/if}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i aria-hidden="true" class="fa fa-cogs"></i>
-                        <h3>Administrátorské nastavenia</h3>
-                    </div>
-                    <div class="panel-body match">
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default detail">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle" data-toggle="collapse"
-                                           data-parent="#accordion" href="#collapse10">
-                                            Zadať skóre
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse10" class="panel-collapse collapse in">
-                                    <div class="panel-body no-padding">
-                                        <div class="score">
-                                            <div class="fleft"><img class="logo" src="/img/nightmare.png" alt="logo">
-                                                <span class="team_title">NIGHTMARE</span></div>
-                                            <div class="vs">VS</div>
-                                            <div class="fright"><img class="logo" src="/img/furios.png" alt="logo">
-                                                <span class="team_title">FURIOUS G.</span></div>
-                                        </div>
-                                        {form adminScore}
-                                            <div class="col-sm-6 no-padding">
-                                                {input score1, class => "touchspin1"}
-                                            </div>
-                                            <div class="col-sm-6 no-padding">
-                                                {input score2, class => "touchspin1"}
-                                            </div>
-                                            <div class="col-sm-12 p-xs text-right">
-                                                {input submit, class => "btn btn-admin"}
-                                            </div>
-                                        {/form}
-                                        <div class="col-sm-12 m-b">Udelenie tresných bodov</div>
-                                        <div class="col-sm-8"><select class="form-control">
-                                                <option>Team 1</option>
-                                                <option>Team 2</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4 m-b" style="padding-left: 0px;"><input type="text"
-                                                                                                    class="form-control"
-                                                                                                    placeholder="Počet bodov">
-                                        </div>
-                                        <div class="col-sm-12 m-b">Důvod</div>
-                                        <div class="col-sm-12"><textarea class="form-control" rows="4"></textarea></div>
-                                        <div class="col-sm-12 p-sm text-right">
-                                            <button type="button" class="btn btn-admin">Uložiť</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {if $match->status == 'new'}
+
+            {if $user->getIdentity()->role == 'admin'}
                 <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i aria-hidden="true" class="fa fa-cog"></i>
-                            <h3>Uživatelské rozhraní</h3>
+                            <i aria-hidden="true" class="fa fa-cogs"></i>
+                            <h3>Administrátorské nastavenia</h3>
                         </div>
-                        <div class="panel-body text-center">
-                            {form score}
-                                <div class="row space-20">
-                                    <div class="col-sm-12 admin-head">
-                                    <span class="pull-left"><img
-                                                src="{$basePath}/img/logo/{$match->ref('league_team', 'team1_id')->logo}"
-                                                alt="logo"
-                                                class="m-r-sm">{$match->ref('league_team', 'team1_id')->name}</span>VS
-                                        <span class="pull-right"> {$match->ref('league_team', 'team2_id')->name} <img
-                                                    src="{$basePath}/img/logo/{$match->ref('league_team', 'team2_id')->logo}"
-                                                    alt="logo" class="m-l-sm"></span></div>
-                                </div>
-                                <div class="row space-5">
-                                    <div class="col-sm-6">
-                                        {*<input class="touchspin1" type="text" name="demo1" placeholder="Team 1">*}
-                                        {input score1, class=>'touchspin1'}
+                        <div class="panel-body match">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default detail">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse"
+                                               data-parent="#accordion" href="#collapse10">
+                                                Zadať skóre
+                                            </a>
+                                        </h4>
                                     </div>
-                                    <div class="col-sm-6">
-                                        {input score2, class=>'touchspin1'}
+                                    <div id="collapse10" class="panel-collapse collapse in">
+                                        <div class="panel-body no-padding">
+                                            <div class="score">
+                                                <div class="fleft"><img class="logo"
+                                                                        src="{$basePath}/img/logo/{$match->ref('league_team', 'team1_id')->logo}"
+                                                                        alt="logo">
+                                                    <span class="team_title">{$match->ref('league_team', 'team1_id')->name}</span>
+                                                </div>
+                                                <div class="vs">VS</div>
+                                                <div class="fright"><img class="logo"
+                                                                         src="{$basePath}/img/logo/{$match->ref('league_team', 'team2_id')->logo}"
+                                                                         alt="logo">
+                                                    <span class="team_title">{$match->ref('league_team', 'team2_id')->name}</span>
+                                                </div>
+                                            </div>
+                                            {form adminScore}
+                                                <div class="col-sm-6 no-padding">
+                                                    {input score1, class => "touchspin1"}
+                                                </div>
+                                                <div class="col-sm-6 no-padding">
+                                                    {input score2, class => "touchspin1"}
+                                                </div>
+                                                <div class="col-sm-12 p-xs text-right">
+                                                    {input submit, class => "btn btn-admin"}
+                                                </div>
+                                            {/form}
+                                            <div class="col-sm-12 m-b">Udelenie tresných bodov</div>
+                                            <div class="col-sm-8"><select class="form-control">
+                                                    <option>Team 1</option>
+                                                    <option>Team 2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4 m-b" style="padding-left: 0px;"><input type="text"
+                                                                                                        class="form-control"
+                                                                                                        placeholder="Počet bodov">
+                                            </div>
+                                            <div class="col-sm-12 m-b">Důvod</div>
+                                            <div class="col-sm-12"><textarea class="form-control" rows="4"></textarea>
+                                            </div>
+                                            <div class="col-sm-12 p-sm text-right">
+                                                <button type="button" class="btn btn-admin">Uložiť</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row space-5 text-left p-sm">
-                                    <div class="fileUpload btn btn-grey m-n">
-                                        <span><i class="fa fa-cloud-upload m-r-sm"></i>Nahrát screanshot</span>
-                                        {input screenshot, class=>'upload', id=>'frm-edit-avatar'}
-                                    </div>
-                                </div>
-                                <div class="row space-5 text-left" style="margin-top: 0px">
-                                    <div class="col-sm-12">
-                                        <label class="help-text">Url na demo záznam</label>
-                                        {input demo, class=>'form-control'}
-                                    </div>
-                                </div>
-
-                                <div class="row space-20 text-left">
-                                    <div class="col-sm-12">
-                                        {input submit, class=>'btn btn-admin'}
-                                        <button type="button" class="btn btn-admin" data-toggle="modal"
-                                                data-target="#zadost">Napsat žádost
-                                        </button>
-                                        <button type="button" class="btn btn-admin" data-toggle="modal"
-                                                data-target="#prostest">Napsat protest
-                                        </button>
-                                    </div>
-                                </div>
-                            {/form}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -446,47 +410,6 @@
 
         </div>
     </div><!-- row -->
-
-    <div class="modal fade" id="zadost" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button btn-admin" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Žádost</h4>
-                </div>
-                <div class="modal-body">
-                    <h5>Obsah žádosti:</h5>
-                    <textarea class="form-control" cols="10" rows="4"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-admin" data-dismiss="modal">Zavřít</button>
-                    <button type="button" class="btn btn-admin">Odeslat</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div class="modal fade" id="prostest" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button btn-admin" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Protest</h4>
-                </div>
-                <div class="modal-body">
-                    <h5>Obsah protestu:</h5>
-                    <textarea class="form-control" cols="10" rows="4"></textarea>
-                </div>
-                <div class="modal-footer">ST49
-                    <button type="button" class="btn btn-admin" data-dismiss="modal">Zavřít</button>
-                    <button type="button" class="btn btn-admin">Odeslat</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
 {/block}
 
 {block scripts}

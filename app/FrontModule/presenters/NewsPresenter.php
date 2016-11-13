@@ -4,6 +4,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model\NewsManager;
 use App\Model\UserManager;
+use IPub\VisualPaginator\Components as VisualPaginator;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
 use Nette\Security\Identity;
@@ -50,10 +51,24 @@ class NewsPresenter extends BasePresenter
             throw new BadRequestException();
         }
 
-        $news_id = $this->getParameter('id');
-
         $this->template->news = $this->newsManager->getOne($id);
-        $this->template->comments = $this->newsManager->getComments($id);
+
+        /** @var  comments */
+        $comments = $this->newsManager->getComments2($id);
+
+        $visualPaginator = $this['visualPaginator'];
+        // Get paginator form visual paginator
+        $paginator = $visualPaginator->getPaginator();
+        // Define items count per one page
+        $paginator->itemsPerPage = 2;
+        // Define total items in list
+        $paginator->itemCount = $comments->count();
+
+        $comments->limit($paginator->itemsPerPage, $paginator->offset);
+
+        $this->template->comments = $comments;
+
+        $news_id = $this->getParameter('id');
         $this->template->comments_count = $this->newsManager->countComments($news_id);
     }
 
@@ -100,11 +115,21 @@ class NewsPresenter extends BasePresenter
         $this->restoreRequest($this->backlink);
     }
 
-    public function actionUnblock($id){
+    public function actionUnblock($id)
+    {
         $this->newsManager->unblock($id);
         $this->newsManager->createCommentLog($id, '1');
         $this->flashMessage('Komentár bol odblkovaní.');
         $this->restoreRequest($this->backlink);
+    }
+
+
+    protected function createComponentVisualPaginator()
+    {
+        $control = new VisualPaginator\Control;
+        $control->setTemplateFile('bootstrap.latte');
+        $control->disableAjax();
+        return $control;
     }
 
 
