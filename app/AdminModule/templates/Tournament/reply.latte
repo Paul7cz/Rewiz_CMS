@@ -1,0 +1,102 @@
+{**
+* @param string $basepath web base path
+* @param array  $flashes  flash messages
+*}
+
+{block content}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2 n:block=title>Opověd na Prostesty a žádosti</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a n:href="Homepage:default">Domů</a>
+                </li>
+                <li>
+                    <a n:href="Tournament:default">Turnaje</a>
+                </li>
+                <li class="active">
+                    <strong>Opověd na Prostesty a žádosti</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Opověd na Prostesty a žádosti</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i
+                                        class=
+                                        "fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    <div class="row">
+
+                        <div class="col-md-12 ">
+                            <div class="message">
+                                <a class="message-author" href="#"> Uživatel </a>
+                                <span class="message-date"> 21.7.2016 - 18:39:23 </span>
+                                <span class="m-l">Zápas: </span><a class="message-author" href="#"> Link na zápas</a>
+                                <span class="message-content">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </span>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 m-t">
+                            <div class="chat-message-form">
+
+                                <div class="form-group">
+
+                                    <textarea class="form-control message-input" name="message" placeholder="Vložte obsah zprávy"></textarea>
+                                    
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-left m-t">
+                            <a href="#" class="btn btn-primary">Odeslat</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+
+{block scripts}
+    
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <script src="{$basePath}/js/tinymce/tinymce.min.js"></script>
+    <!-- FooTable -->
+    <script src="{$basePath}/js/plugins/footable/footable.all.min.js"></script>
+    <script n:syntax="off">
+        $(document).ready(function() {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+    </script>
+{/block}
+
+{block head}
+    <!--Head-->
+    <!-- FooTable -->
+    <link href="{$basePath}/css/plugins/footable/footable.core.css" rel="stylesheet">
+{/block}
