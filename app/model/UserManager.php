@@ -180,6 +180,11 @@ class UserManager extends BaseManager implements IAuthenticator
         return $this->database->table(self::AWARDS_TABLE)->insert($values);
     }
 
+    public function updateAward($id, $values)
+    {
+        return $this->database->table(self::AWARDS_TABLE)->where('id = ?', $id)->update($values);
+    }
+
     public function getAwards()
     {
         return $this->database->table(self::AWARDS_TABLE)->fetchAll();
@@ -190,9 +195,17 @@ class UserManager extends BaseManager implements IAuthenticator
         return $this->database->table(self::AWARDS_TABLE);
     }
 
+    public function getTeamAw($id){
+        return $this->database->table('team_achviement')->where('achviement_id = ?', $id)->fetchAll();
+    }
+
+    public function getUserAw($id){
+        return $this->database->table('users_achviements_profile')->where('achviements_id = ?', $id)->fetchAll();
+    }
+
     public function deleteAward($id)
     {
-        return $this->database->table(self::AWARDS_TABLE)->delete();
+        return $this->database->table(self::AWARDS_TABLE)->where('id = ?', $id)->delete();
     }
 
     public function getProfileAwards($id)
@@ -325,23 +338,43 @@ class UserManager extends BaseManager implements IAuthenticator
         $user = $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->fetchAll();
         $today = new DateTime();
 
-        if ($user->premium_time >= $today){
-        return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
-            'premium_time' => NULL
-        ));
+        if ($user->premium_time >= $today) {
+            return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
+                'premium_time' => NULL
+            ));
         }
     }
 
-    public function vip_deactive($id){
+    public function vip_deactive($id)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
             'premium_time' => NULL
         ));
     }
 
-    public function vipact($id, $int){
+    public function vipact($id, $int)
+    {
         return $this->database->table(self::USERS_TABLE)->where('id = ?', $id)->update(array(
             'premium' => $int
         ));
+    }
+
+    public function getAch($id)
+    {
+        return $this->database->table(self::AWARDS_TABLE)->where('id = ?', $id)->fetch();
+    }
+
+    public function createPremiumLog($user_id, $who, $activity)
+    {
+        return $this->database->table('premium_log')->insert(array(
+            'user_id' => $user_id,
+            'who_id' => $who,
+            'activity' => $activity
+        ));
+    }
+
+    public function getVipLog($id){
+        return $this->database->table('premium_log')->where('user_id = ?', $id)->order('id DESC')->fetchAll();
     }
 
 

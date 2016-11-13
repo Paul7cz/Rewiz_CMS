@@ -8,6 +8,7 @@ use App\Model\TournamentManager;
 use App\Model\UserManager;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
 use Nette\Utils\DateTime;
 use Tracy\Debugger;
 
@@ -34,9 +35,9 @@ class LeaguePresenter extends BasePresenter
 
     /**
      * LeaguePresenter constructor.
-     * @param LeagueManager     $leagueManager
-     * @param UserManager       $userManager
-     * @param MessagesManager   $messagesManager
+     * @param LeagueManager $leagueManager
+     * @param UserManager $userManager
+     * @param MessagesManager $messagesManager
      * @param TournamentManager $tournamentManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
      */
     public function __construct(LeagueManager $leagueManager, UserManager $userManager, MessagesManager $messagesManager, TournamentManager $tournamentManager)
@@ -157,9 +158,8 @@ class LeaguePresenter extends BasePresenter
                     /*'sender_id' => '',*/
                     'receiver_id' => $team->owner,
                     'subject' => 'Registrácia do ligy',
-                    'message' => 'Tvoj team bol úspešne registrovaný do ligy. Pre úspešne dokončenie registrácie potvrď voľbu na <a href="' . $this->link('League:confirm', $join->getPrimary()) . '">',
+                    'message' => 'Tvoj team bol úspešne registrovaný do ligy. Pre úspešne dokončenie registrácie potvrď voľbu na <a href="' . $this->link('League:confirm', $join->getPrimary()) . '">tomto odkaze</a>',
                 ));
-                $this->userManager->insertNotification($this->user->getId(), 'Tvoj tým bol zaregistrovaný do ligy.');
                 $this->leagueManager->insertToPoints(array(
                     'team_id' => $this->user->getIdentity()->team,
                     'league_id' => $this->getParameter('id'),
@@ -177,14 +177,22 @@ class LeaguePresenter extends BasePresenter
 
     public function actionConfirm($id)
     {
+        $values = new ArrayHash();
+        $values->league_id = $this->getParameter('id');
+        $values->team_id = $this->user->getIdentity()->team;
+
         $this->leagueManager->confirmTeam($id);
+        $this->leagueManager->insertPoints($values);
+        $this->userManager->insertNotification($this->user->getId(), 'Tvoj tým bol zaregistrovaný do ligy.');
+
         $this->flashMessage('potvrdiť');
         $this->redirect('Homepage:Default');
     }
 
-    public function teamStats($id)
+    public function teamPoints($team_id)
     {
-        //TODO: Výpis teamov spolu s bodmi
+        $league_id = $this->getParameter('id');
+        return $this->leagueManager->getTeamPoints($team_id, $league_id);
     }
 
 }

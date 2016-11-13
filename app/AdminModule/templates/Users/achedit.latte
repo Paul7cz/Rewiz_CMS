@@ -49,7 +49,7 @@
                                     <a n:href="Users:delete $data->id"
                                             onClick="return confirm('Naozaj chcete zmazať túto kategoriu ?')"><i
                                                 aria-hidden="true" class="fa fa-trash text-navy m-r"></i></a>
-                                    <a n:href="Users:achedit $data->id"><i
+                                    <a href="#"><i
                                                 aria-hidden="true" class="fa fa-pencil text-navy"></i></a>
                                 </td>
                             </tr>
@@ -100,7 +100,7 @@
     {include parent}
     <!--Include parents scripts-->
     <!-- FooTable -->
-        <script src="{$basePath}/js/plugins/footable/footable.all.min.js"></script>
+    <script src="{$basePath}/js/plugins/footable/footable.all.min.js"></script>
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function() {

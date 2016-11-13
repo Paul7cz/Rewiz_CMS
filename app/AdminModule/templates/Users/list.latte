@@ -86,47 +86,12 @@
                             </thead>
                             <tbody>
                             <tr></tr>
-                            <tr>
-                                <td>1</td>
-                                <td>5 přihlášení</td>
-                                <td><a href="#">Lojsa</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Killer</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Noname</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Joko</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a></td>
+                            <tr n:foreach="$awards as $data">
+                                <td>{$data->id}</td>
+                                <td>{$data->name}</td>
+                                <td><a href="#" n:foreach="$presenter->getUserAw($data->id) as $data"> {$data->users->username}</a></td>
                                 <td>
-                                    <a class="btn btn-danger btn-trash">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                    <a class="btn btn-warning btn-pencil">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Vyhrá 1v1</td>
-                                <td><a href="#">Lojsa</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Killer</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Noname</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Joko</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a></td>
-                                <td>
-                                    <a class="btn btn-danger btn-trash">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                    <a class="btn btn-warning btn-pencil">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>10 přihlášení</td>
-                                <td><a href="#">Lojsa</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Killer</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Noname</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a>;<a href="#">Joko</a><a href="#"><i class="fa fa-trash m-l-xs"></i></a></td>
-                                <td>
-                                    <a class="btn btn-danger btn-trash">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                    <a class="btn btn-warning btn-pencil">
+                                    <a class="btn btn-warning btn-pencil" n:href="Users:awards">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>

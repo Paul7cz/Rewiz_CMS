@@ -11,6 +11,8 @@ namespace App\AdminModule\Presenters;
 use App\Model\LeagueManager;
 use App\Model\UserManager;
 use Nette\Application\UI\Form;
+use Nette\Database\ForeignKeyConstraintViolationException;
+use Nette\Utils\ArrayHash;
 use Nette\Utils\Image;
 use Tracy\Debugger;
 
@@ -62,6 +64,7 @@ class UsersPresenter extends BasePresenter
     {
         $this->template->info = $this->userManager->getUser($id);
         $this->template->awards = $this->userManager->getProfileAwards($id);
+        $this->template->log = $this->userManager->getVipLog($id);
     }
 
     /**
@@ -192,9 +195,25 @@ class UsersPresenter extends BasePresenter
             //TODO: random string na meno
         }
 
-        $this->userManager->createAward($values);
+
+        if ($this->action == 'achedit'){
+            $this->userManager->updateAward($this->getParameter('id'), $values);
+        } else {
+            $this->userManager->createAward($values);
+        }
         $this->flashMessage('Cena vytvorená');
         $this->redirect('Users:Default');
+    }
+
+    /**
+     * @param int $id ID novinky
+     *                Editácia novinky
+     */
+    public function renderAchEdit($id)
+    {
+        $query = $this->userManager->getAch($id);
+        $this['achviements']->setDefaults($query);
+        $this->template->awards = $this->userManager->getAwards();
     }
 
     protected function createComponentAddAch()
@@ -225,13 +244,29 @@ class UsersPresenter extends BasePresenter
         $this->template->awards = $this->userManager->getAwards();
     }
 
+    public function renderList(){
+        $this->template->awards = $this->userManager->getAwards();
+    }
+
+    public function getUserAw($id){
+        return $this->userManager->getUserAw($id);
+    }
+
+    public function getTeamAw($id){
+        return $this->userManager->getTeamAw($id);
+    }
+
+    public function renderTeam(){
+        $this->template->awards = $this->userManager->getAwards();
+    }
+
 
     protected function createComponentUserAch()
     {
         $form = new Form();
 
-        $users = $this->userManager->getUsers()->fetchAll();
-        $achviements = $this->userManager->getAwards2()->fetchAll();
+        $users = $this->userManager->getUsers()->fetchPairs('id', 'username');
+        $achviements = $this->userManager->getAwards2()->fetchPairs('id', 'name');
 
         $form->addSelect('users_id')->setItems($users)->setRequired();
         $form->addSelect('achviements_id')->setItems($achviements)->setRequired();
@@ -251,9 +286,14 @@ class UsersPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
-        $this->userManager->deleteAward($id);
+        try{
+            $this->userManager->deleteAward($id);
+        } catch (ForeignKeyConstraintViolationException $exception){
+            $this->flashMessage('Cenu nemôžeš zmazať');
+            $this->redirect('Users:Awards');
+        }
         $this->flashMessage('Cena zmazaná');
-        $this->redirect('Users:Default');
+        $this->redirect('Users:Awards');
     }
 
     public function createComponentPerm()
@@ -419,8 +459,19 @@ class UsersPresenter extends BasePresenter
     public function premiumSucceeded(Form $form, $values)
     {
         $this->userManager->userInsertDataVIP($values, $this->getParameter('id'));
+        $this->userManager->createPremiumLog($this->getParameter('id'), $this->user->getId(), '1');
         $this->flashMessage('Premium aktivované');
         $this->redirect('this');
+    }
+
+    public function actionDeactiveVIP($id){
+        $values = new ArrayHash();
+        $values->premium_time = NULL;
+
+        $this->userManager->userInsertDataVIP($values, $id);
+        $this->userManager->createPremiumLog($id, $this->user->getId(), '0');
+        $this->flashMessage('Premium deaktivované');
+        $this->redirect('Users:default');
     }
 
 

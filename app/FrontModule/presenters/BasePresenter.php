@@ -129,7 +129,7 @@ abstract class BasePresenter extends Presenter
     {
         $user = $this->userManager->getUser($id);
         $today = new DateTime();
-        if ($user->premium_time >= $today) {
+        if ($user->premium_time <= $today) {
             $this->userManager->vip_deactive($id);
         }
     }

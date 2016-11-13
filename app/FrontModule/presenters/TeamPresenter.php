@@ -16,6 +16,7 @@ use Nette\Application\UI\Form;
 use Nette\Database\UniqueConstraintViolationException;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Image;
+use Tracy\Debugger;
 
 class TeamPresenter extends BasePresenter
 {
@@ -73,8 +74,7 @@ class TeamPresenter extends BasePresenter
         $this->template->wins = $this->tournamentManager->getTeamWin($id);
         $this->template->played = $this->tournamentManager->getTeamRegistrationTournament($id);
         $this->template->matches = $this->tournamentManager->getTeamMatches($id)->fetchAll();
-        /** @var  league_points */
-        /*$this->template->league_points = $this->leagueManager->getPoints($id);*/
+        $this->template->points = $this->leagueManager->getPoints($id);
         $this->template->awards = $this->leagueManager->getTeamAchviement($id);
     }
 
@@ -195,7 +195,6 @@ class TeamPresenter extends BasePresenter
 
         $form->addSubmit('submit');
 
-        /*$form->onValidate[] = [$this, 'registrationFormValidated'];*/
         $form->onSuccess[] = [$this, 'registrationFormSucceeded'];
 
         return $form;
@@ -209,6 +208,9 @@ class TeamPresenter extends BasePresenter
     {
         $values->owner = $this->user->getId();
 
+        /*var_dump($this->action);
+        die();*/
+
         if ($values['logo']->isImage() and $values['logo']->isOk()) {
             $file = $values['logo']; //Prehodenie do $file
             $file_name = $file->getSanitizedName();
@@ -219,20 +221,39 @@ class TeamPresenter extends BasePresenter
             $image->save($this->context->parameters['wwwDir'] . '/img/logo/' . $file_name);
             $values['logo'] = $file_name;
             //TODO: random string na meno
-
+            Debugger::dump($form);
             try {
-                $query = $this->leagueManager->addTeam($values);
-                $data['team'] = $query->getPrimary();
-                $this->userManager->updateUser($this->user->getId(), $data);
-                $this->createLeagueLogs($data['team'], $this->user->getId(), 'Klan bol úspešne vytvorený.');
+                if ($this->action != 'edit') {
+                    $query = $this->leagueManager->addTeam($values);
+                    $data['team'] = $query->getPrimary();
+                    $this->userManager->updateUser($this->user->getId(), $data);
+                    $this->createLeagueLogs($data['team'], $this->user->getId(), 'Klan bol úspešne vytvorený.');
+                } else {
+                    $query = $this->leagueManager->editTeam($this->getParameter('id'), $values);
+                    /*$data['team'] = $query->getPrimary();*/
+                    $this->createLeagueLogs($this->getParameter('id'), $this->user->getId(), 'Klan bol úspešne editovaný.');
+                }
             } catch (UniqueConstraintViolationException $e) {
                 $form->addError('Team so zadaním tagom alebo názvom už existuje');
             }
             $this->reauthenticate($this->user->getId());
-            $this->userManager->insertNotification($this->user->getId(), 'Práve ste založili nový team');
+            if ($this->action != 'edit') {
+                $this->userManager->insertNotification($this->user->getId(), 'Práve ste založili nový team');
+            }
             $this->redirect('Homepage:default');
         }
 
+    }
+
+    public function renderEdit($id)
+    {
+        $query = $this->leagueManager->getTeam($id);
+
+        if ($query->owner == $this->user->getId()) {
+            $this['registrationForm']->setDefaults($query);
+        }else{
+            throw new BadRequestException();
+        }
     }
 
     public function actionLeave()
@@ -241,6 +262,12 @@ class TeamPresenter extends BasePresenter
         $this->userManager->leaveTeam($this->user->getId());
         $this->userManager->insertNotification($this->user->getId(), 'Práve ste opustili váš team');
         $this->flashMessage('Úspešne si opustil tvoj team');
+        $this->redirect('Homepage:default');
+    }
+
+    public function actionDeleteAch($team_id, $achviement_id){
+        $this->leagueManager->teamAchDel($team_id, $achviement_id);
+        $this->flashMessage('Ocenenie vymazané');
         $this->redirect('Homepage:default');
     }
 }

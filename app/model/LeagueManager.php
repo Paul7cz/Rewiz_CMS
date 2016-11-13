@@ -26,7 +26,7 @@ class LeagueManager extends BaseManager
         TEAM_LOGS_TABLE = "league_team_logs",
         TEAM_REGISTERED = "league_registered_team",
         TEAM_ACHVIEMENT = "team_achviement",
-        TEAM_LEAGUE_POINTS = "";
+        TEAM_LEAGUE_POINTS = "team_points";
 
 
     /**
@@ -128,6 +128,12 @@ class LeagueManager extends BaseManager
         return $this->database->table(self::TEAM_TABLE)->insert($values);
     }
 
+    public function editTeam($id, $values)
+    {
+        return $this->database->table(self::TEAM_TABLE)->where('id = ?', $id)->update($values);
+
+    }
+
     public function getPassword($id)
     {
         return $this->database->table(self::TEAM_TABLE)->where('id', $id)->fetch()->password;
@@ -223,10 +229,19 @@ class LeagueManager extends BaseManager
         ));
     }
 
-    /** Body a názov ligy */
-    public function getPoints($id)
+    public function getPoints($team_id)
     {
-        return $this->database->table(self::TEAM_LEAGUE_POINTS)->where('team_id = ?', $id)->fetchAll();
+        return $this->database->table(self::TEAM_LEAGUE_POINTS)->where('team_id = ?', $team_id)->fetchAll();
+    }
+
+    public function getTeamPoints($team_id, $league_id)
+    {
+        return $this->database->table(self::TEAM_LEAGUE_POINTS)->where('team_id = ? AND league_id = ?', $team_id, $league_id)->fetchField('point');
+    }
+
+    public function insertPoints($values)
+    {
+        return $this->database->table(self::TEAM_LEAGUE_POINTS)->insert($values);
     }
 
     public function insertToPoints($values)
@@ -239,12 +254,17 @@ class LeagueManager extends BaseManager
         return $this->database->table(self::TEAM_ACHVIEMENT)->insert($values);
     }
 
+    public function teamAchDel($team_id, $ach_id){
+        return $this->database->table(self::TEAM_ACHVIEMENT)->where('team_id = ? AND achviement_id = ?', $team_id, $ach_id)->delete();
+    }
+
     public function getTeamAchviement($id)
     {
         return $this->database->table(self::TEAM_ACHVIEMENT)->where('team_id = ?', $id)->order('id DESC')->fetchAll();
     }
 
-    public function getAllTeamAchviement(){
+    public function getAllTeamAchviement()
+    {
         return $this->database->table(self::TEAM_ACHVIEMENT)->fetchAll();
     }
 

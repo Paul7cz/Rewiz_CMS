@@ -18,9 +18,7 @@
                                     <th class="text-center">Rank</th>
                                     <th class="text-center">Názov tímu</th>
                                     <th class="text-center">Zápasy</th>
-                                    <th class="text-center text-green">V</th>
-                                    <th class="text-center text-blue">P</th>
-                                    <th class="text-center text-red">R</th>
+                                    <th class="text-center text-blue">Počet bodov</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,9 +26,7 @@
                                     <td>1.</td>
                                 <td>{$data->ref('league_team', 'id_team')->name}</td>
                                 <td>0</td>
-                                <td class="text-green">0</td>
-                                <td class="text-blue">0</td>
-                                <td class="text-red">0</td>
+                                <td class="text-blue">{$presenter->teamPoints($data->id_team)}</td>
                                 </tr>
                             </tbody>
                         </table>    

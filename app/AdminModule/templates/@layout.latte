@@ -2,6 +2,7 @@
 * @param string   $basePath web base path
 * @param array    $flashes  flash messages
 *}
+{dump $flashes}
 <!DOCTYPE html>
 <html>
 
@@ -98,7 +99,7 @@
                         <ul class="nav nav-second-level">
                             <li><a n:href="Users:awards">Vytvoriť ocenenie</a></li>
                             <li><a n:href="Users:list">Pridať & Zmazať (Hráči)</a></li>
-                            <li><a n:href="Awards:team">Pridať & Zmazať (Tými)</a></li>
+                            <li><a n:href="Users:team">Pridať & Zmazať (Tými)</a></li>
                         </ul>
                     </li>
                     <li n:class="$presenter->isLinkCurrent(':Admin:News:') ? active">

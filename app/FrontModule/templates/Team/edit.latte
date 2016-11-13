@@ -22,24 +22,26 @@
                             <i aria-hidden="true" class="fa fa-info-circle"></i>
                             <h3>Pridaj základné informácie</h3>
                         </div>
+                        {form registrationForm}
 
+                        <div class="col-lg-8 col-lg-offset-2" style="margin-top: 10px" n:if="$form->hasErrors()">
+                            <div class="alert alert-danger">
+                                <li n:foreach="$form->errors as $error">{$error}</li>
+                            </div>
+                        </div>
 
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-3 user-title text-center">Názov tímu</div>
-                                <div class="col-sm-9 text-left"><input type="text"></div>
+                                <div class="col-sm-9 text-left">{input name}</div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3 user-title text-center">Tag</div>
-                                <div class="col-sm-9 text-left"><input type="text"></div>
+                                <div class="col-sm-9 text-left">{input tag}</div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-3 user-title text-center">Krajina</div>
-                                <div class="col-sm-9 text-left"><input type="text"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3 user-title text-center">E-mail</div>
-                                <div class="col-sm-9 text-left"><input type="text"></div>
+                                <div class="col-sm-3 user-title text-center">Info</div>
+                                <div class="col-sm-9 text-left">{input about}</div>
                             </div>
                         </div>
                     </div>
@@ -63,7 +65,7 @@
                                 <div class="col-sm-8 text-right">
                                     <div class="fileUpload btn btn-grey m-n">
                                         <span><i class="fa fa-cloud-upload m-r-sm"></i>Nahrát fotku</span>
-                                        <input type="file" class="upload">
+                                        {input logo, class=>'upload'}
                                     </div>
                                 </div>
                             </div>
@@ -116,16 +118,8 @@
                         </div>
                         <div class="panel-body p-w-xs">
                             <div class="row">
-                                <div class="col-sm-3 user-title text-center">Aktuálne heslo</div>
-                                <div class="col-sm-9 text-left"><input type="password"></div>
-                            </div>
-                            <div class="row">
                                 <div class="col-sm-3 user-title text-center">Nové heslo</div>
-                                <div class="col-sm-9 text-left"><input type="password"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3 user-title text-center">Zopakovať heslo</div>
-                                <div class="col-sm-9 text-left"><input type="password"></div>
+                                <div class="col-sm-9 text-left">{input password}</div>
                             </div>
                         </div>
                     </div>
@@ -133,15 +127,14 @@
             </div><!-- row -->
 
 
-
             <div class="row">
                 <div class="col-sm-12 space-15  text-center">
-                <input type="submit" class="btn btn-blue" value="Aktualizovať profil">
+                    {input submit}
                 </div>
             </div>
 
 
-
+            {/form}
 
         </div><!-- .col-8 -->
         <div class="col-sm-4 no-padding">
@@ -160,7 +153,7 @@
 {block head}
     <!--Head-->
     <style>
-        .btn-blue{
+        .btn-blue {
             color: white !important;
         }
     </style>
