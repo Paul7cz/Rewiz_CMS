@@ -83,242 +83,249 @@
             </div>
         </div><!-- row -->
 
-        <div class="row p-sm m-t-n-md">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading text-left">
-                        <i aria-hidden="true" class="fa fa-bars"></i>
-                        <h3>Výpis bodov v ligách</h3>
-                    </div>
-                    <div class="panel-body text-left team_info scroll_content2">
-                        <div class="row" n:foreach="$points as $data">
-                            {if $data->league->game == 'Counter-Strike: Global Offensive'}
+            <div class="row p-sm m-t-n-md">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-left">
+                            <i aria-hidden="true" class="fa fa-bars"></i>
+                            <h3>Výpis bodov v ligách</h3>
+                        </div>
+                        <div class="panel-body text-left team_info scroll_content2">
+                            <div class="row" n:foreach="$points as $data">
+                                {if $data->league->game == 'Counter-Strike: Global Offensive'} 
                             <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png" alt="icon">
-                                {elseif $data->league->game == 'Dota 2'}
-                                <div class="col-sm-8"><img class="m-r-xs" src="/img/dota2.gif" alt="icon">
-                                    {elseif $data->league->game == 'Hearthstone'}
-                                    <div class="col-sm-8"><img class="m-r-xs" src="/img/hs.gif" alt="icon">
-                                        {elseif $data->league->game == 'League of Legends'}
-                                        <div class="col-sm-8"><img class="m-r-xs" src="/img/lol.png" alt="icon">
-                                            {/if}
-                                            {$data->league->name}
-                                        </div>
-                                        <div class="col-sm-2">{$data->league->ladder}vs{$data->league->ladder}</div>
-                                        <div class="col-sm-2 cara text-blue">{$data->point} bodov</div>
-                                    </div>
-                                </div>
+                                {elseif $data->league->game == 'Dota 2'} 
                             </div>
+                            <div class="col-sm-8"><img class="m-r-xs" src="/img/dota2.gif" alt="icon">
+                                {elseif $data->league->game == 'Hearthstone'}
+                            </div>
+                            <div class="col-sm-8"><img class="m-r-xs" src="/img/hs.gif" alt="icon">
+                                {elseif $data->league->game == 'League of Legends'} 
+                            </div>
+                            <div class="col-sm-8"><img class="m-r-xs" src="/img/lol.png" alt="icon">
+                                {/if}
+                                {$data->league->name}
+                            </div>
+                            <div class="col-sm-2">
+                                {$data->league->ladder}vs{$data->league->ladder}
+                            </div>
+                            <div class="col-sm-2 cara text-blue">{$data->point} bodov</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-                    <div class="row p-sm m-t-n-md">
-                        <div class="col-lg-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading text-left">
-                                    <i aria-hidden="true" class="fa fa-diamond"></i>
-                                    <h3>Ocenenia</h3>
-                                </div>
-                                <div class="panel-body text-left team_info scroll_content2">
-                                    <div class="aw">
-                                        {if $awards != NULL}
-                                            <div class="row p-w-xs m-t-xxs" n:foreach="$awards as $data">
-                                                <div class="col-sm-2">
-                                                    <img class="team-logo"
-                                                         src="{$basePath}/img/awards/{$data->achviement->icon}"
-                                                         alt="teamlogo">
-                                                </div>
-                                                <div class="col-sm-9 text-left no-padding">
-                                                    <div class="block">{$data->summary}</div>
-                                                    <i class="fa fa-clock-o m-r-xs"
-                                                       aria-hidden="true"></i>{$data->time|date:'j.n.Y'}
-                                                </div>
-                                                {dump $team->id}
-                                                {dump $data->id}
+        
+        <div class="row p-sm m-t-n-md">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-left">
+                        <i aria-hidden="true" class="fa fa-diamond"></i>
+                        <h3>Ocenenia</h3>
+                    </div>
+                    <div class="panel-body text-left team_info scroll_content2">
+                        <div class="aw">
+                            {if $awards != NULL}
+                                <div class="row p-w-xs m-t-xxs" n:foreach="$awards as $data">
+                                    <div class="col-sm-2">
+                                        <img class="team-logo"
+                                             src="{$basePath}/img/awards/{$data->achviement->icon}"
+                                             alt="teamlogo">
+                                    </div>
+                                    <div class="col-sm-9 text-left no-padding">
+                                        <div class="block">{$data->summary}</div>
+                                        <i class="fa fa-clock-o m-r-xs"
+                                           aria-hidden="true"></i>{$data->time|date:'j.n.Y'}
+                                    </div>
+                                    {dump $team->id}
+                                    {dump $data->id}
 
-                                                {if $user->isLoggedIn()}
-                                                    {if $user->getIdentity()->role == 'admin'}
-                                                        <div class="col-sm-1 no-padding">
-                                                            <a n:href="Team:deleteAch $team->id, $data->achviement_id"><i
-                                                                        class="fa fa-trash m-t"
-                                                                        aria-hidden="true"></i></a>
-                                                        </div>
-                                                    {/if}
-                                                {/if}
-                                            </div>
-                                        {else}
-                                            <div class="row">
-                                                <div class="col-sm-12 text-center">
-                                                    <h4>Zatiaľ ste nezískali žiadne umiestnenie v našich turnajoch, skúste svoje šťastie <a href="{$basePath}/tournament/all">TU</a>.</h4>
-                                                </div>
+                                    {if $user->isLoggedIn()}
+                                        {if $user->getIdentity()->role == 'admin'}
+                                            <div class="col-sm-1 no-padding">
+                                                <a n:href="Team:deleteAch $team->id, $data->achviement_id"><i
+                                                            class="fa fa-trash m-t"
+                                                            aria-hidden="true"></i></a>
                                             </div>
                                         {/if}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row p-sm m-t-n-md">
-                        <div class="col-lg-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading text-left">
-                                    <i aria-hidden="true" class="fa fa-crosshairs"></i>
-                                    <h3>Odohrané zápasy</h3>
-                                </div>
-                                <div class="panel-body text-left team_info scroll_content2">
-                                    {if $matches != NULL}
-                                        <div class="row" n:foreach="$matches as $data">
-                                            {if $data->team1_id == $team->id}
-                                                <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png"
-                                                                           alt="icon"> vs
-                                                    <a
-                                                            href="">{$data->ref('league_team', 'team2_id')->name}</a>
-                                                </div>
-                                                <div class="col-sm-3">{$data->time|date:'j.n.Y H:i:s'}</div>
-                                                <div class="col-sm-1 no-padding cara">
-                                                    {if $data->score2 > $data->score1}
-                                                        <span class="red">{$data->score1}</span> :
-                                                        <span class="green">{$data->score2}</span>
-                                                    {/if}
-                                                    {if $data->score1 > $data->score2}
-                                                        <span class="green">{$data->score1}</span> :
-                                                        <span class="red">{$data->score2}</span>
-                                                    {/if}
-                                                </div>
-                                            {/if}
-
-                                            {if $data->team2_id == $team->id}
-                                                <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png"
-                                                                           alt="icon"> vs
-                                                    <a
-                                                            href="#">{$data->ref('league_team', 'team1_id')->name}</a>
-                                                </div>
-                                                <div class="col-sm-3">{$data->time|date:'j.n.Y H:i:s'}</div>
-                                                <div class="col-sm-1 no-padding cara">
-                                                    {if $data->score1 > $data->score2}
-                                                        <span class="red">{$data->score2}</span> :
-                                                        <span class="green">{$data->score1}</span>
-                                                    {/if}
-                                                    {if $data->score2 > $data->score1}
-                                                        <span class="green">{$data->score2}</span> :
-                                                        <span class="red">{$data->score1}</span>
-                                                    {/if}
-                                                </div>
-                                            {/if}
-                                        </div>
-                                    {else}
-                                        <div class="row">
-                                            <div class="col-sm-12 text-center">
-                                                <h4>Zatím jste neodehráli žadný zápas, zkuste svoje štěstí v našich
-                                                    turnajích <a href="{$basePath}/tournament/all">ZDE</a>.</h4>
-                                            </div>
-                                        </div>
-
                                     {/if}
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row p-sm m-t-n-md">
-                        <div class="col-lg-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading text-left">
-                                    <i aria-hidden="true" class="fa fa-stack-exchange"></i>
-                                    <h3>Záznamy tímu</h3>
-                                </div>
-                                <div class="panel-body text-left team_info scroll_content2">
-                                    <div n:foreach="$logs as $data" class="row">
-                                        <div class="col-sm-7">{$data->action}</div>
-                                        <div class="col-sm-3"><i
-                                                    class="fa fa-clock-o m-r-xs""></i>{$data->created|date:'j.n.Y H:i:s'}
-                                        </div>
-                                        <div class="col-sm-2 no-padding"><i
-                                                    class="fa fa-user m-r-xs""></i>{$data->users->username}</div>
+                            {else}
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <h4>Zatiaľ ste nezískali žiadne umiestnenie v našich turnajoch, skúste svoje šťastie <a href="{$basePath}/tournament/all">TU</a>.</h4>
                                     </div>
                                 </div>
-                            </div>
+                            {/if}
                         </div>
                     </div>
-
-                    {if $user->isLoggedIn()}
-                        {if $user->getIdentity()->team == NULL}
-                            <div class="row">
-                                <div class="col-lg-12 m-b-lg">
-                                    <a n:href="Team:join, $team->id"><input class="btn btn-blue" type="submit"
-                                                                            value="Chcem vstúpiť do klanu!"></a>
-                                </div>
-                            </div>
-                        {/if}
-
-                        {if $user->getIdentity()->team == $team->id}
-                            <div class="row">
-                                <div class="col-lg-12 m-b-lg">
-                                    <a n:href="Team:leave"><input class="btn btn-red" type="submit"
-                                                                  value="Chcem vystúpiť z klanu!"></a>
-                                </div>
-                            </div>
-                        {/if}
-
-                        {if $user->getIdentity()->id == $team->owner}
-                            <div class="row">
-                                <div class="col-lg-12 m-b-lg">
-                                    <a n:href="Team:Edit $team->id"><input class="btn btn-red" type="submit"
-                                                                           value="Editovať klan"></a>
-                                </div>
-                            </div>
-                        {/if}
-                    {/if}
-
-                </div><!-- .col-8 -->
-                <div class="col-sm-4 no-padding">
-                    {control panels:tournament}
-                    {control panels:advertisment}
                 </div>
+            </div>
+        </div>
+        
+        <div class="row p-sm m-t-n-md">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-left">
+                        <i aria-hidden="true" class="fa fa-crosshairs"></i>
+                        <h3>Odohrané zápasy</h3>
+                    </div>
+                    <div class="panel-body text-left team_info scroll_content2">
+                        {if $matches != NULL}
+                            <div class="row" n:foreach="$matches as $data">
+                                {if $data->team1_id == $team->id}
+                                    <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png"
+                                                               alt="icon"> vs
+                                        <a
+                                                href="">{$data->ref('league_team', 'team2_id')->name}</a>
+                                    </div>
+                                    <div class="col-sm-3">{$data->time|date:'j.n.Y H:i:s'}</div>
+                                    <div class="col-sm-1 no-padding cara">
+                                        {if $data->score2 > $data->score1}
+                                            <span class="red">{$data->score1}</span> :
+                                            <span class="green">{$data->score2}</span>
+                                        {/if}
+                                        {if $data->score1 > $data->score2}
+                                            <span class="green">{$data->score1}</span> :
+                                            <span class="red">{$data->score2}</span>
+                                        {/if}
+                                    </div>
+                                {/if}
+
+                                {if $data->team2_id == $team->id}
+                                    <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png"
+                                                               alt="icon"> vs
+                                        <a
+                                                href="#">{$data->ref('league_team', 'team1_id')->name}</a>
+                                    </div>
+                                    <div class="col-sm-3">{$data->time|date:'j.n.Y H:i:s'}</div>
+                                    <div class="col-sm-1 no-padding cara">
+                                        {if $data->score1 > $data->score2}
+                                            <span class="red">{$data->score2}</span> :
+                                            <span class="green">{$data->score1}</span>
+                                        {/if}
+                                        {if $data->score2 > $data->score1}
+                                            <span class="green">{$data->score2}</span> :
+                                            <span class="red">{$data->score1}</span>
+                                        {/if}
+                                    </div>
+                                {/if}
+                            </div>
+                        {else}
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <h4>Zatím jste neodehráli žadný zápas, zkuste svoje štěstí v našich
+                                        turnajích <a href="{$basePath}/tournament/all">ZDE</a>.</h4>
+                                </div>
+                            </div>
+
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>            
+
+        <div class="row p-sm m-t-n-md">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-left">
+                        <i aria-hidden="true" class="fa fa-stack-exchange"></i>
+                        <h3>Záznamy tímu</h3>
+                    </div>
+                    <div class="panel-body text-left team_info scroll_content2">
+                        <div n:foreach="$logs as $data" class="row">
+                            <div class="col-sm-7">{$data->action}</div>
+                            <div class="col-sm-3"><i
+                                        class="fa fa-clock-o m-r-xs""></i>{$data->created|date:'j.n.Y H:i:s'}
+                            </div>
+                            <div class="col-sm-2 no-padding"><i
+                                        class="fa fa-user m-r-xs""></i>{$data->users->username}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>            
+
+        {if $user->isLoggedIn()}
+            {if $user->getIdentity()->team == NULL}
+                <div class="row">
+                    <div class="col-lg-12 m-b-lg">
+                        <a n:href="Team:join, $team->id"><input class="btn btn-blue" type="submit"
+                                                                value="Chcem vstúpiť do klanu!"></a>
+                    </div>
+                </div>
+            {/if}
+
+            {if $user->getIdentity()->team == $team->id}
+                <div class="row">
+                    <div class="col-lg-12 m-b-lg">
+                        <a n:href="Team:leave"><input class="btn btn-red" type="submit"
+                                                      value="Chcem vystúpiť z klanu!"></a>
+                    </div>
+                </div>
+            {/if}
+
+            {if $user->getIdentity()->id == $team->owner}
+                <div class="row">
+                    <div class="col-lg-12 m-b-lg">
+                        <a n:href="Team:Edit $team->id"><input class="btn btn-red" type="submit"
+                                                               value="Editovať klan"></a>
+                    </div>
+                </div>
+            {/if}
+        {/if}      
+
+
+      
+
+    </div><!-- .col-8 -->
+    <div class="col-sm-4 no-padding">
+        {control panels:tournament}
+        {control panels:advertisment}
+    </div>      
+              
                 
-            </div><!-- .row -->
+</div><!-- .row -->
 
-            {/block}
+{/block}
 
-            {block scripts}
-                <!--Scripts-->
-                {include parent}
-                <!--Include parents scripts-->
-                <script src="{$basePath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+{block scripts}
+    <!--Scripts-->
+    {include parent}
+    <!--Include parents scripts-->
+    <script src="{$basePath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-                <script>
+    <script>
 
-                    $(document).ready(function () {
+        $(document).ready(function () {
 
-                        // Add slimscroll to element
-                        $('.scroll_content').slimscroll({
-                            height: '280px',
-                            color: '#268ec3',
-                            size: '0.4em',
-                            railVisible: false,
-                            alwaysVisible: true
-                        })
-                        $('.scroll_content2').slimscroll({
-                            height: '215px',
-                            color: '#268ec3',
-                            size: '0.4em',
-                            railVisible: false,
-                            alwaysVisible: true
-                        })
+            // Add slimscroll to element
+            $('.scroll_content').slimscroll({
+                height: '280px',
+                color: '#268ec3',
+                size: '0.4em',
+                railVisible: false,
+                alwaysVisible: true
+            })
+            $('.scroll_content2').slimscroll({
+                height: '215px',
+                color: '#268ec3',
+                size: '0.4em',
+                railVisible: false,
+                alwaysVisible: true
+            })
 
-                    });
-                </script>
-            {/block}
+        });
+    </script>
+{/block}
 
-            {block head}
-                <!--Head-->
-                <style>
-                    .user-profil .panel-body .row .team-logo {
-                        width: 50px !important;
-                        max-width: 50px !important;
-                    }
-                </style>
-            {/block}
+{block head}
+    <!--Head-->
+    <style>
+        .user-profil .panel-body .row .team-logo {
+            width: 50px !important;
+            max-width: 50px !important;
+        }
+    </style>
+{/block}            
