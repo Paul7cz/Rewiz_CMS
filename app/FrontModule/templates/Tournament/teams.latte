@@ -5,8 +5,8 @@
 
 <!--Content-->
 {block content}
-    <div class="row">
-        <div class="col-lg-8 content text-center m-b-xl m-l">
+    <div class="row" style="margin-left: 0px;">
+        <div class="col-lg-8 content m-b-xl">
 
             <div class="row tournament__header">
                 <div class="col-sm-7 text-left">{$tournament->leagues->name}</div>
@@ -15,7 +15,7 @@
 
             {include '_blocks/header.latte'}
 
-            <div class="row">
+            <div class="row teams">
                 <div class="col-lg-12 m-t-sm">
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default detail">
@@ -79,6 +79,10 @@
             </div>
 
         </div>
+        <div class="col-sm-4 no-padding">
+        {control panels:tournament}
+        {control panels:advertisment}
+        </div>
     </div>
 {/block}
 
@@ -91,7 +95,7 @@
 {block head}
     <!--Head-->
     <style>
-        .panel-heading i {
+        .teams .panel-heading i {
             padding: 0px !important;
             height: 57px;
             width: 57px;
@@ -101,7 +105,7 @@
             font-weight: 600;
         }
 
-        .panel-heading h3 {
+        .teams .panel-heading h3 {
             text-align: left;
             padding: 0px !important;
             height: 50px;
@@ -111,12 +115,12 @@
             font-weight: 300;
         }
 
-        .panel-heading .accordion-toggle.collapsed {
+        .teams .panel-heading .accordion-toggle.collapsed {
             color: #29373e !important;
         }
 
-        .panel-heading .accordion-toggle.collapsed:after,
-        .panel-heading .accordion-toggle:after {
+        .teams .panel-heading .accordion-toggle.collapsed:after,
+        .teams .panel-heading .accordion-toggle:after {
             margin-right: 20px;
         }
     </style>

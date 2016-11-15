@@ -99,7 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="row commentsarea p-w-xs space-20">
+                    <div class="row commentsarea p-w-xs space-20" style="border-top: 1px solid #191e23; padding-top: 15px;">
                         {if $user->isLoggedIn()}
                             {if $user->getIdentity()->ban_post == NULL}
                                 {form comment}

@@ -60,7 +60,7 @@ class NewsPresenter extends BasePresenter
         // Get paginator form visual paginator
         $paginator = $visualPaginator->getPaginator();
         // Define items count per one page
-        $paginator->itemsPerPage = 2;
+        $paginator->itemsPerPage = 5;
         // Define total items in list
         $paginator->itemCount = $comments->count();
 

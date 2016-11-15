@@ -107,7 +107,13 @@
                                     <a href="{$basePath}/img/screenshot/{$s->img}"><img
                                                 src="{$basePath}/img/screenshot/thumbs/{$s->img}" alt="IMG"></a>
                                 </div>
-                                {if empty($screenshots)} Žádné screenshoty {/if}
+                                {if empty($screenshots)}                                 
+								    <div class="row">
+                                        <div class="col-sm-12 text-center">
+                                        <h4>K tomuto zápasu zatiaľ neboli nahrané žiadne screenshoty.</h4>
+                                        </div>
+                                    </div> 
+								{/if}
                             </div>
                         </div>
                     </div><!-- panel end-->
@@ -123,7 +129,13 @@
                                 <div class="col-sm-3"><a href="{$d->demo_url}"><i class="fa fa-play-circle m-r"></i></a>
                                     <a href="#"><i class="fa fa-cloud-download"></i></a></div>
                             </div>
-                            {if empty($demos)} Žádné dema {/if}
+                            {if empty($demos)}                                 
+							    <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <h4>K tomuto zápasu zatiaľ neboli nahrané žiadne demá.</h4>
+                                    </div>
+                                </div> 
+							{/if}
                         </div>
                     </div><!-- panel end-->
                 </div>
@@ -155,7 +167,13 @@
                             {/if}
                             {sep}<br><br>{/sep}
                         {/foreach}
-                        {if empty($reports)} Žádné protesty/žádosti {/if}
+                        {if empty($reports)}                                 
+						    <div class="row">
+                                <div class="col-sm-12 text-center">
+                                        <h4>K tomuto zápasu zatiaľ neboli podané žiadne žiadosti ani protesty.</h4>
+                                </div>
+                            </div> 
+						{/if}
                     </div>
                 </div>
             </div><!-- panel end-->
