@@ -4,6 +4,13 @@
 *}
 {block content}
 {dump $news}
+{*<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+            <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+        </div>
+    </div>
+</div>*}
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Wrapper for slides -->
     <div class="carousel-inner">

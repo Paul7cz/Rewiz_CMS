@@ -18,6 +18,7 @@ use Nette\Utils\DateTime;
 use Nette\Utils\Html;
 use Nette\Utils\Image;
 use Tracy\Debugger;
+use IPub\VisualPaginator\Components as VisualPaginator;
 
 
 /**
@@ -105,10 +106,28 @@ class TournamentPresenter extends BasePresenter
         return $this->tournamentManager->getRegisteredTeamsActive($id)->count('*');
     }
 
+    protected function createComponentVisualPaginator()
+    {
+        $control = new VisualPaginator\Control;
+        $control->setTemplateFile('bootstrap.latte');
+        $control->disableAjax();
+        return $control;
+    }
+
     public function renderAll()
     {
-        $this->template->data = $this->tournamentManager->getAllTournament();
+        $tournament = $this->tournamentManager->getAllTournament();
+
+        $visualPaginator = $this['visualPaginator'];
+        $paginator = $visualPaginator->getPaginator();
+        $paginator->itemsPerPage = 10;
+        $paginator->itemCount = $tournament->count();
+
+        $tournament->limit($paginator->itemsPerPage, $paginator->offset);
+
+        $this->template->data = $tournament;
     }
+
 
     public function renderPlayoff($id)
     {

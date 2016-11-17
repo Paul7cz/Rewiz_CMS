@@ -7,16 +7,16 @@
     <!--Content-->
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2 n:block=title>Nahalášené komentáře</h2>
+            <h2 n:block=title>Nahalásené komentáre</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a n:href="Homepage:default">Domů</a>
+                    <a n:href="Homepage:default">Domov</a>
                 </li>
                 <li>
                     <a n:href="Pages:default">Podstránky</a>
                 </li>
                 <li class="active">
-                    <strong>Nahlášené komentáře</strong>
+                    <strong>Nahlásené komentáre</strong>
                 </li>
             </ol>
         </div>
@@ -36,19 +36,19 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Přehled nahlášených komentářů</h5>
+                        <h5>Prehľad nahlásených komentárov</h5>
                     </div>
                     <div class="ibox-content">
                         <input type="text" class="form-control input-sm m-b-xs" id="filterone"
-                               placeholder="Vyhlejej...">
+                               placeholder="Vyhľadaj...">
                         <table class="footable table table-stripped" data-page-size="8" data-filter=#filterone>
                             <thead>
                             <tr>
                                 <th data-toggle="true">Autor</th>
-                                <th data-sort-ignore="true">Komentář</th>
-                                <th data-sort-ignore="true">Datum</th>
+                                <th data-sort-ignore="true">Komentár</th>
+                                <th data-sort-ignore="true">Dátum</th>
                                 <th data-toggle="true">Nahlásil</th>
-                                <th data-sort-ignore="true">Akce</th>
+                                <th data-sort-ignore="true">Akcia</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,11 +58,11 @@
                                 <td>{$data->date|date:'j.n.Y H:i:s'}</td>
                                 <td><a href="#">{$data->ref('users', 'report_by')->username}</a></td>
                                 <td><a n:href="News:Save, $data->id">
-                                        <button class="btn btn-primary " type="button"><i class="fa fa-check"></i>&nbsp;Povolit
+                                        <button class="btn btn-primary " type="button"><i class="fa fa-check"></i>&nbsp;Povoliť
                                         </button>
                                     </a>
                                     <a n:href="News:Del, $data->id, $presenter->user->getId()">
-                                        <button class="btn btn-danger " type="button"><i class="fa fa-ban"></i>&nbsp;Zakázat
+                                        <button class="btn btn-danger " type="button"><i class="fa fa-ban"></i>&nbsp;Zakázať
                                         </button>
                                     </a>
                                 </td>
@@ -86,7 +86,7 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Log zablokovnaých komentářů</h5>
+                        <h5>Log zablokovaných komentárov</h5>
                     </div>
                     <div class="ibox-content">
                         <input type="text" class="form-control input-sm m-b-xs" id="filter"
@@ -95,7 +95,7 @@
                             <thead>
                             <tr>
                                 <th data-toggle="true">Autor</th>
-                                <th data-sort-ignore="true">Komentář</th>
+                                <th data-sort-ignore="true">Komentár</th>
                                 <th>Datum</th>
                                 <th>Status</th>
                                 <th>Nahlásil</th>
@@ -111,9 +111,9 @@
                                 </td>
                                 <td>{$data->time}</td>
                                 {if $data->status == 1}
-                                    <td class="text-info">POVOLEN!</td>
+                                    <td class="text-info"><font color="green">Povolený</font></td>
                                 {else}
-                                    <td class="text-info">Zamietnutý</td>
+                                    <td class="text-info"><font color="red">Zamietnutý</font></td>
                                 {/if }
                                 {if $data->comment->report_by != NULL}
                                     <td><a href="#">{$data->comment->ref('users', 'report_by')->username}</a></td>
@@ -126,7 +126,7 @@
                                     <td><a href="#">Bez zablokovania</a></td>
                                 {/if}
                                 {if $data->status == 1}
-                                    <td class="text-info"><a n:href="News:Del, $data->comment_id">Zakázať</a></td>
+                                    <td class="text-info"><a n:href="News:Del, $data->comment_id, $user->getIdentity()->id">Zakázať</a></td>
                                 {else}
                                     <td class="text-info"><a n:href="News:Save, $data->comment_id">Povoliť</a></td>
                                 {/if}

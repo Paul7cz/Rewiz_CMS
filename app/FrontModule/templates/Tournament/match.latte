@@ -107,13 +107,13 @@
                                     <a href="{$basePath}/img/screenshot/{$s->img}"><img
                                                 src="{$basePath}/img/screenshot/thumbs/{$s->img}" alt="IMG"></a>
                                 </div>
-                                {if empty($screenshots)}                                 
-								    <div class="row">
+                                {if empty($screenshots)}
+                                    <div class="row">
                                         <div class="col-sm-12 text-center">
-                                        <h4>K tomuto zápasu zatiaľ neboli nahrané žiadne screenshoty.</h4>
+                                            <h4>K tomuto zápasu zatiaľ neboli nahrané žiadne screenshoty.</h4>
                                         </div>
-                                    </div> 
-								{/if}
+                                    </div>
+                                {/if}
                             </div>
                         </div>
                     </div><!-- panel end-->
@@ -129,13 +129,13 @@
                                 <div class="col-sm-3"><a href="{$d->demo_url}"><i class="fa fa-play-circle m-r"></i></a>
                                     <a href="#"><i class="fa fa-cloud-download"></i></a></div>
                             </div>
-                            {if empty($demos)}                                 
-							    <div class="row">
+                            {if empty($demos)}
+                                <div class="row">
                                     <div class="col-sm-12 text-center">
                                         <h4>K tomuto zápasu zatiaľ neboli nahrané žiadne demá.</h4>
                                     </div>
-                                </div> 
-							{/if}
+                                </div>
+                            {/if}
                         </div>
                     </div><!-- panel end-->
                 </div>
@@ -157,23 +157,34 @@
                                 <span class="pull-right"><i
                                             class="fa fa-clock-o m-r-xs"></i>{$report->time|date:'%d.%m.%Y'}</span>
                             </div>
-                            <div class="body" data-content="{$report->id}">{$report->content}</div>
+                            <div class="body" data-content="{$report->id}">
+                                {$report->content}
+                                <br>
+                                <br>
+                                <b>Odpoveď administrátora:</b>
+
+                                {if $report->answer == NULL}
+                                    Bez odpovede...
+                                {else}
+                                    {$report->answer}
+                                {/if}
+                            </div>
                             {if $user->isLoggedIn()}
                                 {if $user->getIdentity()->role == 'admin'}
                                     <div class="foot pull-right">
-                                        <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>
+                                       {* <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>*}
                                     </div>
                                 {/if}
                             {/if}
                             {sep}<br><br>{/sep}
                         {/foreach}
-                        {if empty($reports)}                                 
-						    <div class="row">
+                        {if empty($reports)}
+                            <div class="row">
                                 <div class="col-sm-12 text-center">
-                                        <h4>K tomuto zápasu zatiaľ neboli podané žiadne žiadosti ani protesty.</h4>
+                                    <h4>K tomuto zápasu zatiaľ neboli podané žiadne žiadosti ani protesty.</h4>
                                 </div>
-                            </div> 
-						{/if}
+                            </div>
+                        {/if}
                     </div>
                 </div>
             </div><!-- panel end-->
@@ -423,13 +434,13 @@
                 </div>
             {/if}
             {/if}
-            </div>
-            <div class="col-sm-4 no-padding">
+        </div>
+        <div class="col-sm-4 no-padding">
             {control panels:tournament}
             {control panels:advertisment}
-            </div>
+        </div>
 
-        
+
     </div><!-- row -->
 {/block}
 

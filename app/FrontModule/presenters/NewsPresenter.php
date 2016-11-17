@@ -53,15 +53,11 @@ class NewsPresenter extends BasePresenter
 
         $this->template->news = $this->newsManager->getOne($id);
 
-        /** @var  comments */
         $comments = $this->newsManager->getComments2($id);
 
         $visualPaginator = $this['visualPaginator'];
-        // Get paginator form visual paginator
         $paginator = $visualPaginator->getPaginator();
-        // Define items count per one page
         $paginator->itemsPerPage = 5;
-        // Define total items in list
         $paginator->itemCount = $comments->count();
 
         $comments->limit($paginator->itemsPerPage, $paginator->offset);

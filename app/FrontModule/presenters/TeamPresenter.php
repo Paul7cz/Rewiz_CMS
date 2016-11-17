@@ -182,7 +182,8 @@ class TeamPresenter extends BasePresenter
         $form->addText('tag')
             ->setAttribute('placeholder', 'Klan tag')
             ->setRequired('Zadajte klan tag')
-            ->addRule(Form::LENGTH, 'Klanový tag musí obsahovať 4 znaky', 4);
+            ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaky', 3)
+            ->addRule(Form::MAX_LENGTH, 'Klanový tag musí obsahovať %d znaky', 4);
 
         $form->addTextArea('about')
             ->setAttribute('placeholder', 'Informácie o tíme')

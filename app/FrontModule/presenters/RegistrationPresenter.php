@@ -66,6 +66,9 @@ class RegistrationPresenter extends BasePresenter
             ->setType('email')
             ->setRequired();
 
+        $form->addCheckbox('vop')
+            ->setRequired('Je potřeba souhlasit s podmínkami');
+
         $form->addSubmit('submit', 'Registrovať sa');
 
         $form->onSuccess[] = [$this, 'registrationFormSuccess'];
