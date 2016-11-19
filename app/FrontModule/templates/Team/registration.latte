@@ -13,6 +13,13 @@
             <div class="row">
                 <div class="col-lg-12"><p>Vyplnte registračný formulár a registrujte svoj tím do ligy.</p></div>
             </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                    </div>
+                </div>
+            </div>
 
             {form registrationForm}
                 <div class="col-lg-8 col-lg-offset-2" style="margin-top: 10px" n:if="$form->hasErrors()">

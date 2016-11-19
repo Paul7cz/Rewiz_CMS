@@ -21,6 +21,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                                <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row" n:if="$form->hasErrors()">
                         <div class="col-sm-6 col-sm-offset-3 alert alert-danger fade in m-t text-center">

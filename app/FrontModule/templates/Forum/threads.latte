@@ -6,6 +6,13 @@
 <!--Content-->
 {block content}
     <div class="row">
+        <div class="col-lg-12">
+            <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12 text-center content m-l m-b-xl no-padding" style="max-width: 1170px;">
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="pull-left forum-desc">
@@ -35,7 +42,7 @@
                         <tr n:foreach="$threads as $data">
                             <td><i class="fa fa-file-text-o m-r-xs"></i>
                                 <a n:href="Forum:detail, $data->id">{$data->name}</a></td>
-                            <td><a href="#">{$data->ref('users', 'user_id')->username}</a></td>
+                            <td><a n:href="User:profile, $data->user_id">{$data->ref('users', 'user_id')->username}</a></td>
                             <td>{$presenter->forumManager->countCommentsThread($data->id)}</td>
                             <td>{$data->date|date:'j.n.Y H:i:s'}</td>
                         </tr>
