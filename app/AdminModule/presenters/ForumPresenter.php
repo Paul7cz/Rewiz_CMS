@@ -98,9 +98,6 @@ class ForumPresenter extends BasePresenter
         $this->redirect('Forum:default');
     }
 
-    public function renderComments(){
-        $this->template->comments = $this->forumManager->getReportedComments();
-    }
 
     public function actionSave($id)
     {
@@ -112,6 +109,8 @@ class ForumPresenter extends BasePresenter
 
     public function actionDel($id, $block_by)
     {
+        $block_by = $this->user->getId();
+
         $this->forumManager->deleteComment($id, $block_by);
         $this->forumManager->createCommentLog($id, '0');
         $this->flashMessage('Komentár bol vymazaný');

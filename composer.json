@@ -31,6 +31,6 @@
 		"nette/utils": "~2.3.0",
 		"latte/latte": "~2.3.0",
 		"tracy/tracy": "~2.3.0",
-		"ipub/visual-paginator": "v1.0.3"
+		"ipub/visual-paginator": "@dev"
 	}
 }

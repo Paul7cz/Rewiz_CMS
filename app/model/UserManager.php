@@ -286,7 +286,7 @@ class UserManager extends BaseManager implements IAuthenticator
 
     public function getNotification($id)
     {
-        return $this->database->table(self::TABLE_NOTIFICATION)->where('user_id', $id)->order('time DESC')->fetchAll();
+        return $this->database->table(self::TABLE_NOTIFICATION)->where('user_id', $id)->order('time DESC');
     }
 
     public function insertNotification($user_id, $string)
@@ -375,6 +375,10 @@ class UserManager extends BaseManager implements IAuthenticator
 
     public function getVipLog($id){
         return $this->database->table('premium_log')->where('user_id = ?', $id)->order('id DESC')->fetchAll();
+    }
+
+    public function deleteUserAchviement($id){
+        return $this->database->table(self::AWARDS_TABLE_PROFILE)->where('id', $id)->delete();
     }
 
 

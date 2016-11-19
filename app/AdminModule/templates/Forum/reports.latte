@@ -52,7 +52,7 @@
                                         <button class="btn btn-primary " type="button"><i class="fa fa-check"></i>&nbsp;Povoliť
                                         </button>
                                     </a>
-                                    <a n:href="Forum:Del, $data->id, $presenter->user->getId()">
+                                    <a n:href="Forum:Del $data->id, $user->getIdentity()->id">
                                         <button class="btn btn-danger " type="button"><i class="fa fa-ban"></i>&nbsp;Zakázať
                                         </button>
                                     </a>

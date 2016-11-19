@@ -120,11 +120,12 @@
                                                  alt="teamlogo"></div>
                                     <div class="col-sm-8 text-left no-padding">
                                         <div class="block">{$data->ref('users_achviements', 'achviements_id')->name}</div>
+                                        {dump $data->id}
                                         <i class="fa fa-clock-o m-r-xs"
                                            aria-hidden="true"></i>{$data->date|date:"j.n.Y"}
                                     </div>
                                     <div class="col-sm-1 no-padding">
-                                        <a href="#"><i class="fa fa-trash m-t" aria-hidden="true"></i></a>
+                                        <a n:href="User:achDel $data->id"><i class="fa fa-trash m-t" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                                 {else}

@@ -17,6 +17,9 @@ application:
 session:
 	expiration: 14 days
 
+extensions:
+        visualPaginator: IPub\VisualPaginator\DI\VisualPaginatorExtension
+
 
 services:
     - App\Model\BaseManager

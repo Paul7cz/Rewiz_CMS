@@ -93,7 +93,7 @@
                                                     class="fa fa-pencil m-r-xs"></i>Odblokovať</a>
                                     {/if}
                                 {/if}
-                                <a n:href="Forum:Report, $data->id, backlink => $presenter->storeRequest()"><i
+                                <a n:href="Forum:Report, $data->id, backlink => $presenter->storeRequest()" n:if="$data->user_id != $user->getId()"><i
                                             class="fa fa-times m-r-xs"></i>Nahlásiť</a>
                             </div>
                         </div>

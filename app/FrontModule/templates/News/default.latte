@@ -124,20 +124,22 @@
                                 <div class="col-lg-10 m-l-md">
                                     {*fa fa-star*}
                                     {if $data->users->premium == 1}
-                                        <div class="nick vip"><i class="fa fa-star m-r-xs"></i><span data-user="{$data->id}">{$data->users->username}</span> 
+                                        <div class="nick vip"><i class="fa fa-star m-r-xs"></i><span
+                                                    data-user="{$data->id}">{$data->users->username}</span>
                                             <div class="text-right time"><i
                                                         class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
                                             </div>
                                         </div>
                                     {else}
-                                        <div class="nick" ><i class="fa fa-user m-r-xs"></i><span data-user="{$data->id}">{$data->users->username}</span>
+                                        <div class="nick"><i class="fa fa-user m-r-xs"></i><span
+                                                    data-user="{$data->id}">{$data->users->username}</span>
                                             <div class="text-right time"><i
                                                         class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
                                             </div>
                                         </div>
                                     {/if}
                                     {if $data->block == NULL}
-                                        <div class="comment m-t-xs" >
+                                        <div class="comment m-t-xs">
                                             <span data-content="{$data->id}">{$data->content}</span>
                                         </div>
                                     {else}
@@ -151,19 +153,18 @@
                                     {/if}
                                     <div class="text-right action m-t-xs ">
                                         {if $user->isLoggedIn()}
-                                            {if $user->getIdentity()->role == 'admin'}
-                                                {if $data->block == NULL}
-                                                    <a href="javascript:void(0);" data-reply="{$data->id}"><i class="fa fa-retweet m-r-xs"></i>Odpovedať</a>
+                                            {if $data->block == NULL}
+                                                <a href="javascript:void(0);" data-reply="{$data->id}"><i
+                                                            class="fa fa-retweet m-r-xs"></i>Odpovedať</a>
 
-                                                    <a n:href="News:Delete, $data->id, $presenter->user->getId(), backlink => $presenter->storeRequest()"><i
-                                                                class="fa fa-times"></i>Zablokovať</a>
+                                                <a n:href="News:Delete, $data->id, $user->getIdentity()->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
+                                                            class="fa fa-times"></i>Zablokovať</a>
 
-                                                    <a n:href="News:Report, $data->id, backlink => $presenter->storeRequest()"><i
-                                                                class="fa fa-times"></i>Nahlásiť</a>
-                                                {else}
-                                                    <a n:href="News:Unblock, $data->id, backlink => $presenter->storeRequest()"><i
-                                                                class="fa fa-times"></i>Odblokovať</a>
-                                                {/if}
+                                                <a n:href="News:Report, $data->id, backlink => $presenter->storeRequest()" n:if="$data->users_id != $user->getIdentity()->id"><i
+                                                            class="fa fa-times"></i>Nahlásiť</a>
+                                            {else}
+                                                <a n:href="News:Unblock, $data->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
+                                                            class="fa fa-times"></i>Odblokovať</a>
                                             {/if}
                                         {/if}
 
@@ -173,10 +174,10 @@
                             </div> <!-- End Commnet N.1-->
                             <div class="row">
                                 <div class="col-sm-12 text-center">
-                                    {control visualPaginator}    
+                                    {control visualPaginator}
                                 </div>
                             </div>
-                            
+
                         {/if}
                     {/snippet}
 
@@ -259,18 +260,18 @@
 
     </script>
     <script>
-     $(function(){
-                        
+        $(function () {
+
             $("[data-reply]").click(function () {
                 var id = $(this).data("reply");
 
                 var user = $("[data-user='" + id + "']").text();
                 var content = $("[data-content='" + id + "']").text();
 
-                $( "textarea#frm-commentForm-content" ).val(""+ user +": " + content + "");
+                $("textarea#frm-commentForm-content").val("" + user + ": " + content + "");
                 $('html, body').animate({
-                        scrollTop: $("#frm-commentForm-content").offset().top
-                    }, 1000);
+                    scrollTop: $("#frm-commentForm-content").offset().top
+                }, 1000);
                 return false;
 
             });

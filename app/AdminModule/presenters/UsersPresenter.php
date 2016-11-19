@@ -346,7 +346,7 @@ class UsersPresenter extends BasePresenter
         }
 
         $this->userManager->giveBanPost($this->getParameter('id'), $values);
-        $this->flashMessage('POST BAN');
+        $this->flashMessage('Ban bol udelení');
         $this->redirect('this');
     }
 
@@ -368,7 +368,7 @@ class UsersPresenter extends BasePresenter
             $values->ban_login = '2100-01-01 00:00:00';
         }
         $this->userManager->giveBanLogin($this->getParameter('id'), $values);
-        $this->flashMessage('Login BAN');
+        $this->flashMessage('Ban bol udelení');
         $this->redirect('this');
     }
 

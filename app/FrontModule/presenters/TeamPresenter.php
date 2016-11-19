@@ -157,6 +157,7 @@ class TeamPresenter extends BasePresenter
             ));
             $this->leagueManager->createTeamLog($id, $this->user->getId(), 'Uživateľ vstúpil do teamu');
             $this->userManager->insertNotification($this->user->getId(), 'Vstúpil si do nového teamu.');
+            $this->flashMessage('úspešne ste vstúpili do teamu');
             $this->redirect('Team:profile', $id);
         } else {
             $form->addError('Heslo nie je správne');
@@ -240,6 +241,9 @@ class TeamPresenter extends BasePresenter
             $this->reauthenticate($this->user->getId());
             if ($this->action != 'edit') {
                 $this->userManager->insertNotification($this->user->getId(), 'Práve ste založili nový team');
+                $this->flashMessage('Váš team ste úspešne založili');
+            }else{
+                $this->flashMessage('Váš team ste úspešne editovali');
             }
             $this->redirect('Homepage:default');
         }
@@ -252,7 +256,7 @@ class TeamPresenter extends BasePresenter
 
         if ($query->owner == $this->user->getId()) {
             $this['registrationForm']->setDefaults($query);
-        }else{
+        } else {
             throw new BadRequestException();
         }
     }
@@ -266,7 +270,8 @@ class TeamPresenter extends BasePresenter
         $this->redirect('Homepage:default');
     }
 
-    public function actionDeleteAch($team_id, $achviement_id){
+    public function actionDeleteAch($team_id, $achviement_id)
+    {
         $this->leagueManager->teamAchDel($team_id, $achviement_id);
         $this->flashMessage('Ocenenie vymazané');
         $this->redirect('Homepage:default');

@@ -95,7 +95,7 @@ class ForumManager extends BaseManager
 
     public function getReportedComments()
     {
-        return $this->database->table(self::COMMENTS)->where('reports IS NOT NULL')->fetchAll();
+        return $this->database->table(self::COMMENTS)->where('reports IS NOT NULL')->order('id DESC')->fetchAll();
     }
 
     public function saveComment($id)
@@ -110,6 +110,7 @@ class ForumManager extends BaseManager
 
     /**
      * @param $id
+     * @param $block_by
      * @return int
      */
     public function deleteComment($id, $block_by)
@@ -157,7 +158,7 @@ class ForumManager extends BaseManager
 
     public function getCommentLog()
     {
-        return $this->database->table(self::TABLE_COMMENTS_LOG)->fetchAll();
+        return $this->database->table(self::TABLE_COMMENTS_LOG)->order('id DESC')->fetchAll();
     }
 
     public function unblock($id){

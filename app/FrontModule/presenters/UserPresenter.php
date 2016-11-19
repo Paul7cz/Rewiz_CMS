@@ -3,6 +3,7 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\UserManager;
+use IPub\VisualPaginator\Components\Control;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
 use Nette\Security\Passwords;
@@ -156,8 +157,33 @@ class UserPresenter extends BasePresenter
     }
 
     public function renderNotification(){
-        $this->template->notification = $this->userManager->getNotification($this->user->getId());
+
+        $comments = $this->userManager->getNotification($this->user->getId());
+
+        $visualPaginator = $this['visualPaginator'];
+        $paginator = $visualPaginator->getPaginator();
+        $paginator->itemsPerPage = 10;
+        $paginator->itemCount = $comments->count();
+
+        $comments->limit($paginator->itemsPerPage, $paginator->offset);
+
+        $this->template->notification = $comments;
+
         $this->userManager->seeNotification($this->user->getId());
+    }
+
+    public function actionAchDel($id){
+        $this->userManager->deleteUserAchviement($id);
+        $this->flashMessage('Ocenenie zmazané');
+        $this->redirect('Homepage:default');
+    }
+
+    protected function createComponentVisualPaginator()
+    {
+        $control = new Control();
+        $control->setTemplateFile('bootstrap.latte');
+        $control->disableAjax();
+        return $control;
     }
 
 

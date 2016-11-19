@@ -128,7 +128,7 @@ class NewsManager extends BaseManager
 
     public function getComments2($id)
     {
-        return $this->database->table(self::TABLE_COMMENTS)->where('news_id', $id);
+        return $this->database->table(self::TABLE_COMMENTS)->where('news_id', $id)->order('id DESC');
     }
 
     public function getComment($id){
