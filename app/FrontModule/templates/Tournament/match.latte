@@ -11,6 +11,14 @@
     <div class="row" style="margin-left: 0px;">
         <div class="col-lg-8 content m-b-xl">
 
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                    <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                </div>
+            </div>
+        </div>
+
             <header class="match_bg">
                 <div class="row match-title">
                     <div class="col-sm-6 text-left">

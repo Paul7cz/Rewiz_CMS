@@ -8,6 +8,14 @@
     <div class="row" style="margin-left: 0px;">
         <div class="col-lg-8 content text-center m-b-xl">
 
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                    <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                </div>
+            </div>
+        </div>
+
         <div class="row tournament__header">
             <div class="col-sm-7 text-left">{$tournament->leagues->name}</div>
             <div class="col-sm-5 text-right">{$tournament->max_teams} tímov ({$team_count} potvrdených)</div>

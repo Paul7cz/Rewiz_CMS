@@ -8,6 +8,14 @@
     <div class="row" style="margin-left: 0px;">
         <div class="col-lg-8 content text-center m-b-xl p-sm">
 
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                    <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                </div>
+            </div>
+        </div>
+
             {*		<div class="panel panel-default">
                         <div class="panel__heading"><i class="fa fa-search"></i>Vyhľadaj turnaj</div>
                         <div class="panel__body">
