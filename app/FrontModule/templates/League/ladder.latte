@@ -23,10 +23,10 @@
                             </thead>
                             <tbody>
                             <tr n:foreach="$teamsActive as $data">
-                                    <td>1.</td>
+                                    <td>{$iterator->counter}</td>
                                 <td>{$data->ref('league_team', 'id_team')->name}</td>
                                 <td>0</td>
-                                <td class="text-blue">{$presenter->teamPoints($data->id_team)}</td>
+                                <td class="text-blue">{$presenter->teamPoints($data->id_team, $league->id)->point}</td>
                                 </tr>
                             </tbody>
                         </table>    

@@ -236,7 +236,7 @@ class LeagueManager extends BaseManager
 
     public function getTeamPoints($team_id, $league_id)
     {
-        return $this->database->table(self::TEAM_LEAGUE_POINTS)->where('team_id = ? AND league_id = ?', $team_id, $league_id)->fetch()->point;
+        return $this->database->table(self::TEAM_LEAGUE_POINTS)->where('team_id = ? AND league_id = ?', $team_id, $league_id)->fetch();
     }
 
     public function insertPoints($values)

@@ -70,7 +70,12 @@ class TournamentManager extends BaseManager
 
     public function getMaxRound($id)
     {
-        return $this->database->table(self::MATCHES_TABLE)->where('tournament_id = ?', $id)->order('id DESC')->fetchField('round');
+        $row = $this->database->table(self::MATCHES_TABLE)->where('tournament_id = ?', $id)->fetch();
+        if (!$row) {
+            return null;
+        } else {
+            return $row->round;
+        }
     }
 
     public function getRoundMatches($id, $round)
@@ -131,7 +136,12 @@ class TournamentManager extends BaseManager
 
     public function getRound($id)
     {
-        return $this->database->table(self::TOURNAMENT_TABLE)->where('id = ?', $id)->fetchField('max_teams');
+        $row = $this->database->table(self::TOURNAMENT_TABLE)->where('id = ?', $id)->fetch();
+        if (!$row) {
+            return null;
+        } else {
+            return $row->max_teams;
+        }
     }
 
     /**

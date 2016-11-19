@@ -137,7 +137,7 @@ class MessagesPresenter extends BasePresenter
         $form->addText('subject');
         $form->addText('receiver_id');
         $form->addTextArea('message');
-        $form->addSubmit('submit');
+        $form->addSubmit('submit')->setAttribute("placeholder","Login");
 
         $form->onValidate[] = [$this, 'messageSendValidate'];
         $form->onSuccess[] = [$this, 'messageSendSucceeded'];

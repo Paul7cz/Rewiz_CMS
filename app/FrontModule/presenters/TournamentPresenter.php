@@ -16,8 +16,8 @@ use App\Model\UserManager;
 use Nette\Application\UI\Form;
 use Nette\Utils\DateTime;
 use Nette\Utils\Html;
-use Nette\Utils\Image;
 use Tracy\Debugger;
+use Nette\Utils\Image;
 use IPub\VisualPaginator\Components as VisualPaginator;
 
 
@@ -44,9 +44,9 @@ class TournamentPresenter extends BasePresenter
     /**
      * TournamentPresenter constructor.
      * @param TournamentManager $tournamentManager
-     * @param LeagueManager     $leagueManager
-     * @param MessagesManager   $messagesManager
-     * @param UserManager       $userManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
+     * @param LeagueManager $leagueManager
+     * @param MessagesManager $messagesManager
+     * @param UserManager $userManager Automaticky injektovaná instace triedy XXX pre prácu s XXX
      */
     public function __construct(TournamentManager $tournamentManager, LeagueManager $leagueManager, MessagesManager $messagesManager, UserManager $userManager)
     {
@@ -210,16 +210,16 @@ class TournamentPresenter extends BasePresenter
         $team_count = $this->tournamentManager->getRegisteredTeamsActive2($id);
 
         /** Lukáš !!! */
-        if ($team_count != 8 OR $team_count != 16 OR $team_count != 32 OR $team_count != 64) {
-            $this->flashMessage('Nemôžeš spustiť turnaj kvôli nedostatku hračov');
-            $this->redirect('Tournament:playoff', $this->getParameter('id'));
-        }
+        /* if ($team_count != 8 OR $team_count != 16 OR $team_count != 32 OR $team_count != 64) {
+             $this->flashMessage('Nemôžeš spustiť turnaj kvôli nedostatku hračov');
+             $this->redirect('Tournament:playoff', $this->getParameter('id'));
+         }*/
 
-            $createPairs = function ($_maxTeams, $_ids, $_shuffle = FALSE) {
+        $createPairs = function ($_maxTeams, $_ids, $_shuffle = FALSE) {
 
-                if ($_shuffle) {
-                    shuffle($_ids);
-                }
+            if ($_shuffle) {
+                shuffle($_ids);
+            }
 
             for ($i = 0; count($_ids) < $_maxTeams; $i++) {
                 $_ids[] = NULL;
@@ -302,7 +302,8 @@ class TournamentPresenter extends BasePresenter
         return $control;
     }
 
-    public function actionScore($id) {
+    public function actionScore($id)
+    {
 
 //        Vytahnu data ze zapasu
 //        zjistim jestli sedi zakladatel druheho teamu s mojim id
@@ -323,19 +324,21 @@ class TournamentPresenter extends BasePresenter
     }
 
     /* SCORE */
-    public function createComponentNewScore() {
+    public function createComponentNewScore()
+    {
         $form = new Form();
 
         $form->addText('score1', '')->setDefaultValue(0)->setRequired();
         $form->addText('score2', '')->setDefaultValue(0)->setRequired();
 
-        $form->addSubmit('submit','Odeslat');
+        $form->addSubmit('submit', 'Odeslat');
         $form->onSuccess[] = [$this, 'newScoreSucceeded'];
 
         return $form;
     }
 
-    public function newScoreSucceeded(Form $form, $values) {
+    public function newScoreSucceeded(Form $form, $values)
+    {
 
         // TODO: ošetrit zobrazeni formu pro majitele teamu
         // TODO: ošetrit opetovne zadavani score (když uz bylo jednou zadane)
@@ -368,7 +371,8 @@ class TournamentPresenter extends BasePresenter
     }
 
     /* ADMIN SCORE */
-    public function createComponentAdminScore() {
+    public function createComponentAdminScore()
+    {
         $form = new Form();
 
         $match = $this->tournamentManager->getMatch($this->getParameter('id'));
@@ -376,35 +380,37 @@ class TournamentPresenter extends BasePresenter
         $form->addText('score1', '')->setDefaultValue($match->score1)->setRequired();
         $form->addText('score2', '')->setDefaultValue($match->score2)->setRequired();
 
-        $form->addSubmit('submit','Aktualizovat');
+        $form->addSubmit('submit', 'Aktualizovat');
         $form->onSuccess[] = [$this, 'adminScoreSucceeded'];
 
         return $form;
     }
 
-    public function adminScoreSucceeded(Form $form, $values) {
+    public function adminScoreSucceeded(Form $form, $values)
+    {
 
-        // TODO: ošetrit zobrazeni formu pro admina
-
-        $match = $this->tournamentManager->updateScore($this->getParameter('id'), ["score1" => $values->score1, "score2" => $values->score2]);
+        $match = $this->tournamentManager->getMatch($this->getParameter('id'));
+            $match = $this->tournamentManager->updateScore($this->getParameter('id'), ["score1" => $values->score1, "score2" => $values->score2, "status" => "closed"]);
         $this->tournamentManager->createMatchLog('Administrátor upravil scóre zápasu', $this->user->getId(), $this->getParameter('id'));
         $this->flashMessage('Score bolo upravené');
         $this->redirect('this');
     }
 
     /* REQUEST */
-    public function createComponentNewRequest() {
+    public function createComponentNewRequest()
+    {
         $form = new Form();
 
-        $form->addTextarea('content', '')->setAttribute('placeholder','Tvoj text...')->setRequired();
+        $form->addTextarea('content', '')->setAttribute('placeholder', 'Tvoj text...')->setRequired();
 
-        $form->addSubmit('submit','Odeslat');
+        $form->addSubmit('submit', 'Odeslat');
         $form->onSuccess[] = [$this, 'newRequestSucceeded'];
 
         return $form;
     }
 
-    public function newRequestSucceeded(Form $form, $values) {
+    public function newRequestSucceeded(Form $form, $values)
+    {
 
         // TODO: ošetrit pro hrace teamu
 
@@ -423,18 +429,20 @@ class TournamentPresenter extends BasePresenter
 
     /* COMPLAINT */
 
-    public function createComponentNewComplaint() {
+    public function createComponentNewComplaint()
+    {
         $form = new Form();
 
-        $form->addTextarea('content', '')->setAttribute('placeholder','Tvoj text...')->setRequired();
+        $form->addTextarea('content', '')->setAttribute('placeholder', 'Tvoj text...')->setRequired();
 
-        $form->addSubmit('submit','Podať protest');
+        $form->addSubmit('submit', 'Podať protest');
         $form->onSuccess[] = [$this, 'newComplaintSucceeded'];
 
         return $form;
     }
 
-    public function newComplaintSucceeded(Form $form, $values) {
+    public function newComplaintSucceeded(Form $form, $values)
+    {
 
         // TODO: ošetrit pro hrace teamu
 
@@ -453,22 +461,24 @@ class TournamentPresenter extends BasePresenter
 
     /* SCREENSHOTS */
 
-    public function createComponentNewScreenshots() {
+    public function createComponentNewScreenshots()
+    {
         $form = new Form();
 
         $form->addMultiUpload('img', 'Obrázky')
             ->setAttribute('id', 'filer_input')
-            ->addRule(Form::MAX_LENGTH,'Maximální počet souborů : 2',2)
+            ->addRule(Form::MAX_LENGTH, 'Maximální počet souborů : 2', 2)
             ->addRule(Form::IMAGE, 'Obrázek musí být JPEG, PNG nebo GIF.')
             ->setRequired();
 
-        $form->addSubmit('submit','Nahrať');
+        $form->addSubmit('submit', 'Nahrať');
         $form->onSuccess[] = [$this, 'newScreenshotsSucceeded'];
 
         return $form;
     }
 
-    public function newScreenshotsSucceeded(Form $form, $values) {
+    public function newScreenshotsSucceeded(Form $form, $values)
+    {
 
         // TODO: ošetrit pro hrace teamu
 
@@ -483,7 +493,7 @@ class TournamentPresenter extends BasePresenter
 
                 $file->move($this->context->parameters['wwwDir'] . '/img/screenshot/' . $file_name);
                 $image = Image::fromFile($file);
-                $image->resize(115, 115,IMAGE::EXACT);
+                $image->resize(115, 115, IMAGE::EXACT);
                 $image->save($this->context->parameters['wwwDir'] . '/img/screenshot/thumbs/' . $file_name);
                 $values->img = $file_name;
 
@@ -498,18 +508,20 @@ class TournamentPresenter extends BasePresenter
 
     /* DEMO */
 
-    public function createComponentNewDemo() {
+    public function createComponentNewDemo()
+    {
         $form = new Form();
 
-        $form->addText('demo_url', '')->setAttribute('placeholder','Url adresa dema')->addRule(Form::URL, 'Nebyla zadána platná URL')->setRequired();
+        $form->addText('demo_url', '')->setAttribute('placeholder', 'Url adresa dema')->addRule(Form::URL, 'Nebyla zadána platná URL')->setRequired();
 
-        $form->addSubmit('submit','Odeslat demo');
+        $form->addSubmit('submit', 'Odeslat demo');
         $form->onSuccess[] = [$this, 'newDemoSucceeded'];
 
         return $form;
     }
 
-    public function newDemoSucceeded(Form $form, $values) {
+    public function newDemoSucceeded(Form $form, $values)
+    {
 
         // TODO: ošetrit pro hrace teamu
 

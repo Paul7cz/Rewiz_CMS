@@ -189,9 +189,9 @@ class LeaguePresenter extends BasePresenter
         $this->redirect('Homepage:Default');
     }
 
-    public function teamPoints($team_id)
+    public function teamPoints($team_id, $league_id)
     {
-        $league_id = $this->getParameter('id');
+        /*$league_id = $this->getParameter('id');*/
         return $this->leagueManager->getTeamPoints($team_id, $league_id);
     }
 
