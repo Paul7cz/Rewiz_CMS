@@ -75,7 +75,7 @@ class UserPresenter extends BasePresenter
             'Žena' => 'Žena',
         ))->setPrompt('Vyberte...');
 
-        $form->addText('birthyear');
+        $form->addText('birthyear')->setType('number');
 
         $form->addSelect('state')->setItems(array(
             'Slovenská Republika' => 'Slovenská Republika',
@@ -106,6 +106,10 @@ class UserPresenter extends BasePresenter
 
     public function editSucceeded(Form $form, $values)
     {
+
+        if ($values->birthyear == ''){
+            $values->birthyear = NULL;
+        }
 
         if ($values['avatar']->isImage() and $values['avatar']->isOk()) {
             $file = $values['avatar']; //Prehodenie do $file

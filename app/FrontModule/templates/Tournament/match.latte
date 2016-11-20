@@ -11,13 +11,14 @@
     <div class="row" style="margin-left: 0px;">
         <div class="col-lg-8 content m-b-xl">
 
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
-                    <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
+                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×
+                        </button>{$flash->message}
+                    </div>
                 </div>
             </div>
-        </div>
 
             <header class="match_bg">
                 <div class="row match-title">
@@ -180,7 +181,7 @@
                             {if $user->isLoggedIn()}
                                 {if $user->getIdentity()->role == 'admin'}
                                     <div class="foot pull-right">
-                                       {* <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>*}
+                                        {* <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>*}
                                     </div>
                                 {/if}
                             {/if}
@@ -417,22 +418,21 @@
                                                     {input submit, class => "btn btn-admin"}
                                                 </div>
                                             {/form}
-                                            <div class="col-sm-12 m-b">Udelenie tresných bodov</div>
-                                            <div class="col-sm-8"><select class="form-control">
-                                                        <option>Team 1</option>
-                                                        <option>Team 2</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-4 m-b" style="padding-left: 0px;"><input type="text"
-                                                                                                        class="form-control"
-                                                                                                        placeholder="Počet bodov">
-                                            </div>
-                                            <div class="col-sm-12 m-b">Důvod</div>
-                                            <div class="col-sm-12"><textarea class="form-control" rows="4"></textarea>
-                                            </div>
-                                            <div class="col-sm-12 p-sm text-right">
-                                                <button type="button" class="btn btn-admin">Uložiť</button>
-                                            </div>
+                                            {form point}
+                                                <div class="col-sm-12 m-b">Udelenie tresných bodov</div>
+                                                <div class="col-sm-8">
+                                                    {input team_id, class=>'form-control'}
+                                                </div>
+                                                <div class="col-sm-4 m-b" style="padding-left: 0px;">
+                                                    {input point, class=>'form-control'}
+                                                <div class="col-sm-12 m-b">Důvod</div>
+                                                <div class="col-sm-12">
+                                                    {input reason, class=>'form-control'}
+                                                </div>
+                                                <div class="col-sm-12 p-sm text-right">
+                                                    {input submit, class=>'btn btn-admin'}
+                                                </div>
+                                            {/form}
                                         </div>
                                     </div>
                                 </div>

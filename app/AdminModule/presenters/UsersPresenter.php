@@ -142,7 +142,7 @@ class UsersPresenter extends BasePresenter
             'Žena' => 'Žena',
         ))->setPrompt('Vyberte...');
 
-        $form->addText('birthyear');
+        $form->addText('birthyear')->setType('number');
 
         $form->addSelect('state')->setItems(array(
             'Slovenská Republika' => 'Slovenská Republika',

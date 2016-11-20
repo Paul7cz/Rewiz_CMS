@@ -390,7 +390,7 @@ class TournamentPresenter extends BasePresenter
     {
 
         $match = $this->tournamentManager->getMatch($this->getParameter('id'));
-            $match = $this->tournamentManager->updateScore($this->getParameter('id'), ["score1" => $values->score1, "score2" => $values->score2, "status" => "closed"]);
+        $match = $this->tournamentManager->updateScore($this->getParameter('id'), ["score1" => $values->score1, "score2" => $values->score2, "status" => "closed"]);
         $this->tournamentManager->createMatchLog('Administrátor upravil scóre zápasu', $this->user->getId(), $this->getParameter('id'));
         $this->flashMessage('Score bolo upravené');
         $this->redirect('this');
@@ -535,6 +535,28 @@ class TournamentPresenter extends BasePresenter
 
         $this->flashMessage('Demo bylo vloženo');
         $this->redirect('this');
+    }
+
+    protected function createComponentPoint()
+    {
+        $team = $this->tournamentManager->getMatch($this->getParameter('id'));
+        $teams = array(
+            $team->team1_id => $team->team1_id,
+        );
+
+        $form = new Form();
+        $form->addSelect('team_id')->setItems($teams);
+        $form->addText('point')->setType('number');
+        $form->addText('reason');
+
+        $form->addSubmit('submit', 'Aktualizovať');
+        $form->onSuccess[] = [$this, 'pointSucceeded'];
+
+        return $form;
+    }
+
+    public function pointSucceeded(Form $form, $values){
+        $this->tournamentManager->insertPointLog($values);
     }
 
 

@@ -44,7 +44,7 @@
                     </div>
                     <div class="panel-body text-left team_info">
                         <div class="row">
-                            <div class="col-sm-12">Posledný zápas: 27.8.1998</div>
+                            <div class="col-sm-12">Posledný zápas: {$presenter->tournamentManager->lastMatch($team->id)->time|date:'j.n.Y H:i:s'}</div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">Odohraných turnajov: {$played}</div>
@@ -52,12 +52,12 @@
                         <div class="row">
                             <div class="col-sm-12">Vyhraných turnajov : {$wins}</div>
                         </div>
-                        <div class="row">
+                       {* <div class="row">
                             <div class="col-sm-12">Počet víťaztiev: 0</div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">Počet Prehier: 0</div>
-                        </div>
+                        </div>*}
                     </div>
                 </div>
             </div>
@@ -178,7 +178,7 @@
                                     <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png"
                                                                alt="icon"> vs
                                         <a
-                                                href="">{$data->ref('league_team', 'team2_id')->name}</a>
+                                                n:href="Team:profile $data->team2_id">{$data->ref('league_team', 'team2_id')->name}</a>
                                     </div>
                                     <div class="col-sm-3">{$data->time|date:'j.n.Y H:i:s'}</div>
                                     <div class="col-sm-1 no-padding cara">
@@ -197,7 +197,7 @@
                                     <div class="col-sm-8"><img class="m-r-xs" src="/img/csgo.png"
                                                                alt="icon"> vs
                                         <a
-                                                href="#">{$data->ref('league_team', 'team1_id')->name}</a>
+                                                n:href="Team:profile $data->team1_id">{$data->ref('league_team', 'team1_id')->name}</a>
                                     </div>
                                     <div class="col-sm-3">{$data->time|date:'j.n.Y H:i:s'}</div>
                                     <div class="col-sm-1 no-padding cara">

@@ -13,6 +13,7 @@ use App\Model\UserManager;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
+use IPub\VisualPaginator\Components as VisualPaginator;
 
 
 /**
@@ -56,7 +57,17 @@ class MessagesPresenter extends BasePresenter
             $this->loginRedirect();
         }
 
-        $this->template->messages = $this->messagesManager->getMessagesReceive($this->user->getId());
+        $messages = $this->messagesManager->getMessagesReceive($this->user->getId());
+        $visualPaginator = $this['visualPaginator'];
+        $paginator = $visualPaginator->getPaginator();
+        $paginator->itemsPerPage = 10;
+        $paginator->itemCount = $messages->count();
+
+        $messages->limit($paginator->itemsPerPage, $paginator->offset);
+
+        $this->template->messages  = $messages;
+
+
         $this->template->message_send = $this->messagesManager->getMessagesSend($this->user->getId());
     }
 
@@ -176,6 +187,15 @@ class MessagesPresenter extends BasePresenter
 
         $this->flashMessage('Správa bola úspešne odoslaná.', self::GREEN);
         $this->redirect('Messages:default');
+
+    }
+
+    protected function createComponentVisualPaginator()
+    {
+        $control = new VisualPaginator\Control;
+        $control->setTemplateFile('bootstrap.latte');
+        $control->disableAjax();
+        return $control;
     }
 
 

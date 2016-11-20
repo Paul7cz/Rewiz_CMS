@@ -28,7 +28,7 @@ class TeamPresenter extends BasePresenter
     private $userManager;
 
     /** @var  TournamentManager */
-    private $tournamentManager;
+    public $tournamentManager;
 
     /**
      * TeamPresenter constructor.

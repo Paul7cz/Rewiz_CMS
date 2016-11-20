@@ -181,7 +181,8 @@ class TournamentManager extends BaseManager
         return $this->database->table(self::TOURNAMENT_TABLE)->insert($values);
     }
 
-    public function updateTournament($id, $values){
+    public function updateTournament($id, $values)
+    {
         return $this->database->table(self::TOURNAMENT_TABLE)->where('id = ?', $id)->update($values);
     }
 
@@ -230,66 +231,76 @@ class TournamentManager extends BaseManager
             'status' => 'closed'
         ));
     }
-    
+
     public function insertReport($values)
     {
         return $this->database->table(self::MATCHES_REPORTS)->insert($values);
     }
-    
+
     public function insertScreenshots($values)
     {
         return $this->database->table(self::MATCHES_SCREENSHOTS)->insert($values);
     }
-    
+
     public function insertDemo($values)
     {
         return $this->database->table(self::MATCHES_DEMOS)->insert($values);
     }
-    
+
     public function getScreenshots($id)
     {
-        return $this->database->table(self::MATCHES_SCREENSHOTS)->where('match_id',$id);
+        return $this->database->table(self::MATCHES_SCREENSHOTS)->where('match_id', $id);
     }
-    
+
     public function getDemos($id)
     {
-        return $this->database->table(self::MATCHES_DEMOS)->where('match_id',$id);
+        return $this->database->table(self::MATCHES_DEMOS)->where('match_id', $id);
     }
-    
+
     public function getReports($id)
     {
-        return $this->database->table(self::MATCHES_REPORTS)->where('match_id',$id);
+        return $this->database->table(self::MATCHES_REPORTS)->where('match_id', $id);
     }
-    
+
     public function newConfirmScore($match_id)
     {
-        
+
 //        Udelam update v tabulce že to druhy team potvrdil
 //        vytahnu data
 //        a udelam update score v zapasu
-        
-        $this->database->table(self::CONFIRM_SCORE)->where('match_id',$match_id)->order('id DESC')->update(["confirmed" => 1]);
-        
-        $data = $this->database->table(self::CONFIRM_SCORE)->where('match_id',$match_id)->order('id DESC')->fetch();
-        $this->database->table(self::MATCHES_TABLE)->where('id',$match_id)->update(["status" => "closed","score1" => $data->score1, "score2" => $data->score2]);
-        
+
+        $this->database->table(self::CONFIRM_SCORE)->where('match_id', $match_id)->order('id DESC')->update(["confirmed" => 1]);
+
+        $data = $this->database->table(self::CONFIRM_SCORE)->where('match_id', $match_id)->order('id DESC')->fetch();
+        $this->database->table(self::MATCHES_TABLE)->where('id', $match_id)->update(["status" => "closed", "score1" => $data->score1, "score2" => $data->score2]);
+
         return true;
     }
-    
+
     public function updateScore($match_id, $values)
     {
-        return $this->database->table(self::MATCHES_TABLE)->where('id',$match_id)->update($values);
+        return $this->database->table(self::MATCHES_TABLE)->where('id', $match_id)->update($values);
     }
 
-    public function getRequest(){
+    public function getRequest()
+    {
         return $this->database->table('league_tournament_matches_reports')->where('status = ?', 'new')->fetchAll();
     }
 
-    public function updateRequest($id, $values){
+    public function updateRequest($id, $values)
+    {
         return $this->database->table('league_tournament_matches_reports')->where('id = ?', $id)->update(array(
             'status' => 'closed',
             'answer' => $values->answer
         ));
+    }
+
+    public function lastMatch($team_id)
+    {
+        return $this->database->table(self::MATCHES_TABLE)->where('team1_id = ? OR team2_id = ?', $team_id, $team_id)->fetch();
+    }
+    public function insertPointLog($values){
+        return $this->database->table('team_point_log')->insert($values);
     }
 
 

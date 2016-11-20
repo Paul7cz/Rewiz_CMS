@@ -28,7 +28,7 @@ class MessagesManager extends BaseManager
      */
     public function getMessagesReceive($id)
     {
-        return $this->database->table(self::TABLE_MESSAGES)->where('receiver_id', $id)->order('date DESC')->fetchAll();
+        return $this->database->table(self::TABLE_MESSAGES)->where('receiver_id', $id)->order('date DESC');
     }
 
     /**
