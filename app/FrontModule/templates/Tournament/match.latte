@@ -217,6 +217,7 @@
         {if $user->isLoggedIn()}
         <div class="col-sm-4 no-padding">
             <div class="col-sm-12">
+                {if $match->ref('league_team', 'team1_id')->owner == $user->getIdentity()->id}
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <i aria-hidden="true" class="fa fa-cogs"></i>
@@ -224,7 +225,7 @@
                     </div>
                     <div class="panel-body match">
                         <div class="panel-group" id="accordion">
-                            {if $match->ref('league_team', 'team1_id')->owner == $user->getIdentity()->id}
+                            
                                 <div class="panel panel-default detail">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
