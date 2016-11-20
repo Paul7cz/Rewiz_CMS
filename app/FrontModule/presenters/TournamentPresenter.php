@@ -546,7 +546,7 @@ class TournamentPresenter extends BasePresenter
 
         $form = new Form();
         $form->addSelect('team_id')->setItems($teams);
-        $form->addText('point')->setType('number');
+        $form->addText('point');
         $form->addText('reason');
 
         $form->addSubmit('submit', 'Aktualizovať');

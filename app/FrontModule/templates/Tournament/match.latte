@@ -420,11 +420,12 @@
                                             {/form}
                                             {form point}
                                                 <div class="col-sm-12 m-b">Udelenie tresných bodov</div>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-6">
                                                     {input team_id, class=>'form-control'}
                                                 </div>
-                                                <div class="col-sm-4 m-b" style="padding-left: 0px;">
-                                                    {input point, class=>'form-control'}
+                                                <div class="col-sm-6 m-b" style="padding-left: 0px;">
+                                                    {input point, class=>'form-control touchspin1'}
+                                                </div>
                                                 <div class="col-sm-12 m-b">Důvod</div>
                                                 <div class="col-sm-12">
                                                     {input reason, class=>'form-control'}
@@ -440,16 +441,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
             {/if}
             {/if}
-        </div>
+        
         <div class="col-sm-4 no-padding">
             {control panels:tournament}
             {control panels:advertisment}
         </div>
 
 
-    </div><!-- row -->
+    </div>
+</div><!-- row -->
 {/block}
 
 {block scripts}
@@ -489,6 +492,11 @@
             buttondown_class: 'btn btn-white',
             buttonup_class: 'btn btn-white'
         });
+        $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
         $(document).ready(function () {
 
             $('#filer_input').filer({
