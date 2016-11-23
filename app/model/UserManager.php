@@ -165,7 +165,7 @@ class UserManager extends BaseManager implements IAuthenticator
      */
     public function getMail($mail)
     {
-        return $this->database->table(self::USERS_TABLE)->where('email = ?', $mail)->fetchField('email');
+        return $this->database->table(self::USERS_TABLE)->where('email = ?', $mail)->fetch()->email;
     }
 
     public function changePassword($mail, $password)

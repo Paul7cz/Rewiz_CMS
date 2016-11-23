@@ -122,29 +122,34 @@ class ForumManager extends BaseManager
         ));
     }
 
-    public function countThreads($id){
+    public function countThreads($id)
+    {
         return $this->database->table(self::THREADS)->where('sub_category_id', $id)->count('*');
     }
 
-    public function countComments($id){
+    public function countComments($id)
+    {
 
         $threads = $this->database->table(self::THREADS)->where('sub_category_id', $id)->fetchAll();
 
         return $this->database->table(self::COMMENTS)->where('thread_id', $threads)->count('*');
     }
 
-    public function countCommentsCat($id){
+    public function countCommentsCat($id)
+    {
         $category = $this->database->table(self::SUB_CATEGORIES_TABLE)->where('categorie_id', $id)->fetchAll();
         $threads = $this->database->table(self::THREADS)->where('sub_category_id', $category)->fetchAll();
 
         return $this->database->table(self::COMMENTS)->where('thread_id', $threads)->count('*');
     }
 
-    public function countCommentsThread($id){
+    public function countCommentsThread($id)
+    {
         return $this->database->table(self::COMMENTS)->where('thread_id', $id)->count('*');
     }
 
-    public function deleteThread($id){
+    public function deleteThread($id)
+    {
         return $this->database->table(self::THREADS)->where('id', $id)->delete();
     }
 
@@ -161,7 +166,8 @@ class ForumManager extends BaseManager
         return $this->database->table(self::TABLE_COMMENTS_LOG)->order('id DESC')->fetchAll();
     }
 
-    public function unblock($id){
+    public function unblock($id)
+    {
         return $this->database->table(self::COMMENTS)->where('id', $id)->update(array(
             'block' => NULL,
             'reports' => NULL,
@@ -170,8 +176,27 @@ class ForumManager extends BaseManager
         ));
     }
 
+    public function deleteMain($id)
+    {
+        return $this->database->table(self::CATEGORIES_TABLE)->where('id', $id)->delete();
+    }
 
+    public function getMain($id)
+    {
+        return $this->database->table(self::CATEGORIES_TABLE)->where('id', $id)->fetch();
+    }
 
+    public function updateMain($id, $values){
+        return $this->database->table(self::CATEGORIES_TABLE)->where('id', $id)->update($values);
+    }
+
+    public function getSub($id){
+        return $this->database->table(self::SUB_CATEGORIES_TABLE)->where('id', $id)->fetch();
+    }
+
+    public function updateSub($id, $values){
+        return $this->database->table(self::SUB_CATEGORIES_TABLE)->where('id', $id)->update($values);
+    }
 
 
 }

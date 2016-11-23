@@ -1,4 +1,16 @@
 {**
+ * @param string    web base path
+ * @param array      flash messages
+ * @param type      describe
+ *}
+
+{**
+ * @param string    web base path
+ * @param array      flash messages
+ * @param type      describe
+ *}
+
+{**
 * @param string $basepath web base path
 * @param array  $flashes  flash messages
 *}
@@ -24,35 +36,6 @@
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
-            <div class="col-lg-6">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Přidat hlavnu kategorii do fóra</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a> <a class="close-link"><i
-                                        class=
-                                        "fa fa-times"></i></a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        {form category, class=>'form-horizontal'}
-                            <div class="form-group">
-                                <label class="col-sm-2 text-left">Název kategorie</label>
-                                <div class="col-sm-10">
-                                    {input name, class=>'form-control'}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12 text-right">
-                                    <button class="btn btn-white" type="submit">Zrušit</button>
-                                    {input submit, class=>'btn btn-primary'}
-                                </div>
-                            </div>
-                        {/form}
-                    </div><!-- .ibox-content -->
-                </div>
-            </div> <!-- .col-6 -->
-
 
             <div class="col-lg-6">
                 <div class="ibox float-e-margins">
@@ -96,19 +79,6 @@
             </div> <!-- .col-6 -->
 
         </div><!-- .row -->
-
-        <div class="ibox-content forum-container m-b">
-
-            {foreach $categories as $data}
-                <div class="forum-title">
-                    <h3>{$data->name}</h3> <a n:href="Forum:deleteMain $data->id">Vymazať</a> <a n:href="Forum:editmain $data->id">Upraviť</a>
-                </div>
-
-                {control forum:subCategories, $data->id}
-            {/foreach}
-
-        </div>
-
     </div><!-- .wrapper -->
 
 

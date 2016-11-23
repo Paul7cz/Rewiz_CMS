@@ -11,6 +11,7 @@ namespace App\AdminModule\Presenters;
 use App\AdminModule\Controls\Forum;
 use App\Model\ForumManager;
 use Nette\Application\UI\Form;
+use Nette\Database\ForeignKeyConstraintViolationException;
 
 
 /**
@@ -53,6 +54,11 @@ class ForumPresenter extends BasePresenter
 
     public function categorySucceeded(Form $form, $values)
     {
+        if ($this->action == 'editmain'){
+            $this->forumManager->updateMain($this->getParameter('id'), $values);
+            $this->flashMessage('Kategoria bola editovaná');
+            $this->redirect('Forum:default');
+        }
         $this->forumManager->createCategory($values);
         $this->flashMessage('Kategoria bola vytvorená');
         $this->redirect('this');
@@ -76,6 +82,13 @@ class ForumPresenter extends BasePresenter
 
     public function subCategorySucceeded(Form $form, $values)
     {
+        if ($this->action == 'editsub'){
+            $this->forumManager->updateSub($this->getParameter('id'), $values);
+            $this->flashMessage('Sub Kategoria bola editovaná');
+            $this->redirect('Forum:default');
+        }
+
+
         $this->forumManager->createSubCategory($values);
         $this->flashMessage('Sub kategoria bola vytvorená');
         $this->redirect('this');
@@ -93,7 +106,12 @@ class ForumPresenter extends BasePresenter
 
     public function actionDeleteSub($id)
     {
-        $this->forumManager->deleteSubCategory($id);
+        try{
+            $this->forumManager->deleteSubCategory($id);
+        } catch (ForeignKeyConstraintViolationException $e){
+            $this->flashMessage('Sub kategoria nemôže byť vymazaná kvôli jej obsahu');
+            $this->redirect('Forum:default');
+        }
         $this->flashMessage('Sub kategoria bola vymazaná.');
         $this->redirect('Forum:default');
     }
@@ -117,11 +135,36 @@ class ForumPresenter extends BasePresenter
         $this->redirect('Forum:reports');
     }
 
-    public function renderReports(){
+    public function renderReports()
+    {
         $this->template->reported = $this->forumManager->getReportedComments();
         $this->template->log = $this->forumManager->getCommentLog();
     }
 
+    public function actionDeleteMain($id)
+    {
+        try {
+            $this->forumManager->deleteMain($id);
+        } catch (ForeignKeyConstraintViolationException $e){
+            $this->flashMessage('Nemôžeš zmazať kategoriu kvôli sub kategoriam');
+            $this->redirect('Forum:Default');
+        }
+        $this->flashMessage('Kategoria bola vymazaná.');
+        $this->redirect('Forum:Default');
+    }
+
+    public function renderEditMain($id)
+    {
+        $query = $this->forumManager->getMain($id);
+        $this['category']->setDefaults($query);
+        $this->template->categories = $this->forumManager->getCategories();
+    }
+
+    public function renderEditSub($id){
+        $query = $this->forumManager->getSub($id);
+        $this['subCategory']->setDefaults($query);
+        $this->template->categories = $this->forumManager->getCategories();
+    }
 
 
 }

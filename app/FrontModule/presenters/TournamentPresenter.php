@@ -216,7 +216,6 @@ class TournamentPresenter extends BasePresenter
          }*/
 
         $createPairs = function ($_maxTeams, $_ids, $_shuffle = FALSE) {
-
             if ($_shuffle) {
                 shuffle($_ids);
             }
