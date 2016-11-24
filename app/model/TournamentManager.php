@@ -70,7 +70,7 @@ class TournamentManager extends BaseManager
 
     public function getMaxRound($id)
     {
-        $row = $this->database->table(self::MATCHES_TABLE)->where('tournament_id = ?', $id)->fetch();
+        $row = $this->database->table(self::MATCHES_TABLE)->where('tournament_id = ?', $id)->order('id DESC')->fetch();
         if (!$row) {
             return null;
         } else {
@@ -83,6 +83,11 @@ class TournamentManager extends BaseManager
         return $this->database->table(self::MATCHES_TABLE)->where('tournament_id = ? AND round = ?', $id, $round)->order('id ASC');
     }
 
+    public function getNotClosedMatches($id, $round)
+    {
+        return $this->getRoundMatches($id, $round)->where('status = ?', 'new');
+}
+
     public function insertMatch($id, $values, $round)
     {
         return $this->database->table(self::MATCHES_TABLE)->insert([
@@ -93,11 +98,6 @@ class TournamentManager extends BaseManager
             'round' => $round,
             'tournament_id' => $id,
         ]);
-    }
-
-    public function getNotClosedMatches($id, $round)
-    {
-        return $this->getRoundMatches($id, $round)->where('status = ?', 'new');
     }
 
     public function getMatches($id)

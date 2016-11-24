@@ -8,6 +8,9 @@
 
 namespace App\FrontModule\Presenters;
 
+use App\FrontModule\Controls\Panels;
+use App\FrontModule\Controls\Tournament;
+use App\Model\TournamentManager;
 use App\Model\UserManager;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
@@ -29,15 +32,15 @@ class LoginPresenter extends Presenter
     /** @var userManager Instance triedy modelu pre prácu s uživateľmi */
     private $userManager;
 
-    /**
-     * LoginPresenter constructor.
-     * @param UserManager $userManager Automaticky injektovaná trieda modelu pre prácu s uživateľmi
-     */
+    /** @var TournamentManager @inject */
+    public $tournamentManager;
+
+
     public function __construct(UserManager $userManager)
     {
-        parent::__construct();
         $this->userManager = $userManager;
     }
+
 
     /**
      * @return Form
@@ -95,6 +98,12 @@ class LoginPresenter extends Presenter
         $form->onSuccess[] = [$this, 'lostPwSucceeded'];
 
         return $form;
+    }
+
+    public function createComponentPanels()
+    {
+        $control = new Panels($this->tournamentManager);
+        return $control;
     }
 
     public function lostPwSucceeded(Form $form, $values)

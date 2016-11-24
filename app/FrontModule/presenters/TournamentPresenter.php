@@ -239,6 +239,7 @@ class TournamentPresenter extends BasePresenter
 
         // aktualni kolo
         $currentRound = $this->tournamentManager->getMaxRound($id);
+        Debugger::barDump($currentRound);
 
 
         if (!$currentRound) {
@@ -255,8 +256,7 @@ class TournamentPresenter extends BasePresenter
             $generatedMatches = $createPairs($maxTeams, $ids, TRUE);
 
         } else {
-
-            if ($this->tournamentManager->getNotClosedMatches($id, $currentRound)->count('*')) {
+            if ($this->tournamentManager->getNotClosedMatches($id, $currentRound)->count('*') >= 1) {
                 $this->flashMessage('Všetky zápasy neboli uzatvorené nemôžeš generovať dalšie kolo');
             } else {
 

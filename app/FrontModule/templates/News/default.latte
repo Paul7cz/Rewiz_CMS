@@ -10,7 +10,8 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
-                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×
+                        </button>{$flash->message}
                     </div>
                 </div>
             </div>
@@ -131,15 +132,17 @@
                                 <div class="col-lg-10 m-l-md">
                                     {*fa fa-star*}
                                     {if $data->users->premium == 1}
-                                        <div class="nick vip"><a n:href="User:profile, $data->users_id"><i class="fa fa-star m-r-xs"></i><span
-                                                    data-user="{$data->id}">{$data->users->username}</span></a>
+                                        <div class="nick vip"><a n:href="User:profile, $data->users_id"><i
+                                                        class="fa fa-star m-r-xs"></i><span
+                                                        data-user="{$data->id}">{$data->users->username}</span></a>
                                             <div class="text-right time"><i
                                                         class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
                                             </div>
                                         </div>
                                     {else}
-                                        <div class="nick"><a n:href="User:profile, $data->users_id"><i class="fa fa-user m-r-xs"></i><span
-                                                    data-user="{$data->id}">{$data->users->username}</span></a>
+                                        <div class="nick"><a n:href="User:profile, $data->users_id"><i
+                                                        class="fa fa-user m-r-xs"></i><span
+                                                        data-user="{$data->id}">{$data->users->username}</span></a>
                                             <div class="text-right time"><i
                                                         class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
                                             </div>
@@ -153,8 +156,10 @@
                                         <div class="comment m-t-xs">
                                             <strong>Príspevok bol zablokovaný administrátorom.</strong>
                                             <br><br>
-                                            {if $user->getIdentity()->role == 'admin'}
-                                                Pôvodné znenie komentára: {$data->content}
+                                            {if $user->isLoggedIn()}
+                                                {if $user->getIdentity()->role == 'admin'}
+                                                    Pôvodné znenie komentára: {$data->content}
+                                                {/if}
                                             {/if}
                                         </div>
                                     {/if}

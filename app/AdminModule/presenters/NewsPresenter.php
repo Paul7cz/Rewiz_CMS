@@ -190,10 +190,10 @@ class NewsPresenter extends BasePresenter
     /**
      * @param $id
      */
-    public function actionSave($id)
+    public function actionSave($id, $report_by, $block_by)
     {
         $this->newsManager->saveComment($id);
-        $this->newsManager->createCommentLog($id, '1');
+        $this->newsManager->createCommentLog($id, '1', $report_by, $block_by);
         $this->flashMessage('Komentár bol zachovaný');
         $this->redirect('News:comments');
     }
@@ -202,10 +202,10 @@ class NewsPresenter extends BasePresenter
      * @param $id
      * @param $block_by
      */
-    public function actionDel($id, $block_by)
+    public function actionDel($id, $report_by, $block_by)
     {
         $this->newsManager->deleteComment($id, $block_by);
-        $this->newsManager->createCommentLog($id, '0');
+        $this->newsManager->createCommentLog($id, '0', $report_by, $block_by);
         $this->flashMessage('Komentár bol vymazaný');
         $this->redirect('News:comments');
     }

@@ -7,6 +7,7 @@ use App\Model\ForumManager;
 use App\Model\LeagueManager;
 use App\Model\NewsManager;
 use App\Model\ServersManager;
+use Nette\Security\Passwords;
 use Tracy\Debugger;
 
 /**
