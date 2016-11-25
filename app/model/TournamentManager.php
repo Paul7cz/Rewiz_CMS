@@ -264,15 +264,29 @@ class TournamentManager extends BaseManager
 
     public function newConfirmScore($match_id)
     {
-
-//        Udelam update v tabulce že to druhy team potvrdil
-//        vytahnu data
-//        a udelam update score v zapasu
-
+        // Confirmed
         $this->database->table(self::CONFIRM_SCORE)->where('match_id', $match_id)->order('id DESC')->update(["confirmed" => 1]);
 
         $data = $this->database->table(self::CONFIRM_SCORE)->where('match_id', $match_id)->order('id DESC')->fetch();
         $this->database->table(self::MATCHES_TABLE)->where('id', $match_id)->update(["status" => "closed", "score1" => $data->score1, "score2" => $data->score2]);
+
+        $match = $this->getMatch($data->match_id);
+
+        if ($data->score1 > $data->score2){
+           $this->database->table('team_points')->where(array(
+               'team_id' => $match->team1_id,
+               'league_id' => $match->tournament->leagues_id,
+           ))->update(array(
+               'point' => +3
+           ));
+       } else{
+            $this->database->table('team_points')->where(array(
+                'team_id' => $match->team2_id,
+                'league_id' => $match->tournament->leagues_id,
+            ))->update(array(
+                'point' => +3
+            ));
+        }
 
         return true;
     }
@@ -302,6 +316,8 @@ class TournamentManager extends BaseManager
     public function insertPointLog($values){
         return $this->database->table('team_point_log')->insert($values);
     }
+
+
 
 
 }

@@ -11,7 +11,8 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
-                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>{$flash->message}
+                        <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×
+                        </button>{$flash->message}
                     </div>
                 </div>
             </div>
@@ -26,7 +27,7 @@
             {for $i = 1; $i <= $rounds; $i++}
                 <div class="panel panel-default space-20">
                     <div class="panel__heading">
-                        <i class="fa fa-code-fork"></i>{if $rounds == $i} Víťaz Turnaja {else}{$i}. Kolo{/if}
+                        <i class="fa fa-code-fork"></i>{$i}. Kolo
                     </div>
                     {control tournament:Playoff, $i, $tournament->id}
                 </div>

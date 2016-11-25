@@ -210,10 +210,10 @@ class TournamentPresenter extends BasePresenter
         $team_count = $this->tournamentManager->getRegisteredTeamsActive2($id);
 
         /** Lukáš !!! */
-        /* if ($team_count != 8 OR $team_count != 16 OR $team_count != 32 OR $team_count != 64) {
+         if ($team_count != 8) {
              $this->flashMessage('Nemôžeš spustiť turnaj kvôli nedostatku hračov');
              $this->redirect('Tournament:playoff', $this->getParameter('id'));
-         }*/
+         }
 
         $createPairs = function ($_maxTeams, $_ids, $_shuffle = FALSE) {
             if ($_shuffle) {
@@ -338,11 +338,6 @@ class TournamentPresenter extends BasePresenter
 
     public function newScoreSucceeded(Form $form, $values)
     {
-
-        // TODO: ošetrit zobrazeni formu pro majitele teamu
-        // TODO: ošetrit opetovne zadavani score (když uz bylo jednou zadane)
-        // TODO: odeslat score druhemu teamu pro zkontrolovani
-
         $match = $this->tournamentManager->getMatch($this->getParameter('id'));
         $values->match_id = $this->getParameter('id');
 

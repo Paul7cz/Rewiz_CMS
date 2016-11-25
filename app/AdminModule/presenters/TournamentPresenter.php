@@ -50,6 +50,7 @@ class TournamentPresenter extends BasePresenter
     {
 
         $leagues = $this->leagueManager->getLeagues2()->fetchPairs('id', 'name');
+        $team = $this->tournamentManager->getRegisteredTeamsActive($this->getParameter('id'))->fetchPairs('team_id', 'team_id');
 
         $form = new Form();
 
@@ -63,12 +64,24 @@ class TournamentPresenter extends BasePresenter
             '16' => 16,
             '32' => 32,
         ));
+
+        $form->addSelect('first')->setItems($team);
+        $form->addSelect('second')->setItems($team);
+        $form->addSelect('three')->setItems($team);
+
+
         $form->addText('prices');
         $form->addSubmit('submit');
         $form->onSuccess[] = [$this, 'createTournamentSucceeded'];
 
         return $form;
 
+    }
+
+    public function renderEdit($id)
+    {
+        $query = $this->tournamentManager->getTournament($id);
+        $this['createTournament']->setDefaults($query);
     }
 
     public function createTournamentSucceeded(Form $form, $values)
@@ -90,11 +103,6 @@ class TournamentPresenter extends BasePresenter
         $this->template->tournament = $this->tournamentManager->getAllTournament();
     }
 
-    public function renderEdit($id)
-    {
-        $query = $this->tournamentManager->getTournament($id);
-        $this['createTournament']->setDefaults($query);
-    }
 
     public function renderReply(){
         $this->template->reply = $this->tournamentManager->getRequest();

@@ -78,31 +78,19 @@
                                 <div class="col-sm-3">
                                     <label class="font-noraml">1. Místo</label>
                                     <div class="input-group">
-                                    <select data-placeholder="Vyber team..." class="chosen-select" style="width:280px;" tabindex="2">
-                                    <option value="">Vyber</option>
-                                    <option value="Team1">Team 1</option>
-                                    <option value="Team2">Team 2</option>
-                                    </select>
+                                        {input first, class=>'chosen-select', style=>'width:280px;', tabindex=>'1'}
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="font-noraml">2. Místo</label>
                                     <div class="input-group">
-                                    <select data-placeholder="Vyber team..." class="chosen-select" style="width:280px;" tabindex="2">
-                                    <option value="">Vyber</option>
-                                    <option value="Team1">Team 1</option>
-                                    <option value="Team2">Team 2</option>
-                                    </select>
+                                        {input second, class=>'chosen-select', style=>'width:280px;', tabindex=>'2'}
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <label class="font-noraml">3. Místo</label>
                                     <div class="input-group">
-                                    <select data-placeholder="Vyber team..." class="chosen-select" style="width:280px;" tabindex="2">
-                                    <option value="">Vyber</option>
-                                    <option value="Team1">Team 1</option>
-                                    <option value="Team2">Team 2</option>
-                                    </select>
+                                        {input three, class=>'chosen-select', style=>'width:280px;'}
                                     </div>
                                 </div>
                             </div><!-- col-12 -->
@@ -135,7 +123,7 @@
 {block scripts}
     <!--Scripts-->
     {include parent}
-        <!-- Peity -->
+    <!-- Peity -->
     <script src="{$basePath}/js/plugins/peity/jquery.peity.min.js"></script>
     <script src="{$basePath}/js/demo/peity-demo.js"></script>
     <!-- Chosen -->
@@ -202,15 +190,15 @@
     </script>
     <script n:syntax="off">
         var config = {
-                '.chosen-select'           : {},
-                '.chosen-select-deselect'  : {allow_single_deselect:true},
-                '.chosen-select-no-single' : {disable_search_threshold:10},
-                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-                '.chosen-select-width'     : {width:"95%"}
-                }
-            for (var selector in config) {
-                $(selector).chosen(config[selector]);
-            }
+            '.chosen-select': {},
+            '.chosen-select-deselect': {allow_single_deselect:true},
+            '.chosen-select-no-single': {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width': {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
     </script>
 {/block}
 

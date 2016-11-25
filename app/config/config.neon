@@ -19,7 +19,7 @@ session:
 
 extensions:
         visualPaginator: IPub\VisualPaginator\DI\VisualPaginatorExtension
-
+        gopay: Markette\Gopay\DI\Extension
 
 services:
     - App\Model\BaseManager
@@ -38,5 +38,11 @@ services:
     router: App\RouterFactory::createRouter
     authenticator: App\Model\UserManager
     cacheStorage:
-                    class: Nette\Caching\Storages\DevNullStorage
+                class: Nette\Caching\Storages\DevNullStorage
+
+gopay:
+    gopayId        : 1696938661
+    gopaySecretKey : TtxZHprh
+    testMode       : true
+
 
