@@ -8,7 +8,7 @@
     <div class="row" style="margin-left: 0px;">
         <div class="col-lg-8 content news m-b-xl  p-w-xl">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-8 col-lg-offset-2 m-t">
                     <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissable">
                         <button aria-hidden="true" class="close" data-dismiss="alert" type="button">×
                         </button>{$flash->message}
@@ -184,6 +184,37 @@
 
                                 </div>
                             </div> <!-- End Commnet N.1-->
+                            
+                            <!-- Commnet Reply N.1-->
+                            <div class="row m-t-lg reply">
+                                <div class="col-lg-1 m-t-xs">
+                                        <img class="img-circle" src="{$basePath}/img/avatar/{$data->users->avatar}"
+                                             alt="avatar">
+                                </div>
+                                <div class="col-lg-10 m-l-md">
+                                        <div class="nick"><a href="#"><i
+                                                        class="fa fa-user m-r-xs"></i><span
+                                                        data-user="{$data->id}">NinckName</span></a>
+                                            <div class="text-right time"><i
+                                                        class="fa fa-clock-o m-r-xs"></i>24.11.2016 24:00:00
+                                            </div>
+                                        </div>
+                                        <div class="comment m-t-xs">
+                                            <span data-content="{$data->id}">Lore lisim dolorem amet.</span>
+                                        </div>
+                                    <div class="text-right action m-t-xs ">
+                                                <a n:href="News:Delete, $data->id, $user->getIdentity()->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
+                                                            class="fa fa-times"></i>Zablokovať</a>
+
+                                                <a n:href="News:Report, $data->id, backlink => $presenter->storeRequest()" n:if="$data->users_id != $user->getIdentity()->id"><i
+                                                            class="fa fa-times"></i>Nahlásiť</a>
+                                                <a n:href="News:Unblock, $data->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
+                                                            class="fa fa-times"></i>Odblokovať</a>
+                                    </div>
+
+                                </div>
+                            </div> <!-- End Commnet reply N.1-->
+
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     {control visualPaginator}
@@ -294,5 +325,10 @@
 {block head}
     <!--Head-->
     <link href="{$basePath}/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <style>
+        .reply{
+            padding-left: 65px;
+        }
+    </style>
 
 {/block}

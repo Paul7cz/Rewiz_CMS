@@ -73,6 +73,42 @@
 
                             <div class="hr-line-dashed"></div>
 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Umístění</label>
+                                <div class="col-sm-3">
+                                    <label class="font-noraml">1. Místo</label>
+                                    <div class="input-group">
+                                    <select data-placeholder="Vyber team..." class="chosen-select" style="width:280px;" tabindex="2">
+                                    <option value="">Vyber</option>
+                                    <option value="Team1">Team 1</option>
+                                    <option value="Team2">Team 2</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="font-noraml">2. Místo</label>
+                                    <div class="input-group">
+                                    <select data-placeholder="Vyber team..." class="chosen-select" style="width:280px;" tabindex="2">
+                                    <option value="">Vyber</option>
+                                    <option value="Team1">Team 1</option>
+                                    <option value="Team2">Team 2</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="font-noraml">3. Místo</label>
+                                    <div class="input-group">
+                                    <select data-placeholder="Vyber team..." class="chosen-select" style="width:280px;" tabindex="2">
+                                    <option value="">Vyber</option>
+                                    <option value="Team1">Team 1</option>
+                                    <option value="Team2">Team 2</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div><!-- col-12 -->
+
+                            <div class="hr-line-dashed"></div>
+
                             <div class="form-group"><label class="col-sm-2 control-label">Ceny</label>
                                 <div class="col-sm-10">
                                     {input prices, class=>'form-control mceEditor'}
@@ -97,13 +133,13 @@
 {/block}
 
 {block scripts}
-    <!-- Peity -->
-    <script src="{$basePath}/js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="{$basePath}/js/demo/peity-demo.js"></script>
-
-
     <!--Scripts-->
     {include parent}
+        <!-- Peity -->
+    <script src="{$basePath}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$basePath}/js/demo/peity-demo.js"></script>
+    <!-- Chosen -->
+    <script src="{$basePath}/js/plugins/chosen/chosen.jquery.js"></script>
     <!--Include parents scripts-->
     <script src="{$basePath}/js/tinymce/tinymce.min.js"></script>
     <script n:syntax="off">
@@ -162,9 +198,23 @@
                 ]
             });
         });
+
+    </script>
+    <script n:syntax="off">
+        var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+                }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
     </script>
 {/block}
 
 {block head}
     <!--Head-->
+    <link href="{$basePath}/css/plugins/chosen/chosen.css" rel="stylesheet">
 {/block}
