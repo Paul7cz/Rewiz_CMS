@@ -153,11 +153,13 @@ class ForumManager extends BaseManager
         return $this->database->table(self::THREADS)->where('id', $id)->delete();
     }
 
-    public function createCommentLog($comment_id, $status)
+    public function createCommentLog($comment_id, $status, $report_by, $block_by)
     {
         return $this->database->table(self::TABLE_COMMENTS_LOG)->insert(array(
             'comment_id' => $comment_id,
             'status' => $status,
+            'report_by' => $report_by,
+            'block_by' => $block_by,
         ));
     }
 

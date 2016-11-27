@@ -164,7 +164,7 @@
                                 <a n:href="Team:profile $user->getIdentity()->team">Môj team</a>
                             </li>
                         {/if}
-                            <li n:if="$user->getIdentity()->role == 'admin'">
+                            <li n:if="$presenter->perm->isInRole($this->user->id, 'PA')">
                                 <a n:href=":Admin:Homepage:default">Administrácia</a>
                             </li>
                     </ul>

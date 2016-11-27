@@ -34,6 +34,17 @@ class LeaguePresenter extends BasePresenter
         $this->leagueManager = $leagueManager;
     }
 
+    public function beforeRender()
+    {
+        if ($this->user->isLoggedIn()) {
+            if (!$this->perm->isInRole($this->user->id, 'L')) {
+                $this->flashMessage('K tejto sekcii nemáš prístup');
+                $this->redirect(':Front:Homepage:default');
+            }
+        }
+
+    }
+
     /**
      * Render dát do Game.latte
      */

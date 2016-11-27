@@ -193,6 +193,8 @@ class NewsManager extends BaseManager
         return $this->database->table(self::TABLE_COMMENTS)->where('id', $id)->update(array(
             'reports' => NULL,
             'report_by' => NULL,
+            'block_by' => NULL,
+            'block' => NULL,
         ));
     }
 

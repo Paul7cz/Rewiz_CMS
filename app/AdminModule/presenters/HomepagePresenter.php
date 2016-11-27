@@ -12,4 +12,5 @@ use App\Model\NewsManager;
  */
 class HomepagePresenter extends BasePresenter
 {
+
 }

@@ -179,11 +179,11 @@
                                 {/if}
                             </div>
                             {if $user->isLoggedIn()}
-                                {if $user->getIdentity()->role == 'admin'}
+                                {*{if $presenter->perm->isInRole($this->user->id, 'T')}
                                     <div class="foot pull-right">
-                                        {* <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>*}
+                                        *}{* <a href="#"><i class="fa fa-times m-r-xs"></i>Vymazať</a>*}{*
                                     </div>
-                                {/if}
+                                {/if}*}
                             {/if}
                             {sep}<br><br>{/sep}
                         {/foreach}
@@ -374,7 +374,7 @@
                 </div>
             </div>
 
-            {if $user->getIdentity()->role == 'admin'}
+            {if $presenter->isInRole() == TRUE}
                 <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">

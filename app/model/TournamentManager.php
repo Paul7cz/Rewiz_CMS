@@ -311,7 +311,13 @@ class TournamentManager extends BaseManager
 
     public function lastMatch($team_id)
     {
-        return $this->database->table(self::MATCHES_TABLE)->where('team1_id = ? OR team2_id = ?', $team_id, $team_id)->fetch();
+        $match = $this->database->table(self::MATCHES_TABLE)->where('team1_id = ? OR team2_id = ?', $team_id, $team_id)->fetch();
+
+        if ($match == NULL){
+            return FALSE;
+        } else{
+            return $this->database->table(self::MATCHES_TABLE)->where('team1_id = ? OR team2_id = ?', $team_id, $team_id)->fetch();
+        }
     }
     public function insertPointLog($values){
         return $this->database->table('team_point_log')->insert($values);

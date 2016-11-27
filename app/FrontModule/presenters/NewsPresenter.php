@@ -42,9 +42,24 @@ class NewsPresenter extends BasePresenter
         $this->userManager = $userManager;
     }
 
+    public function isInRole()
+    {
+        if ($this->user->isLoggedIn()) {
+            if ($this->perm->isInRole($this->user->getId(), 'N') == TRUE) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+
+        }
+    }
+
 
     public function renderDefault($id)
     {
+
+        Debugger::barDump($this->isInRole());
+
         $check = $this->newsManager->checkId($id);
 
         if ($check != TRUE) {
@@ -92,10 +107,10 @@ class NewsPresenter extends BasePresenter
      * Vymazanie komentára k novinke
      * @param int $id ID novinky
      */
-    public function actionDelete($id, $block_by)
+    public function actionDelete($id, $block_by, $report_by)
     {
         $this->newsManager->deleteComment($id, $block_by);
-        $this->newsManager->createCommentLog($id, '0');
+        $this->newsManager->createCommentLog($id, '0', $block_by, $report_by);
         $this->flashMessage('Komentár bol úspešne vymazaný', self::RED);
         $this->restoreRequest($this->backlink);
     }
@@ -111,10 +126,10 @@ class NewsPresenter extends BasePresenter
         $this->restoreRequest($this->backlink);
     }
 
-    public function actionUnblock($id)
+    public function actionUnblock($id, $block_by, $report_by)
     {
         $this->newsManager->unblock($id);
-        $this->newsManager->createCommentLog($id, '1');
+        $this->newsManager->createCommentLog($id, '1', $block_by, $report_by);
         $this->flashMessage('Komentár bol odblkovaní.');
         $this->restoreRequest($this->backlink);
     }

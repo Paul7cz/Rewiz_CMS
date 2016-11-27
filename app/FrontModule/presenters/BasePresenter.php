@@ -4,6 +4,7 @@ namespace App\FrontModule\Presenters;
 
 use App\FrontModule\Controls\Panels;
 use App\Model\MessagesManager;
+use App\Model\PermissionsManager;
 use App\Model\TournamentManager;
 use App\Model\UserManager;
 use Nette\Application\ForbiddenRequestException;
@@ -33,6 +34,9 @@ abstract class BasePresenter extends Presenter
 
     /** @var  MessagesManager */
     private $messageManager;
+
+    /** @var UserManager @inject */
+    public $perm;
 
     /**
      * BasePresenter constructor.

@@ -56,6 +56,18 @@ class TournamentPresenter extends BasePresenter
         $this->userManager = $userManager;
     }
 
+    public function isInRole()
+    {
+        if ($this->user->isLoggedIn()) {
+            if ($this->perm->isInRole($this->user->getId(), 'T') == TRUE) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+
+        }
+    }
+
 
     /**
      * Porovnávanie času

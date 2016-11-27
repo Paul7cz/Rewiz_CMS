@@ -36,6 +36,17 @@ class ForumPresenter extends BasePresenter
         $this->forumManager = $forumManager;
     }
 
+    public function beforeRender()
+    {
+        if ($this->user->isLoggedIn()) {
+            if (!$this->perm->isInRole($this->user->id, 'F')) {
+                $this->flashMessage('K tejto sekcii nemáš prístup');
+                $this->redirect(':Front:Homepage:default');
+            }
+        }
+
+    }
+
     public function renderDefault()
     {
         $this->template->categories = $this->forumManager->getCategories();
@@ -117,20 +128,18 @@ class ForumPresenter extends BasePresenter
     }
 
 
-    public function actionSave($id)
+    public function actionSave($id, $report_by, $block_by)
     {
         $this->forumManager->saveComment($id);
-        $this->forumManager->createCommentLog($id, '1');
+        $this->forumManager->createCommentLog($id, '1', $report_by, $block_by);
         $this->flashMessage('Komentár bol zachovaný');
         $this->redirect('Forum:reports');
     }
 
-    public function actionDel($id, $block_by)
+    public function actionDel($id, $report_by, $block_by)
     {
-        $block_by = $this->user->getId();
-
         $this->forumManager->deleteComment($id, $block_by);
-        $this->forumManager->createCommentLog($id, '0');
+        $this->forumManager->createCommentLog($id, '0', $report_by, $block_by);
         $this->flashMessage('Komentár bol vymazaný');
         $this->redirect('Forum:reports');
     }

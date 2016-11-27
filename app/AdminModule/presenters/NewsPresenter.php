@@ -35,6 +35,17 @@ class NewsPresenter extends BasePresenter
         $this->newsManager = $newsManager;
     }
 
+    public function beforeRender()
+    {
+        if ($this->user->isLoggedIn()) {
+            if (!$this->perm->isInRole($this->user->id, 'N')) {
+                $this->flashMessage('K tejto sekcii nemáš prístup');
+                $this->redirect(':Front:Homepage:default');
+            }
+        }
+
+    }
+
     /**
      * Vytvára a vracia komponentu formulára pre pridanie novinky
      * @return Form $form

@@ -34,7 +34,7 @@
             {/for}
         </div>
         <div class="col-sm-4">
-            {if $user->getIdentity()->role == 'admin'}
+            {if $presenter->isInRole() == TRUE}
                 <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">

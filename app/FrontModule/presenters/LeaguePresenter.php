@@ -48,6 +48,18 @@ class LeaguePresenter extends BasePresenter
         $this->tournamentManager = $tournamentManager;
     }
 
+    public function isInRole()
+    {
+        if ($this->user->isLoggedIn()) {
+            if ($this->perm->isInRole($this->user->getId(), 'L') == TRUE) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+
+        }
+    }
+
 
     /**
      * @param $id

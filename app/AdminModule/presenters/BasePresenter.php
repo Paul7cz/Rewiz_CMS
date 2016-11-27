@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\UserManager;
+use App\Model;
 use Nette;
 use Nette\Application\UI\Presenter;
 
@@ -14,6 +14,10 @@ use Nette\Application\UI\Presenter;
  */
 abstract class BasePresenter extends Presenter
 {
+
+    /** @var Model\UserManager @inject */
+    public $perm;
+
     /**
      * Konštanty pre css triedy na FlashMessage
      */
@@ -25,14 +29,14 @@ abstract class BasePresenter extends Presenter
 
     public function beforeRender()
     {
-        if ($this->user->getIdentity()->role != 'admin') {
-            $this->flashMessage('K tejto sekcii nemáš prístup');
-            $this->redirect(':Front:Homepage:default');
+        if ($this->user->isLoggedIn()) {
+            if (!$this->perm->isInRole($this->user->id, 'PA')) {
+                $this->flashMessage('K tejto sekcii nemáš prístup');
+                $this->redirect(':Front:Homepage:default');
+            }
         }
 
-        /*if ($this->user->isLoggedIn()) {
-            $this->reauthenticate($this->user->getId());
-        }*/
+
     }
 
 

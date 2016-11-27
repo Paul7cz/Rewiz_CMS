@@ -36,6 +36,17 @@ class ServersPresenter extends BasePresenter
         $this->serverManager = $serverManager;
     }
 
+    public function beforeRender()
+    {
+        if ($this->user->isLoggedIn()) {
+            if (!$this->perm->isInRole($this->user->id, 'S')) {
+                $this->flashMessage('K tejto sekcii nemáš prístup');
+                $this->redirect(':Front:Homepage:default');
+            }
+        }
+
+    }
+
     /**
      * @return Form $form Formulár pre pridanie servera
      * Vytvára a vracia komponentu formulára pre pridanie servera

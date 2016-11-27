@@ -48,7 +48,7 @@
                     <li n:class="$presenter->isLinkCurrent(':Admin:Homepage:') ? active">
                         <a href="/admin"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:News:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'N')" n:class="$presenter->isLinkCurrent(':Admin:News:') ? active">
                         <a href="#"><i class="fa  fa-newspaper-o"></i> <span class="nav-label">Novinky</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="News:default">Přehled novinek</a></li>
@@ -56,36 +56,27 @@
                             <li><a n:href="News:category">Kategorie</a></li>
                         </ul>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:Users:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'U')" n:class="$presenter->isLinkCurrent(':Admin:Users:') ? active">
                         <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Uživatelé</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="Users:default">Přehled uživatelů</a></li>
                             <li><a n:href="Users:Permission">Oprávnenia</a></li>
                         </ul>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:Forum:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'F')" n:class="$presenter->isLinkCurrent(':Admin:Forum:') ? active">
                         <a href="#"><i class="fa fa-comment"></i> <span class="nav-label">Fórum</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="Forum:default">Přehled fóra</a></li>
                         </ul>
                     </li>
-                    {*<li n:class="$presenter->isLinkCurrent(':Admin:Hltv:') ? active">
-                        <a href="#"><i class="fa fa-television"></i> <span class="nav-label">HLTV</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a n:href="Hltv:default">Přehled zápasů</a></li>
-                            <li><a n:href="Hltv:addmatch">Přidat zápas</a></li>
-                            <li><a n:href="Hltv:team">Přehled teamu</a></li>
-                            <li><a n:href="Hltv:addteam">Přidat team</a></li>
-                        </ul>
-                    </li>*}
-                    <li n:class="$presenter->isLinkCurrent(':Admin:League:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'L')" n:class="$presenter->isLinkCurrent(':Admin:League:') ? active">
                         <a href="#"><i class="fa fa-empire"></i> <span class="nav-label">Liga</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="League:default">Zoznam líg</a></li>
                             <li><a n:href="League:add">Přidat ligu</a></li>
                         </ul>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:Tournament:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'T')" n:class="$presenter->isLinkCurrent(':Admin:Tournament:') ? active">
                         <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Turnaje</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="Tournament:default">Přidat turnaj</a></li>
@@ -94,7 +85,7 @@
                             <li><a n:href="Tournament:penalty">Trestné body</a></li>
                         </ul>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:Awards:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'O')" n:class="$presenter->isLinkCurrent(':Admin:Awards:') ? active">
                         <a href="#"><i class="fa fa-trophy"></i> <span class="nav-label">Ocenění</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="Users:awards">Vytvoriť ocenenie</a></li>
@@ -105,34 +96,33 @@
                     <li n:class="$presenter->isLinkCurrent(':Admin:News:') ? active">
                         <a href="#"><i class="fa  fa-warning"></i> <span class="nav-label">Nahlasenia</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a n:href="News:comments">Komentáre (Novinky)</a></li>
-                            <li><a n:href="Forum:reports">Príspevky (Fórum)</a></li>
+                            <li n:if="$presenter->perm->isInRole($this->user->id, 'N')"><a n:href="News:comments">Komentáre (Novinky)</a></li>
+                            <li n:if="$presenter->perm->isInRole($this->user->id, 'F')"><a n:href="Forum:reports">Príspevky (Fórum)</a></li>
                         </ul>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:Servers:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'S')" n:class="$presenter->isLinkCurrent(':Admin:Servers:') ? active">
                         <a href="#"><i class="fa fa-gamepad"></i> <span class="nav-label">Server status</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="Servers:default">Server status</a></li>
                             <li><a n:href="League:game">Správa hier</a></li>
                         </ul>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:Advertisement:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'A')" n:class="$presenter->isLinkCurrent(':Admin:Advertisement:') ? active">
                         <a href="#"><i class="fa fa-eye"></i> <span class="nav-label">Reklama</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a n:href="Advertisement:default">Reklama</a></li>
                         </ul>
                     </li>
-                    <li n:class="$presenter->isLinkCurrent(':Admin:Contact:') ? active">
+                    <li n:if="$presenter->perm->isInRole($this->user->id, 'OP')" n:class="$presenter->isLinkCurrent(':Admin:Contact:') ? active">
                         <a href="#"><i class="fa fa-pencil"></i> <span class="nav-label">Ostatné podstránky</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <!--<li><a n:href="Subpages:default">Přehled</a></li>-->
                             <li><a n:href="Contact:default">Kontakt</a></li>
-                            <li><a n:href="Pages:default">O nás</a></li>
+{*                            <li><a n:href="Pages:default">O nás</a></li>
                             <li><a n:href="Pages:rules">Pravidla</a></li>
                             <li><a n:href="Pages:prules">Pravidla osobních udajů</a></li>
                             <li><a n:href="Pages:helpus">Loga a banery</a></li>
-                            <li><a n:href="Pages:partners">Partnery</a></li>
-                            <!--<li><a n:href="Subpages:career">Kariéra</a></li>-->
+                            <li><a n:href="Pages:partners">Partnery</a></li>*}
                         </ul>
                     </li>
                 </ul>

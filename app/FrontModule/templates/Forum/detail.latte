@@ -36,7 +36,7 @@
 
 
                         </div>
-                        {if $user->getIdentity()->role == 'admin'}
+                        {if $presenter->isInRole() == TRUE}
                             <a n:href="Forum:Thread, $post->id" class="btn btn-admin pull-right">Smazat tému</a>
                         {/if}
                         <div class="media-body">
@@ -85,18 +85,18 @@
                                 <div class="comment m-t-xs">
                                     <strong>Príspevok bol zablokovaný administrátorom.</strong>
                                     <br><br>
-                                    {if $user->getIdentity()->role == 'admin'}
+                                    {if $presenter->isInRole() == TRUE}
                                         Pôvodné znenie komentára: {$data->content}
                                     {/if}
                                 </div>
                             {/if}
                             <div class="text-right action m-t-xs">
-                                {if $user->getIdentity()->role == 'admin'}
+                                {if $presenter->isInRole() == TRUE}
                                     {if $data->block == NULL}
-                                        <a n:href="Forum:delete, $data->id, backlink => $presenter->storeRequest()"><i
+                                        <a n:href="Forum:delete, $data->id, $user->getIdentity()->id, $user->getIdentity()->id, backlink => $presenter->storeRequest()"><i
                                                     class="fa fa-pencil m-r-xs"></i>Zablokovať</a>
                                     {else}
-                                        <a n:href="Forum:unblock, $data->id, backlink => $presenter->storeRequest()"><i
+                                        <a n:href="Forum:unblock, $data->id, $data->report_by, $user->getIdentity()->id, backlink => $presenter->storeRequest()"><i
                                                     class="fa fa-pencil m-r-xs"></i>Odblokovať</a>
                                     {/if}
                                 {/if}

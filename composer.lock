@@ -4,9 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "51c0cdfcd0a136ca05e5c8fa7ab58218",
-    "content-hash": "08905abfa8c8b5874f9d1f4a527b0a1d",
+    "hash": "1fe09cee5874c7e89097d756ab9674c5",
+    "content-hash": "4b8ef8e93e16532d49c27f9be78ac477",
     "packages": [
+        {
+            "name": "dg/adminer-custom",
+            "version": "v1.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dg/adminer-custom.git",
+                "reference": "8a62f9e5d378df564bf5c8a542885ea9aa0a9ee4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dg/adminer-custom/zipball/8a62f9e5d378df564bf5c8a542885ea9aa0a9ee4",
+                "reference": "8a62f9e5d378df564bf5c8a542885ea9aa0a9ee4",
+                "shasum": ""
+            },
+            "type": "project",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Customization for the best database management tool written in PHP, Adminer",
+            "time": "2016-06-01 21:20:39"
+        },
         {
             "name": "ipub/visual-paginator",
             "version": "dev-master",
@@ -127,6 +146,136 @@
                 "twig"
             ],
             "time": "2016-05-30 09:11:18"
+        },
+        {
+            "name": "markette/gopay",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Markette/Gopay.git",
+                "reference": "c6d620c59115ce933863586bfa1e8f0632d0f303"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Markette/Gopay/zipball/c6d620c59115ce933863586bfa1e8f0632d0f303",
+                "reference": "c6d620c59115ce933863586bfa1e8f0632d0f303",
+                "shasum": ""
+            },
+            "require": {
+                "markette/gopay-api": "~2.5.1",
+                "nette/application": "~2.3.0",
+                "nette/di": "~2.3.0",
+                "nette/forms": "~2.3.0",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "nette/tester": "^1.7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Markette\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "New BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Vojtěch Dobeš",
+                    "email": "me@vojtechdobes.com"
+                },
+                {
+                    "name": "Jan Škrášek",
+                    "email": "hrach.cz@gmail.com"
+                },
+                {
+                    "name": "Jaroslav Hranička",
+                    "email": "hranicka@outlook.com"
+                },
+                {
+                    "name": "Milan Felix Šulc",
+                    "email": "sulcmil@gmail.com"
+                }
+            ],
+            "description": "Integrace platebního systému Gopay pro Nette Framework.",
+            "homepage": "https://github.com/Markette/Gopay",
+            "keywords": [
+                "eshop",
+                "gopay",
+                "nette",
+                "payment"
+            ],
+            "time": "2016-07-06 14:44:27"
+        },
+        {
+            "name": "markette/gopay-api",
+            "version": "v2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Markette/GopayApi.git",
+                "reference": "b404ec63444276c7e0bef59ed982568593477a90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Markette/GopayApi/zipball/b404ec63444276c7e0bef59ed982568593477a90",
+                "reference": "b404ec63444276c7e0bef59ed982568593477a90",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "ext-soap": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.4",
+                "nette/tester": "~1.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "New BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Vojtěch Dobeš",
+                    "email": "me@vojtechdobes.com"
+                },
+                {
+                    "name": "Jan Škrášek",
+                    "email": "hrach.cz@gmail.com"
+                },
+                {
+                    "name": "Jaroslav Hranička",
+                    "email": "hranicka@outlook.com"
+                },
+                {
+                    "name": "Milan Felix Šulc",
+                    "email": "sulcmil@gmail.com"
+                }
+            ],
+            "description": "Public GopayAPI SDK for PHP.",
+            "homepage": "https://github.com/Markette/GopayApi",
+            "keywords": [
+                "api",
+                "eshop",
+                "gopay",
+                "payment",
+                "sdk"
+            ],
+            "time": "2015-09-25 08:41:58"
         },
         {
             "name": "nette/application",
@@ -366,16 +515,16 @@
         },
         {
             "name": "nette/database",
-            "version": "v2.3.10",
+            "version": "v2.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/database.git",
-                "reference": "ed0dc48c58ddf9042f736f3c1ac431dfdd825019"
+                "reference": "a4c7ea17470a7d888df5738f5e63b2605899f289"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/database/zipball/ed0dc48c58ddf9042f736f3c1ac431dfdd825019",
-                "reference": "ed0dc48c58ddf9042f736f3c1ac431dfdd825019",
+                "url": "https://api.github.com/repos/nette/database/zipball/a4c7ea17470a7d888df5738f5e63b2605899f289",
+                "reference": "a4c7ea17470a7d888df5738f5e63b2605899f289",
                 "shasum": ""
             },
             "require": {
@@ -416,20 +565,20 @@
             ],
             "description": "Nette Database Component",
             "homepage": "https://nette.org",
-            "time": "2016-10-18 13:30:07"
+            "time": "2016-05-30 14:52:29"
         },
         {
             "name": "nette/di",
-            "version": "v2.3.12",
+            "version": "v2.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/di.git",
-                "reference": "aed06c37a722a1450854176f1d0b11de473092f1"
+                "reference": "3f8347bbcac706e1ced651c7beb9affd66298473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/di/zipball/aed06c37a722a1450854176f1d0b11de473092f1",
-                "reference": "aed06c37a722a1450854176f1d0b11de473092f1",
+                "url": "https://api.github.com/repos/nette/di/zipball/3f8347bbcac706e1ced651c7beb9affd66298473",
+                "reference": "3f8347bbcac706e1ced651c7beb9affd66298473",
                 "shasum": ""
             },
             "require": {
@@ -468,7 +617,7 @@
             ],
             "description": "Nette Dependency Injection Component",
             "homepage": "https://nette.org",
-            "time": "2016-07-06 13:10:47"
+            "time": "2016-06-17 16:43:21"
         },
         {
             "name": "nette/finder",
@@ -522,16 +671,16 @@
         },
         {
             "name": "nette/forms",
-            "version": "v2.3.11",
+            "version": "v2.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/forms.git",
-                "reference": "d7135330459168fc34ee6c5db1661d335b76cbb2"
+                "reference": "22ab1e9794fabe225b980ee4c31f57ee5b7f74e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/forms/zipball/d7135330459168fc34ee6c5db1661d335b76cbb2",
-                "reference": "d7135330459168fc34ee6c5db1661d335b76cbb2",
+                "url": "https://api.github.com/repos/nette/forms/zipball/22ab1e9794fabe225b980ee4c31f57ee5b7f74e2",
+                "reference": "22ab1e9794fabe225b980ee4c31f57ee5b7f74e2",
                 "shasum": ""
             },
             "require": {
@@ -573,7 +722,7 @@
             ],
             "description": "Nette Forms: greatly facilitates web forms",
             "homepage": "https://nette.org",
-            "time": "2016-09-26 22:28:39"
+            "time": "2016-06-30 18:22:11"
         },
         {
             "name": "nette/http",
@@ -686,32 +835,26 @@
         },
         {
             "name": "nette/neon",
-            "version": "v2.4.0",
+            "version": "v2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/neon.git",
-                "reference": "c40c63f2afa4196844ac40d9d2a2cfb313f76906"
+                "reference": "75699de201932e6de6b249824dc8c53d0f442cd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/neon/zipball/c40c63f2afa4196844ac40d9d2a2cfb313f76906",
-                "reference": "c40c63f2afa4196844ac40d9d2a2cfb313f76906",
+                "url": "https://api.github.com/repos/nette/neon/zipball/75699de201932e6de6b249824dc8c53d0f442cd5",
+                "reference": "75699de201932e6de6b249824dc8c53d0f442cd5",
                 "shasum": ""
             },
             "require": {
                 "ext-iconv": "*",
-                "php": ">=5.6.0"
+                "php": ">=5.3.1"
             },
             "require-dev": {
-                "nette/tester": "~2.0",
-                "tracy/tracy": "^2.3"
+                "nette/tester": "~1.4"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -735,7 +878,7 @@
             ],
             "description": "Nette NEON: parser & generator for Nette Object Notation",
             "homepage": "http://ne-on.org",
-            "time": "2016-06-25 13:59:48"
+            "time": "2016-05-17 17:14:44"
         },
         {
             "name": "nette/php-generator",
@@ -1110,7 +1253,64 @@
             "time": "2016-05-30 09:03:15"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "nette/tester",
+            "version": "v1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/tester.git",
+                "reference": "d97534578e8cf66eabe081e7d5eaa4dd527ab0c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/tester/zipball/d97534578e8cf66eabe081e7d5eaa4dd527ab0c8",
+                "reference": "d97534578e8cf66eabe081e7d5eaa4dd527ab0c8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "bin": [
+                "src/tester"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.7-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "An easy-to-use PHP unit testing framework.",
+            "homepage": "https://tester.nette.org",
+            "keywords": [
+                "nette",
+                "testing",
+                "unit"
+            ],
+            "time": "2016-03-19 14:34:02"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
@@ -1119,7 +1319,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">= 5.3.7"
+        "php": ">= 5.3.1"
     },
     "platform-dev": []
 }

@@ -42,6 +42,17 @@ class UsersPresenter extends BasePresenter
         $this->leagueManager = $leagueManager;
     }
 
+    public function beforeRender()
+    {
+        if ($this->user->isLoggedIn()) {
+            if (!$this->perm->isInRole($this->user->id, 'U')) {
+                $this->flashMessage('K tejto sekcii nemáš prístup');
+                $this->redirect(':Front:Homepage:default');
+            }
+        }
+
+    }
+
 
     /**
      * Render dát do Default.latte
@@ -53,7 +64,8 @@ class UsersPresenter extends BasePresenter
 
     public function renderPermission()
     {
-        $this->template->admins = $this->userManager->getAdmins();
+        //$this->template->admins = $this->userManager->getAdmins();
+        $this->template->admins = $this->userManager->getAdmin();
     }
 
     /**
@@ -303,9 +315,21 @@ class UsersPresenter extends BasePresenter
         $names = $this->userManager->getNames();
         $form->addSelect('username')->setItems($names);
 
-        $form->addSelect('role')->setItems(array(
-            'admin' => 'Administrátor'
-        ));
+        $perm = [
+            "F" => "Fórum",
+            "N" => "Novinky",
+            "L" => "Liga",
+            "T" => "Turnaje",
+            "S" => "Servery",
+            "U" => "Uživatelia",
+            "O" => "Ocenenia",
+            "PA" => "Prístup do Administrácie",
+            "OP" => "Ostatné podstránky",
+            "R" => "Nahlasenia",
+            "A" => "Reklama",
+        ];
+        
+        $form->addCheckboxList('perm')->setItems($perm);
 
         $form->addSubmit('submit')->setAttribute('placeholder', 'Odoslať');
 
@@ -315,8 +339,13 @@ class UsersPresenter extends BasePresenter
 
     public function permSucceeded(Form $form, $values)
     {
-        $this->userManager->addAdmin($values->username);
-        $this->flashMessage('Admin bol pridaný');
+        $role = $this->userManager->addRole($values->username,$values->perm);
+        if ($role) {
+            $this->flashMessage('Admin bol pridaný');
+        } else {
+            $this->flashMessage('Pri pridaní nových práv najprv uživateľa odstráň a potom pridaj odznova. (Aby si nemohli pridávať prava sami)');
+        }
+        //$this->userManager->addAdmin($values->username);
         $this->redirect('Users:default');
     }
 
@@ -472,6 +501,12 @@ class UsersPresenter extends BasePresenter
         $this->userManager->createPremiumLog($id, $this->user->getId(), '0');
         $this->flashMessage('Premium deaktivované');
         $this->redirect('Users:default');
+    }
+    
+    public function actionDeleteAdmin($user_id) {
+        $this->userManager->deleteAdminNew($user_id);
+        $this->flashMessage('Admin zmazán');
+        $this->redirect('Users:permission');
     }
 
 

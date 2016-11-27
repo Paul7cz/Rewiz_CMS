@@ -2,6 +2,7 @@
 log/*
 temp/*
 vendor/*
+nbproject
 !.gitignore
 !.htaccess
 !web.config

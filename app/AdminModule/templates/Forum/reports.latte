@@ -48,11 +48,11 @@
                                 <td>{$data->content}</td>
                                 <td>{$data->date|date:'j.n.Y H:i:s'}</td>
                                 <td><a href="#">{$data->ref('users', 'report_by')->username}</a></td>
-                                <td><a n:href="Forum:Save, $data->id">
+                                <td><a n:href="Forum:Save, $data->id, $data->report_by, $user->getIdentity()->id">
                                         <button class="btn btn-primary " type="button"><i class="fa fa-check"></i>&nbsp;Povoliť
                                         </button>
                                     </a>
-                                    <a n:href="Forum:Del $data->id, $user->getIdentity()->id">
+                                    <a n:href="Forum:Del $data->id, $data->report_by, $user->getIdentity()->id">
                                         <button class="btn btn-danger " type="button"><i class="fa fa-ban"></i>&nbsp;Zakázať
                                         </button>
                                     </a>
@@ -106,20 +106,12 @@
                                 {else}
                                     <td class="text-info"><font color="red">Zamietnutý</font></td>
                                 {/if}
-                                {if $data->comment->report_by != NULL}
-                                    <td><a href="#">{$data->comment->ref('users', 'report_by')->username}</a></td>
-                                {else}
-                                    <td><a href="#">Bez zablokovania</a></td>
-                                {/if}
-                                {if $data->comment->block_by != NULL}
-                                    <td><a href="#">{$data->comment->ref('users', 'block_by')->username}</a></td>
-                                {else}
-                                    <td><a href="#">Bez zablokovania</a></td>
-                                {/if}
+                                    <td><a href="#">{$data->ref('users', 'report_by')->username}</a></td>
+                                    <td><a href="#">{$data->ref('users', 'block_by')->username}</a></td>
                                 {if $data->status == 0}
-                                    <td class="text-info"><a n:href="Forum:Save, $data->comment_id">Povoliť</a></td>
+                                    <td class="text-info"><a n:href="Forum:Save, $data->comment_id, $data->report_by, $user->getIdentity()->id">Povoliť</a></td>
                                 {else}
-                                    <td class="text-info"><a n:href="Forum:Del, $data->comment_id">Zablokocať</a></td>
+                                    <td class="text-info"><a n:href="Forum:Del, $data->comment_id, $data->report_by, $user->getIdentity()->id">Zablokocať</a></td>
                                 {/if}
                             </tr>
                             </tbody>

@@ -45,6 +45,17 @@ class TournamentPresenter extends BasePresenter
         $this->userManager = $userManager;
     }
 
+    public function beforeRender()
+    {
+        if ($this->user->isLoggedIn()) {
+            if (!$this->perm->isInRole($this->user->id, 'T')) {
+                $this->flashMessage('K tejto sekcii nemáš prístup');
+                $this->redirect(':Front:Homepage:default');
+            }
+        }
+
+    }
+
 
     protected function createComponentCreateTournament()
     {

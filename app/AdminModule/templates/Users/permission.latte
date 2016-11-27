@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label class="font-noraml">Oprávnění</label>
                                         <div class="input-group">
-                                            {input role, class=>"chosen-select", style=>"width:350px;"}
+                                            {input perm}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -110,9 +110,9 @@
                                             </thead>
                                             <tbody>
                                             <tr n:foreach="$admins as $data">
-                                                <td>{$data->username}</td>
-                                                <td>Administrátor</td>
-                                                <td><a n:href="Users:Derank, $data->id" onClick=""><i aria-hidden="true"
+                                                <td>{$data->ref('users','user_id')->username}</td>
+                                                <td>{$data->perm}</td>
+                                                <td><a n:href="Users:DeleteAdmin, $data->user_id" onClick=""><i aria-hidden="true"
                                                                                                       class="fa fa-trash text-navy"></i></a>
                                                 </td>
                                             </tr>

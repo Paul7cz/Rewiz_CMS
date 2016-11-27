@@ -157,7 +157,7 @@
                                             <strong>Príspevok bol zablokovaný administrátorom.</strong>
                                             <br><br>
                                             {if $user->isLoggedIn()}
-                                                {if $user->getIdentity()->role == 'admin'}
+                                                {if $presenter->isInRole() == TRUE}
                                                     Pôvodné znenie komentára: {$data->content}
                                                 {/if}
                                             {/if}
@@ -169,13 +169,13 @@
                                                 <a href="javascript:void(0);" data-reply="{$data->id}"><i
                                                             class="fa fa-retweet m-r-xs"></i>Odpovedať</a>
 
-                                                <a n:href="News:Delete, $data->id, $user->getIdentity()->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
+                                                <a n:href="News:Delete, $data->id, $user->getIdentity()->id, $user->getIdentity()->id, backlink => $presenter->storeRequest()" n:if="$presenter->isInRole() == TRUE"><i
                                                             class="fa fa-times"></i>Zablokovať</a>
 
                                                 <a n:href="News:Report, $data->id, backlink => $presenter->storeRequest()" n:if="$data->users_id != $user->getIdentity()->id"><i
                                                             class="fa fa-times"></i>Nahlásiť</a>
                                             {else}
-                                                <a n:href="News:Unblock, $data->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
+                                                <a n:href="News:Unblock, $data->id, $data->report_by, $user->getIdentity()->id, backlink => $presenter->storeRequest()" n:if="$presenter->isInRole() == TRUE"><i
                                                             class="fa fa-times"></i>Odblokovať</a>
                                             {/if}
                                         {/if}
@@ -188,28 +188,21 @@
                             <!-- Commnet Reply N.1-->
                             <div class="row m-t-lg reply">
                                 <div class="col-lg-1 m-t-xs">
-                                        <img class="img-circle" src="{$basePath}/img/avatar/{$data->users->avatar}"
+                                        <img class="img-circle" src=""
                                              alt="avatar">
                                 </div>
                                 <div class="col-lg-10 m-l-md">
                                         <div class="nick"><a href="#"><i
                                                         class="fa fa-user m-r-xs"></i><span
-                                                        data-user="{$data->id}">NinckName</span></a>
+                                                        data-user="">NinckName</span></a>
                                             <div class="text-right time"><i
                                                         class="fa fa-clock-o m-r-xs"></i>24.11.2016 24:00:00
                                             </div>
                                         </div>
                                         <div class="comment m-t-xs">
-                                            <span data-content="{$data->id}">Lore lisim dolorem amet.</span>
+                                            <span data-content="">Lore lisim dolorem amet.</span>
                                         </div>
                                     <div class="text-right action m-t-xs ">
-                                                <a n:href="News:Delete, $data->id, $user->getIdentity()->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
-                                                            class="fa fa-times"></i>Zablokovať</a>
-
-                                                <a n:href="News:Report, $data->id, backlink => $presenter->storeRequest()" n:if="$data->users_id != $user->getIdentity()->id"><i
-                                                            class="fa fa-times"></i>Nahlásiť</a>
-                                                <a n:href="News:Unblock, $data->id, backlink => $presenter->storeRequest()" n:if="$user->getIdentity()->role == 'admin'"><i
-                                                            class="fa fa-times"></i>Odblokovať</a>
                                     </div>
 
                                 </div>

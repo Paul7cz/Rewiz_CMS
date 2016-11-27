@@ -43,6 +43,13 @@ class TeamPresenter extends BasePresenter
         $this->tournamentManager = $tournamentManager;
     }
 
+    public function lastMatch($team_id){
+        if (!$this->tournamentManager->lastMatch($team_id)){
+            return FALSE;
+        } else {
+            return $this->tournamentManager->lastMatch($team_id);
+        }
+    }
 
     /**
      * @param int $team ID teamu

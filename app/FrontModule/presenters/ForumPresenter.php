@@ -10,6 +10,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model\ForumManager;
 use App\FrontModule\Controls\Forum;
+use App\Model\UserManager;
 use Nette\Application\UI\Form;
 
 /**
@@ -27,6 +28,9 @@ class ForumPresenter extends BasePresenter
 
     public $forumManager;
 
+    /** @var UserManager @inject */
+    public $perm;
+
     /**
      * @persistent
      */
@@ -40,6 +44,18 @@ class ForumPresenter extends BasePresenter
     {
         parent::__construct();
         $this->forumManager = $forumManager;
+    }
+
+    public function isInRole()
+    {
+        if ($this->user->isLoggedIn()) {
+            if ($this->perm->isInRole($this->user->getId(), 'F') == TRUE) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+
+        }
     }
 
     /**
@@ -134,12 +150,12 @@ class ForumPresenter extends BasePresenter
         $this->redirect();
     }
 
-    public function actionDelete($id, $block_by)
+    public function actionDelete($id, $block_by, $report_by)
     {
         $block_by = $this->user->getId();
 
         $this->forumManager->deleteComment($id, $block_by);
-        $this->forumManager->createCommentLog($id, '0');
+        $this->forumManager->createCommentLog($id, '0', $block_by, $report_by);
         $this->flashMessage('Uživateľ bol nahlasení');
         $this->restoreRequest($this->backlink);
         $this->redirect();
@@ -152,10 +168,10 @@ class ForumPresenter extends BasePresenter
         $this->redirect('Forum:default');
     }
 
-    public function actionUnblock($id)
+    public function actionUnblock($id, $block_by, $report_by)
     {
         $this->forumManager->unblock($id);
-        $this->forumManager->createCommentLog($id, '1');
+        $this->forumManager->createCommentLog($id, '1', $block_by, $report_by);
         $this->flashMessage('Komentár bol odblkovaní.');
         $this->restoreRequest($this->backlink);
     }
