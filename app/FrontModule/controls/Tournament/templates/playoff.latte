@@ -3,7 +3,7 @@
         <div class="panel__body playoff">
             <div class="row row__line">
                 <div class="col-sm-3 text-center">{$item->time|date:'j.n.Y H:i:s'}</div>
-                <div class="col-sm-5 text-center">{$item->ref('league_team','team1_id')->name} <span class="text-blue">vs</span>{$item->ref('league_team','team2_id')->name}
+                <div class="col-sm-5 text-center"><a href="{plink Team:profile, $item->ref('league_team','team1_id')->id}">{$item->ref('league_team','team1_id')->name}</a> <span class="text-blue">vs</span><a href="{plink Team:profile, $item->ref('league_team','team2_id')->id}">{$item->ref('league_team','team2_id')->name}</a>
                 </div>
                 <div class="col-sm-2 text-center"></div>
                 <div class="col-sm-2 text-center"><a href="{plink Tournament:Match, $item->id}">Detail zápasu</a></div>
