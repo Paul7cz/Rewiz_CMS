@@ -181,32 +181,9 @@
                                         {/if}
 
                                     </div>
-
+                                    {control news:reply, $data->id}
                                 </div>
                             </div> <!-- End Commnet N.1-->
-                            
-                            <!-- Commnet Reply N.1-->
-                            <div class="row m-t-lg reply">
-                                <div class="col-lg-1 m-t-xs">
-                                        <img class="img-circle" src=""
-                                             alt="avatar">
-                                </div>
-                                <div class="col-lg-10 m-l-md">
-                                        <div class="nick"><a href="#"><i
-                                                        class="fa fa-user m-r-xs"></i><span
-                                                        data-user="">NinckName</span></a>
-                                            <div class="text-right time"><i
-                                                        class="fa fa-clock-o m-r-xs"></i>24.11.2016 24:00:00
-                                            </div>
-                                        </div>
-                                        <div class="comment m-t-xs">
-                                            <span data-content="">Lore lisim dolorem amet.</span>
-                                        </div>
-                                    <div class="text-right action m-t-xs ">
-                                    </div>
-
-                                </div>
-                            </div> <!-- End Commnet reply N.1-->
 
                             <div class="row">
                                 <div class="col-sm-12 text-center">
@@ -234,6 +211,7 @@
                             <div class="col-lg-12 text-right p-r-mega space-20">
                                 {input submit, class => "btn btn-rewiz"}
                             </div>
+                                {input reply}
                         </div>
                     {/form}
                 {else}
@@ -300,11 +278,8 @@
 
             $("[data-reply]").click(function () {
                 var id = $(this).data("reply");
+                $('#reply_id').val(id);
 
-                var user = $("[data-user='" + id + "']").text();
-                var content = $("[data-content='" + id + "']").text();
-
-                $("textarea#frm-commentForm-content").val("" + user + ": " + content + "");
                 $('html, body').animate({
                     scrollTop: $("#frm-commentForm-content").offset().top
                 }, 1000);
@@ -313,6 +288,7 @@
             });
         });
     </script>
+
 {/block}
 
 {block head}

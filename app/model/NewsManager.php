@@ -128,10 +128,17 @@ class NewsManager extends BaseManager
 
     public function getComments2($id)
     {
-        return $this->database->table(self::TABLE_COMMENTS)->where('news_id', $id)->order('id DESC');
+        return $this->database->table(self::TABLE_COMMENTS)->where('news_id = ? AND reply IS NULL', $id)->order('id DESC');
     }
 
-    public function getComment($id){
+    public function getReplyComments($comment_id)
+    {
+        return $this->database->table(self::TABLE_COMMENTS)->where('reply = ?', $comment_id)->order('id DESC');
+    }
+
+
+    public function getComment($id)
+    {
         return $this->database->table(self::TABLE_COMMENTS)->where('id', $id)->fetch();
     }
 
@@ -218,12 +225,13 @@ class NewsManager extends BaseManager
         return $this->database->table(self::TABLE_COMMENTS_LOG)->order('id DESC')->fetchAll();
     }
 
-    public function unblock($id){
+    public function unblock($id)
+    {
         return $this->database->table(self::TABLE_COMMENTS)->where('id', $id)->update(array(
-                'block' => NULL,
-                'reports' => NULL,
-                'block_by' => NULL,
-                'report_by' => NULL
+            'block' => NULL,
+            'reports' => NULL,
+            'block_by' => NULL,
+            'report_by' => NULL
         ));
     }
 

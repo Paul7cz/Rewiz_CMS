@@ -56,14 +56,26 @@ class TournamentPresenter extends BasePresenter
 
     }
 
+    public function getTeamsName($id) {
+        $team = $this->tournamentManager->getTeamID($id);
+        return $team->name;
+    }
+
 
     protected function createComponentCreateTournament()
     {
 
         $leagues = $this->leagueManager->getLeagues2()->fetchPairs('id', 'name');
+
         if ($this->action == 'edit'){
-        $team = $this->tournamentManager->getRegisteredTeamsActive($this->getParameter('id'))->fetchPairs('team_id', 'team_id');
+        $team = $this->tournamentManager->getRegisteredTeamsActive($this->getParameter('id'));
+            $teams = [];
+            foreach($team as $t) {
+                $teams[$t->team_id] = $this->getTeamsName($t->team_id);
+             }
+
         }
+
         $form = new Form();
 
         $form->addText('name');
@@ -78,9 +90,9 @@ class TournamentPresenter extends BasePresenter
         ));
 
         if ($this->action == 'edit') {
-            $form->addSelect('first')->setItems($team);
-            $form->addSelect('second')->setItems($team);
-            $form->addSelect('three')->setItems($team);
+            $form->addSelect('first')->setItems($teams);
+            $form->addSelect('second')->setItems($teams);
+            $form->addSelect('three')->setItems($teams);
         }
 
 
@@ -140,6 +152,10 @@ class TournamentPresenter extends BasePresenter
         $this->flashMessage('Na žiadosť|sťažnosť bolo odpovedané');
         $this->userManager->insertNotification($values->user_id, 'Na tvoju sťažnosť žiadosť bolo odpovedané');
         $this->redirect('this');
+    }
+
+    public function renderPenalty(){
+        $this->template->penalty = $this->tournamentManager->getPointLog();
     }
 
 

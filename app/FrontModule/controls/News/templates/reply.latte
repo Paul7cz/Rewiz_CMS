@@ -1,0 +1,45 @@
+<div class="row m-t-lg reply" n:foreach="$reply as $data">
+    <div class="col-lg-1 m-t-xs">
+        <img class="img-circle" src="{$basePath}/img/avatar/{$data->user->avatar}"
+             alt="avatar">
+    </div>
+    <div class="col-lg-10 m-l-md">
+        <div class="nick"><a href="#"><i
+                        class="fa fa-user m-r-xs"></i><span
+                        data-user="">{$data->user->username}</span></a>
+            <div class="text-right time"><i
+                        class="fa fa-clock-o m-r-xs"></i>{$data->date|date:'j.n.Y H:i:s'}
+            </div>
+        </div>
+        {if $data->block == NULL}
+            <div class="comment m-t-xs">
+                <span data-content="{$data->id}">{$data->content}</span>
+            </div>
+        {else}
+            <div class="comment m-t-xs">
+                <strong>Príspevok bol zablokovaný administrátorom.</strong>
+                <br><br>
+                {if $user->isLoggedIn()}
+                    {if $presenter->isInRole() == TRUE}
+                        Pôvodné znenie komentára: {$data->content}
+                    {/if}
+                {/if}
+            </div>
+        {/if}
+        <div class="text-right action m-t-xs ">
+            {if $user->isLoggedIn()}
+                {if $data->block == NULL}
+                    <a href="{plink News:Delete, $data->id, $user->getIdentity()->id, $user->getIdentity()->id, backlink => $presenter->storeRequest()}" n:if="$presenter->isInRole() == TRUE"><i
+                                class="fa fa-times"></i>Zablokovať</a>
+
+                    <a href="{plink News:Report, $data->id, backlink => $presenter->storeRequest()}" n:if="$data->users_id != $user->getIdentity()->id"><i
+                                class="fa fa-times"></i>Nahlásiť</a>
+                {else}
+                    <a href="{plink News:Unblock, $data->id, $data->report_by, $user->getIdentity()->id, backlink => $presenter->storeRequest()}" n:if="$presenter->isInRole() == TRUE"><i
+                                class="fa fa-times"></i>Odblokovať</a>
+                {/if}
+            {/if}
+        </div>
+
+    </div>
+</div> <!-- End Commnet reply N.1-->

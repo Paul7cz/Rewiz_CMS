@@ -545,13 +545,17 @@ class TournamentPresenter extends BasePresenter
 
     protected function createComponentPoint()
     {
-        $team = $this->tournamentManager->getMatch($this->getParameter('id'));
-        $teams = array(
-            $team->team1_id => $team->team1_id,
-        );
+        $match = $this->tournamentManager->getMatch($this->getParameter('id'));
+        $team1 = $this->tournamentManager->getTeamID($match->team1_id);
+        $team2 = $this->tournamentManager->getTeamID($match->team2_id);
+
+        $team = [
+            $team1->id => $team1->name,
+            $team2->id => $team2->name
+        ];
 
         $form = new Form();
-        $form->addSelect('team_id')->setItems($teams);
+        $form->addSelect('team_id')->setItems($team);
         $form->addText('point');
         $form->addText('reason');
 
@@ -563,6 +567,9 @@ class TournamentPresenter extends BasePresenter
 
     public function pointSucceeded(Form $form, $values){
         $this->tournamentManager->insertPointLog($values);
+        $this->tournamentManager->minusScore($values->team_id, $this->getParameter('id'), $values->point);
+        $this->flashMessage('Trestne body boli udelené');
+        $this->redirect('this');
     }
 
 

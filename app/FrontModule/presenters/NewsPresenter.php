@@ -7,6 +7,7 @@ use App\Model\UserManager;
 use IPub\VisualPaginator\Components as VisualPaginator;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
+use App\FrontModule\Controls\News;
 use Nette\Security\Identity;
 use Tracy\Debugger;
 
@@ -57,9 +58,6 @@ class NewsPresenter extends BasePresenter
 
     public function renderDefault($id)
     {
-
-        Debugger::barDump($this->isInRole());
-
         $check = $this->newsManager->checkId($id);
 
         if ($check != TRUE) {
@@ -83,10 +81,18 @@ class NewsPresenter extends BasePresenter
         $this->template->comments_count = $this->newsManager->countComments($news_id);
     }
 
+    public function createComponentNews()
+    {
+        $control = new News($this->newsManager);
+        return $control;
+    }
+
+
     public function createComponentCommentForm()
     {
         $form = new Form();
         $form->addTextArea('content')->setAttribute('placeholder', 'Pridať verejný komentár');
+        $form->addHidden('reply')->setAttribute('id', 'reply_id');
         $form->addSubmit('submit', 'Komentovať');
         $form->onSuccess[] = [$this, 'commentFormSucceeded'];
 
@@ -95,10 +101,13 @@ class NewsPresenter extends BasePresenter
 
     public function commentFormSucceeded(Form $form, $values)
     {
+        if ($values->reply == '') {
+            $values->reply = NULL;
+        }
+
         $user = $this->getUser();
         $values->users_id = $user->id;
         $values->news_id = $this->getParameter('id');
-
         $this->newsManager->addComment($values);
         $this->redirect('this');
     }

@@ -86,7 +86,7 @@ class TournamentManager extends BaseManager
     public function getNotClosedMatches($id, $round)
     {
         return $this->getRoundMatches($id, $round)->where('status = ?', 'new');
-}
+    }
 
     public function insertMatch($id, $values, $round)
     {
@@ -272,14 +272,14 @@ class TournamentManager extends BaseManager
 
         $match = $this->getMatch($data->match_id);
 
-        if ($data->score1 > $data->score2){
-           $this->database->table('team_points')->where(array(
-               'team_id' => $match->team1_id,
-               'league_id' => $match->tournament->leagues_id,
-           ))->update(array(
-               'point' => +3
-           ));
-       } else{
+        if ($data->score1 > $data->score2) {
+            $this->database->table('team_points')->where(array(
+                'team_id' => $match->team1_id,
+                'league_id' => $match->tournament->leagues_id,
+            ))->update(array(
+                'point' => +3
+            ));
+        } else {
             $this->database->table('team_points')->where(array(
                 'team_id' => $match->team2_id,
                 'league_id' => $match->tournament->leagues_id,
@@ -289,6 +289,54 @@ class TournamentManager extends BaseManager
         }
 
         return true;
+    }
+
+    public function changePoint($status, $point, $team_id, $league)
+    {
+        $team_point = $this->database->table('team_points')->where(array(
+            'team_id' => $team_id,
+            'league_id' => $league
+        ))->fetch()->point;
+
+        if ($status == '+') {
+            $sum = $point + $point;
+            return $this->database->table('team_points')->where(array(
+                'team_id' => $team_id,
+                'league_id' => $league
+            ))->update(array(
+                'point' => $sum,
+            ));
+        } else{
+            $sum = $point - $point;
+            return $this->database->table('team_points')->where(array(
+                'team_id' => $team_id,
+                'league_id' => $league
+            ))->update(array(
+                'point' => $sum,
+            ));
+        }
+
+
+    }
+
+    public function minusScore($team_id, $match_id, $point)
+    {
+        $match = $this->getMatch($match_id);
+        $point_team = $this->database->table('team_points')->where(array(
+            'team_id' => $team_id,
+            'league_id' => $match->tournament->leagues_id
+        ))->fetch();
+
+        $sum = $point_team->point - $point;
+
+        $league_id = $match->tournament->leagues_id;
+
+        $this->database->table('team_points')->where(array(
+            'team_id' => $team_id,
+            'league_id' => $league_id,
+        ))->update(array(
+            'point' => $sum
+        ));
     }
 
     public function updateScore($match_id, $values)
@@ -313,17 +361,32 @@ class TournamentManager extends BaseManager
     {
         $match = $this->database->table(self::MATCHES_TABLE)->where('team1_id = ? OR team2_id = ?', $team_id, $team_id)->fetch();
 
-        if ($match == NULL){
+        if ($match == NULL) {
             return FALSE;
-        } else{
+        } else {
             return $this->database->table(self::MATCHES_TABLE)->where('team1_id = ? OR team2_id = ?', $team_id, $team_id)->fetch();
         }
     }
-    public function insertPointLog($values){
+
+    public function insertPointLog($values)
+    {
         return $this->database->table('team_point_log')->insert($values);
     }
 
+    public function getTeamID($team_id)
+    {
+        return $this->database->table('league_team')->where('id = ?', $team_id)->fetch();
+    }
 
+    public function createPointLog($values)
+    {
+        return $this->database->table('team_point_log')->insert($values);
+    }
+
+    public function getPointLog()
+    {
+        return $this->database->table('team_point_log')->fetchAll();
+    }
 
 
 }
