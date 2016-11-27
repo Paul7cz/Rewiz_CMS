@@ -61,8 +61,9 @@ class TournamentPresenter extends BasePresenter
     {
 
         $leagues = $this->leagueManager->getLeagues2()->fetchPairs('id', 'name');
+        if ($this->action == 'edit'){
         $team = $this->tournamentManager->getRegisteredTeamsActive($this->getParameter('id'))->fetchPairs('team_id', 'team_id');
-
+        }
         $form = new Form();
 
         $form->addText('name');
@@ -76,9 +77,11 @@ class TournamentPresenter extends BasePresenter
             '32' => 32,
         ));
 
-        $form->addSelect('first')->setItems($team);
-        $form->addSelect('second')->setItems($team);
-        $form->addSelect('three')->setItems($team);
+        if ($this->action == 'edit') {
+            $form->addSelect('first')->setItems($team);
+            $form->addSelect('second')->setItems($team);
+            $form->addSelect('three')->setItems($team);
+        }
 
 
         $form->addText('prices');
