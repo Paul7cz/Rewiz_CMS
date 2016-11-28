@@ -144,6 +144,7 @@ class NewsPresenter extends BasePresenter
     }
 
 
+/*asdas*/
     protected function createComponentVisualPaginator()
     {
         $control = new VisualPaginator\Control;

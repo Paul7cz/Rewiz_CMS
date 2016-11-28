@@ -14,7 +14,7 @@ class News extends Control
 {
 
     /** @var \App\Model\NewsManager */
-    private $newsManager;
+    public $newsManager;
 
     /**
      * News constructor.
