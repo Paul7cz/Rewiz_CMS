@@ -126,6 +126,10 @@ class NewsManager extends BaseManager
         return $this->database->table(self::TABLE_COMMENTS)->where('news_id', $id)->fetchAll();
     }
 
+    /**
+     * @param $id
+     * @return \Nette\Database\Table\Selection
+     */
     public function getComments2($id)
     {
         return $this->database->table(self::TABLE_COMMENTS)->where('news_id = ? AND reply IS NULL', $id)->order('id DESC');

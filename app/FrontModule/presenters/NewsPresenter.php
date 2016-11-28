@@ -143,8 +143,9 @@ class NewsPresenter extends BasePresenter
         $this->restoreRequest($this->backlink);
     }
 
-
-/*asdas*/
+    /**
+     * @return VisualPaginator\Control
+     */
     protected function createComponentVisualPaginator()
     {
         $control = new VisualPaginator\Control;
