@@ -757,7 +757,7 @@ html, body{
 }
 .news .comments .comment:after {
     right: 100%;
-    top: 50%;
+    top: 60px;
     border: solid transparent;
     content: " ";
     height: 0;
