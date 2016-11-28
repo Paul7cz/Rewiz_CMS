@@ -184,7 +184,7 @@
                                     <div class="rowreply hideContent">
                                     {control news:reply, $data->id}
                                     </div>
-                                    <div class="show-more">
+                                    <div class="show-more" n:if="$presenter->isReply($data->id)">
                                         <a>Zobrazit odpovědi</a>
                                     </div>
                                 </div>
