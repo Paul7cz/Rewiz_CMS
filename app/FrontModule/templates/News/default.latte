@@ -181,8 +181,12 @@
                                             {/if}
                                         {/if}
                                     </div>  
-
+                                    <div class="rowreply hideContent">
                                     {control news:reply, $data->id}
+                                    </div>
+                                    <div class="show-more">
+                                        <a>Zobrazit odpovědi</a>
+                                    </div>
                                 </div>
                                                               
                             </div> <!-- End Commnet N.1-->
@@ -263,6 +267,12 @@
     <!-- blueimp gallery -->
     <script src="{$basePath}/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
 
+
+    <script
+    src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"
+    integrity="sha256-5L9BFhGnFaV1LW6ANFzV+lZzGo/5blTlISAkM3ocaYQ="
+    crossorigin="anonymous"></script>
+
     <script n:syntax=off>
         /*document.getElementById('links').onclick = function (event) {
          event = event || window.event;
@@ -289,6 +299,23 @@
 
             });
         });
+    </script>
+    <script>
+        $(".show-more a").on("click", function() {
+             var $this = $(this); 
+             var $content = $this.parent().prev("div.rowreply");
+             var linkText = $this.text().toUpperCase();    
+             
+             if(linkText === "ZOBRAZIT ODPOVĚDI"){
+                 linkText = "Skrýt odpovědi";
+                 $content.switchClass("hideContent", "showContent", 800);
+             } else {
+                 linkText = "Zobrazit odpovědi";
+                 $content.switchClass("showContent", "hideContent", 800);
+             };
+        
+             $this.text(linkText);
+         });        
     </script>
 
 {/block}
