@@ -354,11 +354,11 @@ class UserManager extends BaseManager implements IAuthenticator {
         }
     }
     
-    public function addRole($user_id, $perm) {
+    public function addRole($user_id, $perm, $name) {
         $data = $this->database->table('users_perm')->where('user_id', $user_id)->fetch();
         if (!$data) {
             $string = implode(',', $perm);
-            $this->database->table('users_perm')->insert(["user_id" => $user_id, "perm" => $string]);
+            $this->database->table('users_perm')->insert(["user_id" => $user_id, "perm" => $string, "perm_name" => $name]);
             return true;
         } else {
             return false;
@@ -371,6 +371,16 @@ class UserManager extends BaseManager implements IAuthenticator {
     
     public function deleteAdminNew($user_id) {
         return $this->database->table('users_perm')->where('user_id',$user_id)->delete();
+    }
+
+    public function getNamePerm($id){
+        $row = $this->database->table('users_perm')->where('user_id',$id)->fetchField('perm_name');
+
+        if ($row == NULL){
+            return 'Uživateľ';
+        } else{
+            return $row;
+        }
     }
 
 }

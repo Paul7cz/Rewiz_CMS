@@ -27,7 +27,7 @@
                         <div class="col-sm-8 text-left user_nick">
                             <h3>{$userdata->username}</h3>
                             <!-- vip hodnost -->
-                            <span class="vip"><i class="fa fa-star" aria-hidden="true"></i> {$userdata->role}  </span>
+                            <span class="vip"><i class="fa fa-star" aria-hidden="true"></i> {$perm}  </span>
                         </div>
                         {if $userdata->team !== NULL}
                             <div class="col-sm-2">
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-sm-8 text-left user_nick">
                             <h3>{$userdata->username}</h3>
-                            <i class="fa fa-user" aria-hidden="true"></i> {$userdata->role}
+                            <i class="fa fa-user" aria-hidden="true"></i> {$perm}
                         </div>
                         {if $userdata->team !== NULL}
                             <div class="col-sm-2">

@@ -154,5 +154,9 @@ class NewsPresenter extends BasePresenter
         return $control;
     }
 
+    public function replyCount($id){
+        return $this->newsManager->commentReplyCount($id);
+    }
+
 
 }

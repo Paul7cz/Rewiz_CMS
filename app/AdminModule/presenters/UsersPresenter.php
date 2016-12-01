@@ -208,7 +208,7 @@ class UsersPresenter extends BasePresenter
         }
 
 
-        if ($this->action == 'achedit'){
+        if ($this->action == 'achedit') {
             $this->userManager->updateAward($this->getParameter('id'), $values);
         } else {
             $this->userManager->createAward($values);
@@ -256,19 +256,23 @@ class UsersPresenter extends BasePresenter
         $this->template->awards = $this->userManager->getAwards();
     }
 
-    public function renderList(){
+    public function renderList()
+    {
         $this->template->awards = $this->userManager->getAwards();
     }
 
-    public function getUserAw($id){
+    public function getUserAw($id)
+    {
         return $this->userManager->getUserAw($id);
     }
 
-    public function getTeamAw($id){
+    public function getTeamAw($id)
+    {
         return $this->userManager->getTeamAw($id);
     }
 
-    public function renderTeam(){
+    public function renderTeam()
+    {
         $this->template->awards = $this->userManager->getAwards();
     }
 
@@ -298,9 +302,9 @@ class UsersPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
-        try{
+        try {
             $this->userManager->deleteAward($id);
-        } catch (ForeignKeyConstraintViolationException $exception){
+        } catch (ForeignKeyConstraintViolationException $exception) {
             $this->flashMessage('Cenu nemôžeš zmazať');
             $this->redirect('Users:Awards');
         }
@@ -328,8 +332,10 @@ class UsersPresenter extends BasePresenter
             "R" => "Nahlasenia",
             "A" => "Reklama",
         ];
-        
+
         $form->addCheckboxList('perm')->setItems($perm);
+
+        $form->addText('perm_name')->setRequired();
 
         $form->addSubmit('submit')->setAttribute('placeholder', 'Odoslať');
 
@@ -339,7 +345,7 @@ class UsersPresenter extends BasePresenter
 
     public function permSucceeded(Form $form, $values)
     {
-        $role = $this->userManager->addRole($values->username,$values->perm);
+        $role = $this->userManager->addRole($values->username, $values->perm, $values->perm_name);
         if ($role) {
             $this->flashMessage('Admin bol pridaný');
         } else {
@@ -493,7 +499,8 @@ class UsersPresenter extends BasePresenter
         $this->redirect('this');
     }
 
-    public function actionDeactiveVIP($id){
+    public function actionDeactiveVIP($id)
+    {
         $values = new ArrayHash();
         $values->premium_time = NULL;
 
@@ -502,8 +509,9 @@ class UsersPresenter extends BasePresenter
         $this->flashMessage('Premium deaktivované');
         $this->redirect('Users:default');
     }
-    
-    public function actionDeleteAdmin($user_id) {
+
+    public function actionDeleteAdmin($user_id)
+    {
         $this->userManager->deleteAdminNew($user_id);
         $this->flashMessage('Admin zmazán');
         $this->redirect('Users:permission');

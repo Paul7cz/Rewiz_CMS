@@ -51,6 +51,7 @@ class UserPresenter extends BasePresenter
         $birthyear = date('Y') - $data->birthyear;
         $this->template->date = $birthyear;
         $this->template->awards = $this->userManager->getProfileAwards($id);
+        $this->template->perm = $this->userManager->getNamePerm($id);
 
     }
 

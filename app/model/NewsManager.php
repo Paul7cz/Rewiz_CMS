@@ -239,4 +239,8 @@ class NewsManager extends BaseManager
         ));
     }
 
+    public function commentReplyCount($id){
+        return $this->database->table(self::TABLE_COMMENTS)->where('reply', $id)->count('*');
+    }
+
 }
